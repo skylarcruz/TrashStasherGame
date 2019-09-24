@@ -41,9 +41,9 @@ public class CryptCaperGame extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		//addState(new StartUpState());
-		//addState(new GameOverState());
-		//addState(new PlayingState());
+		addState(new StartUpState());
+		addState(new PlayingState());
+		addState(new GameOverState());
 		
 		// the sound resource takes a particularly long time to load,
 		// we preload it here to (1) reduce latency when we first play it
