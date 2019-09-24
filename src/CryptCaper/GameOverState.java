@@ -12,7 +12,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
-class StartUpState extends BasicGameState {
+class GameOverState extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -29,24 +29,20 @@ class StartUpState extends BasicGameState {
 			Graphics g) throws SlickException {
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
-		g.drawString("Start", 10, 30);
+		g.drawString("Game Over", 10, 30);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game,
 			int delta) throws SlickException {
 
-		Input input = container.getInput();
 		CryptCaperGame ccg = (CryptCaperGame)game;
-		
-		if (input.isKeyDown(Input.KEY_SPACE))
-			ccg.enterState(CryptCaperGame.PLAYINGSTATE);	
 		
 	}
 
 	@Override
 	public int getID() {
-		return CryptCaperGame.STARTUPSTATE;
+		return CryptCaperGame.GAMEOVERSTATE;
 	}
 	
 }
