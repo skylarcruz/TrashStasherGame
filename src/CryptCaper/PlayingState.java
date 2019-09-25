@@ -14,8 +14,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 class PlayingState extends BasicGameState {
 	
-	//Grid ccGrid = new Grid();
-	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -27,6 +25,7 @@ class PlayingState extends BasicGameState {
 		container.setSoundOn(true);
 	
 		CryptCaperGame.ccGrid.buildGrid();
+		CryptCaperGame.ccExplorer.initExpPath();
 		
 	}
 	
@@ -36,7 +35,8 @@ class PlayingState extends BasicGameState {
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
 		g.drawString("Play", 10, 30);
-		CryptCaperGame.ccGrid.render(g);
+		ccg.ccGrid.render(g);
+		ccg.ccExplorer.render(g);
 		
 		
 	}
@@ -48,10 +48,33 @@ class PlayingState extends BasicGameState {
 		Input input = container.getInput();
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
-		if (input.isKeyDown(Input.KEY_A))
-			CryptCaperGame.ccGrid.destroyGrid();
-		if (input.isKeyDown(Input.KEY_S))
-			CryptCaperGame.ccGrid.buildGrid();
+		if (input.isKeyDown(Input.KEY_Q))
+				ccg.ccExplorer.speedMod = 0;
+		if (input.isKeyDown(Input.KEY_E))
+			ccg.ccExplorer.speedMod = .15f;
+		
+		if (input.isKeyDown(Input.KEY_W) && ccg.ccExplorer.inputAccept)
+			if (ccg.ccExplorer.checkDir("Up")) {
+				ccg.ccExplorer.inputAccept = false;
+				ccg.ccExplorer.move("Up");
+			}
+		if (input.isKeyDown(Input.KEY_S) && ccg.ccExplorer.inputAccept)
+			if (ccg.ccExplorer.checkDir("Down")){
+				ccg.ccExplorer.inputAccept = false;
+				ccg.ccExplorer.move("Down");
+			}
+		if (input.isKeyDown(Input.KEY_A) && ccg.ccExplorer.inputAccept)
+			if (ccg.ccExplorer.checkDir("Left")){
+				ccg.ccExplorer.inputAccept = false;
+				ccg.ccExplorer.move("Left");
+			}
+		if (input.isKeyDown(Input.KEY_D) && ccg.ccExplorer.inputAccept)
+			if (ccg.ccExplorer.checkDir("Right")){
+				ccg.ccExplorer.inputAccept = false;
+				ccg.ccExplorer.move("Right");
+			}
+
+		ccg.ccExplorer.update(delta);
 		
 	}
 
