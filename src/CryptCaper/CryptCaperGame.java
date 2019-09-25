@@ -25,10 +25,12 @@ public class CryptCaperGame extends StateBasedGame {
 	public final int ScreenHeight;
 	
 	public static final String WALL_WALLIMG_RSC = "CryptCaper/Resource/WallTest.png";
+	public static final String EXP_EXPIMG_RSC = "CryptCaper/Resource/Explorer.png";
 	
 	public static final String Lvl1 = getLevelString("Level1");
 	public static int currLevel = 1;
 	public static Grid ccGrid;
+	public static Explorer ccExplorer;
 	
 	/**
 	 * Create the CryptCaperGame frame, saving the width and height for later use.
@@ -53,6 +55,7 @@ public class CryptCaperGame extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
+		ResourceManager.loadImage(EXP_EXPIMG_RSC);
 		
 		addState(new StartUpState());
 		addState(new PlayingState());
@@ -68,23 +71,12 @@ public class CryptCaperGame extends StateBasedGame {
 		//ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		
 		ccGrid = new Grid();
+		ccExplorer = new Explorer(72, 252);
+		
 
 	}
 	
-	public static void main(String[] args) {
-		AppGameContainer app;
-		try {
-			app = new AppGameContainer(new CryptCaperGame("Crypt Caper!", 1440, 900));
-			app.setDisplayMode(1440, 900, false);
-			app.setVSync(true);
-			app.start();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-
-	}
-	
-    private static String getLevelString(String dir) {
+	private static String getLevelString(String dir) {
 		
 		String content = "";
 
@@ -92,15 +84,12 @@ public class CryptCaperGame extends StateBasedGame {
 			File fileDir = new File(dir);
 				
 			BufferedReader in = new BufferedReader(
-			   new InputStreamReader(
-	                      new FileInputStream(fileDir), "UTF8"));
+			   new InputStreamReader(new FileInputStream(fileDir), "UTF8"));
 			        
-			String str;
-			      
-			while ((str = in.readLine()) != null) {
+			String str;  
+			while ((str = in.readLine()) != null) 
 				content = content + str;
-			}
-			        
+			    
 	                in.close();
 		    } 
 		    catch (UnsupportedEncodingException e) 
@@ -119,6 +108,18 @@ public class CryptCaperGame extends StateBasedGame {
 		return content;
 		
 	}
+	
+	public static void main(String[] args) {
+		AppGameContainer app;
+		try {
+			app = new AppGameContainer(new CryptCaperGame("Crypt Caper!", 1440, 900));
+			app.setDisplayMode(1440, 900, false);
+			app.setVSync(true);
+			app.start();
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 
+	}
 	
 }

@@ -14,8 +14,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 class PlayingState extends BasicGameState {
 	
-	//Grid ccGrid = new Grid();
-	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -27,6 +25,7 @@ class PlayingState extends BasicGameState {
 		container.setSoundOn(true);
 	
 		CryptCaperGame.ccGrid.buildGrid();
+		CryptCaperGame.ccExplorer.initExpPath();
 		
 	}
 	
@@ -36,7 +35,8 @@ class PlayingState extends BasicGameState {
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
 		g.drawString("Play", 10, 30);
-		CryptCaperGame.ccGrid.render(g);
+		ccg.ccGrid.render(g);
+		ccg.ccExplorer.render(g);
 		
 		
 	}
@@ -48,10 +48,14 @@ class PlayingState extends BasicGameState {
 		Input input = container.getInput();
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
-		if (input.isKeyDown(Input.KEY_A))
-			CryptCaperGame.ccGrid.destroyGrid();
+		if (input.isKeyDown(Input.KEY_W))
+			System.out.println(ccg.ccExplorer.checkDir("Up"));
 		if (input.isKeyDown(Input.KEY_S))
-			CryptCaperGame.ccGrid.buildGrid();
+			System.out.println(ccg.ccExplorer.checkDir("Down"));
+		if (input.isKeyDown(Input.KEY_A))
+			System.out.println(ccg.ccExplorer.checkDir("Left"));
+		if (input.isKeyDown(Input.KEY_D))
+			System.out.println(ccg.ccExplorer.checkDir("Right"));
 		
 	}
 
