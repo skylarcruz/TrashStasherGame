@@ -1,9 +1,14 @@
 package CryptCaper;
 
-import java.util.ArrayList;
-
 import jig.Entity;
 import jig.ResourceManager;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -18,7 +23,13 @@ public class CryptCaperGame extends StateBasedGame {
 
 	public final int ScreenWidth;
 	public final int ScreenHeight;
-
+	
+	public static final String WALL_WALLIMG_RSC = "CryptCaper/Resource/WallTest.png";
+	
+	public static final String Lvl1 = getLevelString("Level1");
+	public static int currLevel = 1;
+	public static Grid ccGrid;
+	
 	/**
 	 * Create the CryptCaperGame frame, saving the width and height for later use.
 	 * 
@@ -41,6 +52,8 @@ public class CryptCaperGame extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
+		ResourceManager.loadImage(WALL_WALLIMG_RSC);
+		
 		addState(new StartUpState());
 		addState(new PlayingState());
 		addState(new GameOverState());
@@ -52,6 +65,9 @@ public class CryptCaperGame extends StateBasedGame {
 		// attempt to do in the startUp() method.
 
 		// preload all the resources to avoid warnings & minimize latency...
+		//ResourceManager.loadImage(WALL_WALLIMG_RSC);
+		
+		ccGrid = new Grid();
 
 	}
 	
@@ -66,6 +82,42 @@ public class CryptCaperGame extends StateBasedGame {
 			e.printStackTrace();
 		}
 
+	}
+	
+    private static String getLevelString(String dir) {
+		
+		String content = "";
+
+		try {
+			File fileDir = new File(dir);
+				
+			BufferedReader in = new BufferedReader(
+			   new InputStreamReader(
+	                      new FileInputStream(fileDir), "UTF8"));
+			        
+			String str;
+			      
+			while ((str = in.readLine()) != null) {
+				content = content + str;
+			}
+			        
+	                in.close();
+		    } 
+		    catch (UnsupportedEncodingException e) 
+		    {
+				System.out.println(e.getMessage());
+		    } 
+		    catch (IOException e) 
+		    {
+				System.out.println(e.getMessage());
+		    }
+		    catch (Exception e)
+		    {
+				System.out.println(e.getMessage());
+		    }
+		
+		return content;
+		
 	}
 
 	
