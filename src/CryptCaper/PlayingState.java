@@ -48,14 +48,33 @@ class PlayingState extends BasicGameState {
 		Input input = container.getInput();
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
-		if (input.isKeyDown(Input.KEY_W))
-			System.out.println(ccg.ccExplorer.checkDir("Up"));
-		if (input.isKeyDown(Input.KEY_S))
-			System.out.println(ccg.ccExplorer.checkDir("Down"));
-		if (input.isKeyDown(Input.KEY_A))
-			System.out.println(ccg.ccExplorer.checkDir("Left"));
-		if (input.isKeyDown(Input.KEY_D))
-			System.out.println(ccg.ccExplorer.checkDir("Right"));
+		if (input.isKeyDown(Input.KEY_Q))
+				ccg.ccExplorer.speedMod = 0;
+		if (input.isKeyDown(Input.KEY_E))
+			ccg.ccExplorer.speedMod = .15f;
+		
+		if (input.isKeyDown(Input.KEY_W) && ccg.ccExplorer.inputAccept)
+			if (ccg.ccExplorer.checkDir("Up")) {
+				ccg.ccExplorer.inputAccept = false;
+				ccg.ccExplorer.move("Up");
+			}
+		if (input.isKeyDown(Input.KEY_S) && ccg.ccExplorer.inputAccept)
+			if (ccg.ccExplorer.checkDir("Down")){
+				ccg.ccExplorer.inputAccept = false;
+				ccg.ccExplorer.move("Down");
+			}
+		if (input.isKeyDown(Input.KEY_A) && ccg.ccExplorer.inputAccept)
+			if (ccg.ccExplorer.checkDir("Left")){
+				ccg.ccExplorer.inputAccept = false;
+				ccg.ccExplorer.move("Left");
+			}
+		if (input.isKeyDown(Input.KEY_D) && ccg.ccExplorer.inputAccept)
+			if (ccg.ccExplorer.checkDir("Right")){
+				ccg.ccExplorer.inputAccept = false;
+				ccg.ccExplorer.move("Right");
+			}
+
+		ccg.ccExplorer.update(delta);
 		
 	}
 
