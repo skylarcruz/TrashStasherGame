@@ -2,6 +2,7 @@ package CryptCaper;
 
 import java.util.Iterator;
 
+import jig.ResourceManager;
 import jig.Vector;
 
 import org.newdawn.slick.GameContainer;
@@ -10,7 +11,6 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
 
 class PlayingState extends BasicGameState {
 	
@@ -38,6 +38,9 @@ class PlayingState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 		CryptCaperGame ccg = (CryptCaperGame)game;
+		
+		g.drawImage(ResourceManager.getImage(ccg.BG_BGIMG_RSC), 0,
+				0);
 		
 		ccg.ccGrid.render(g);
 		ccg.ccExplorer.render(g);

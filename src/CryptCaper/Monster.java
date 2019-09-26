@@ -9,6 +9,8 @@ import jig.Vector;
 
 class Monster extends Entity {
 	
+	int waitTime;
+	boolean waitMode = false;
 	boolean active = false;
 	int startX[] = new int[10];
 	int startY[] = new int[10];
@@ -28,7 +30,7 @@ class Monster extends Entity {
 	public Monster(final float x, final float y) {
 		super(24 + x * 48, 204 + y * 48);
 		addImageWithBoundingBox(ResourceManager
-				.getImage(CryptCaperGame.MON_MONIMG_RSC));
+				.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
 		velocity = new Vector(0, 0);
 		monX = (int) x;
 		monY = (int) y;
@@ -41,15 +43,19 @@ class Monster extends Entity {
 		monX = startX[arrChoice];
 		monY = startY[arrChoice];
 		setPosition(24 + monX * 48, 204 + monY * 48);
-		active = true;
+		active = false;
+		waitMode = true;
+		waitTime = 100;
 	}
 	
 	public void deactivate() {
+		changeFace("Down");
 		moving = false;
 		moveDir = null;
 		moveH = false;
 		moveV = false;
 		velocity = new Vector(0, 0);
+		waitMode = false;
 		active = false;
 		setPosition(24 + 35 * 48, 204 + 0 * 48);
 		monX = 35;
@@ -101,10 +107,12 @@ class Monster extends Entity {
 			arrChoice = ran.nextInt(i);
 			moveDir = choices[arrChoice];
 			move(choices[arrChoice]);
+			changeFace(choices[arrChoice]);
 		}
 		else {
 			move(choices[0]);
 			moveDir = choices[0];
+			changeFace(choices[0]);
 		}
 		moving = true;
 			
@@ -154,6 +162,25 @@ public void move(String dir) {
 			moveH = true;
 		}
 	}
+
+	private void changeFace(String dir) {
+		removeImage(ResourceManager.getImage(CryptCaperGame.MON_UPIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.MON_LEFTIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.MON_RIGHTIMG_RSC));
+		if (dir == "Up") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.MON_UPIMG_RSC));
+		else if (dir == "Down") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
+		else if (dir == "Left") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.MON_LEFTIMG_RSC));
+		else if (dir == "Right") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.MON_RIGHTIMG_RSC));
+	}
 	
 	public void initMonPath() {
 		
@@ -194,6 +221,12 @@ public void move(String dir) {
 	}
 	
 	public void update(final int delta) {
+		if (waitMode)
+			waitTime -= 1;
+		if (waitTime <= 0 && waitMode) {
+			waitMode = false;
+			active = true;
+		}
 		if (active) {
 			translate(velocity.scale(delta));
 			checkStop();

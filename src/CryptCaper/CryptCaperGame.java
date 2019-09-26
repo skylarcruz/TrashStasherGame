@@ -9,10 +9,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,8 +26,19 @@ public class CryptCaperGame extends StateBasedGame {
 	public final int ScreenHeight;
 	
 	public static final String WALL_WALLIMG_RSC = "CryptCaper/Resource/WallTest.png";
-	public static final String EXP_EXPIMG_RSC = "CryptCaper/Resource/Explorer.png";
-	public static final String MON_MONIMG_RSC = "CryptCaper/Resource/Monster.png";
+	
+	public static final String EXP_UPIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerU.png";
+	public static final String EXP_DOWNIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerD.png";
+	public static final String EXP_LEFTIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerL.png";
+	public static final String EXP_RIGHTIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerR.png";
+	
+	public static final String MON_UPIMG_RSC = "CryptCaper/Resource/Monster/MonsterU.png";
+	public static final String MON_DOWNIMG_RSC = "CryptCaper/Resource/Monster/MonsterD.png";
+	public static final String MON_LEFTIMG_RSC = "CryptCaper/Resource/Monster/MonsterL.png";
+	public static final String MON_RIGHTIMG_RSC = "CryptCaper/Resource/Monster/MonsterR.png";
+	
+	public static final String MON_HOLEIMG_RSC = "CryptCaper/Resource/MonsterHole.png";
+	public static final String BG_BGIMG_RSC = "CryptCaper/Resource/Background.png";
 	
 	public static final String Lvl1 = getLevelString("Level1StartSpots");
 	public static int currLevel = 1;
@@ -59,9 +70,6 @@ public class CryptCaperGame extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		ResourceManager.loadImage(WALL_WALLIMG_RSC);
-		ResourceManager.loadImage(EXP_EXPIMG_RSC);
-		ResourceManager.loadImage(MON_MONIMG_RSC);
 		
 		addState(new StartUpState());
 		addState(new PlayingState());
@@ -72,6 +80,20 @@ public class CryptCaperGame extends StateBasedGame {
 		// and (2) because loading it will load the audio libraries and
 		// unless that is done now, we can't *disable* sound as we
 		// attempt to do in the startUp() method.
+		ResourceManager.loadImage(WALL_WALLIMG_RSC);
+		
+		ResourceManager.loadImage(EXP_UPIMG_RSC);
+		ResourceManager.loadImage(EXP_DOWNIMG_RSC);
+		ResourceManager.loadImage(EXP_LEFTIMG_RSC);
+		ResourceManager.loadImage(EXP_RIGHTIMG_RSC);
+		
+		ResourceManager.loadImage(MON_UPIMG_RSC);
+		ResourceManager.loadImage(MON_DOWNIMG_RSC);
+		ResourceManager.loadImage(MON_LEFTIMG_RSC);
+		ResourceManager.loadImage(MON_RIGHTIMG_RSC);
+		
+		ResourceManager.loadImage(MON_HOLEIMG_RSC);
+		ResourceManager.loadImage(BG_BGIMG_RSC);
 
 		// preload all the resources to avoid warnings & minimize latency...
 		//ResourceManager.loadImage(WALL_WALLIMG_RSC);

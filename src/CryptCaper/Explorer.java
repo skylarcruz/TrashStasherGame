@@ -21,7 +21,7 @@ class Explorer extends Entity {
 	public Explorer(final float x, final float y) {				
 		super(24 + x * 48, 204 + y * 48);
 		addImageWithBoundingBox(ResourceManager
-				.getImage(CryptCaperGame.EXP_EXPIMG_RSC));
+				.getImage(CryptCaperGame.EXP_DOWNIMG_RSC));
 		velocity = new Vector(0, 0);
 		expX = (int) x;
 		expY = (int) y;
@@ -48,14 +48,22 @@ class Explorer extends Entity {
 	}
 	
 	public boolean checkDir(String dir) {
-		if (dir == "Up")
+		if (dir == "Up") {
+			changeFace("Up");
 			return checkPath(expX, expY - 1);
-		else if (dir == "Down")
+		}
+		else if (dir == "Down") {
+			changeFace("Down");
 			return checkPath(expX, expY + 1);
-		else if (dir == "Left")
+		}
+		else if (dir == "Left") {
+			changeFace("Left");
 			return checkPath(expX - 1, expY);
-		else if (dir == "Right")
+		}
+		else if (dir == "Right") {
+			changeFace("Right");
 			return checkPath(expX + 1, expY);
+		}
 		else
 			return false;
 	}
@@ -89,6 +97,25 @@ class Explorer extends Entity {
 			expX += 1;
 			moveH = true;
 		}
+	}
+	
+	private void changeFace(String dir) {
+		removeImage(ResourceManager.getImage(CryptCaperGame.EXP_UPIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.EXP_DOWNIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.EXP_LEFTIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.EXP_RIGHTIMG_RSC));
+		if (dir == "Up") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.EXP_UPIMG_RSC));
+		else if (dir == "Down") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.EXP_DOWNIMG_RSC));
+		else if (dir == "Left") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.EXP_LEFTIMG_RSC));
+		else if (dir == "Right") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.EXP_RIGHTIMG_RSC));
 	}
 	
 	public void initExpPath() {
