@@ -34,6 +34,7 @@ class Explorer extends Entity {
 	}
 	
 	public void reset(int x, int y) {
+		initExpPath();
 		velocity = new Vector(0, 0);
 		inputAccept = true;
 		moveH = false;

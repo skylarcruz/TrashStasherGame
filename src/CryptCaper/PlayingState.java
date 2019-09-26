@@ -15,7 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 class PlayingState extends BasicGameState {
 	
 	boolean paused = false;
-	int startCountdown = 300;
+	int startCountdown = 50;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -27,13 +27,9 @@ class PlayingState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) {
 		container.setSoundOn(true);
 	
-		CryptCaperGame.ccGrid.buildGrid();
-		CryptCaperGame.ccExplorer.initExpPath();
-		
-		for (int i = 0; i < 5; i++)
-			CryptCaperGame.ccMons[i].setStartLocation(28,1);
+		setLevel();
 	}
-	
+		
 	@Override
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
@@ -67,7 +63,7 @@ class PlayingState extends BasicGameState {
 		}
 		
 		if (input.isKeyPressed(Input.KEY_R))
-			resetLevel();
+			setLevel();
 		
 		if (paused == false && startCountdown <= 0) {
 			
@@ -97,7 +93,7 @@ class PlayingState extends BasicGameState {
 		// Loss from collision into Monsters
 			for (int i = 0; i < 10; i++) {
 				if ((ccg.ccMons[i].collides(ccg.ccExplorer) != null))
-					loseLife();
+					loseLife(game);
 			}
 			
 			
@@ -111,15 +107,20 @@ class PlayingState extends BasicGameState {
 		
 	}
 	
-	public void loseLife() {
-		if (CryptCaperGame.lives > 0)
+	public void loseLife(StateBasedGame game) {
+		if (CryptCaperGame.lives > 1) {
 			CryptCaperGame.lives -= 1;
-		resetLevel();
+			setLevel();
+		}
+		else {
+			//((GameOverState)game.getState(CryptCaperGame.GAMEOVERSTATE)).setUserScore(bounces);
+			game.enterState(CryptCaperGame.GAMEOVERSTATE);
+		}
 	}
 	
-	public void resetLevel() {
+	public void setLevel() {
 		
-		startCountdown = 300;
+		startCountdown = 50;
 		
 		for (int i = 0; i < 3; i++)
 			CryptCaperGame.ccMons[i].setStartLocation(28,1);

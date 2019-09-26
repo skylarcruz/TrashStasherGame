@@ -14,6 +14,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 class GameOverState extends BasicGameState {
 	
+	int countdown = 300;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -22,6 +24,9 @@ class GameOverState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
 		container.setSoundOn(true);
+		
+		countdown = 300;
+		
 	}
 	
 	@Override
@@ -37,6 +42,12 @@ class GameOverState extends BasicGameState {
 			int delta) throws SlickException {
 
 		CryptCaperGame ccg = (CryptCaperGame)game;
+		
+		countdown -= 1;
+		ccg.lives = 3;
+		
+		if (countdown <= 0)
+			game.enterState(CryptCaperGame.PLAYINGSTATE);
 		
 	}
 
