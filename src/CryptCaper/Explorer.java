@@ -35,6 +35,14 @@ class Explorer extends Entity {
 		return velocity;
 	}
 	
+	public int getGridX() {
+		return expX;
+	}
+	
+	public int getGridY() {
+		return expY;
+	}
+	
 	public void reset() {
 		initExpPath();
 		velocity = new Vector(0, 0);
@@ -48,19 +56,19 @@ class Explorer extends Entity {
 	}
 	
 	public boolean checkDir(String dir) {
-		if (dir == "Up") {
+		if (dir == "Up" && expY > 0) {
 			changeFace("Up");
 			return checkPath(expX, expY - 1);
 		}
-		else if (dir == "Down") {
+		else if (dir == "Down" && expY < 14) {
 			changeFace("Down");
 			return checkPath(expX, expY + 1);
 		}
-		else if (dir == "Left") {
+		else if (dir == "Left" && expX > 0) {
 			changeFace("Left");
 			return checkPath(expX - 1, expY);
 		}
-		else if (dir == "Right") {
+		else if (dir == "Right" && expX < 29) {
 			changeFace("Right");
 			return checkPath(expX + 1, expY);
 		}
@@ -69,7 +77,7 @@ class Explorer extends Entity {
 	}
 	
 	private boolean checkPath(int x, int y) {
-		if (GridElements[x][y] == 'X')
+		if (GridElements[x][y] == 'X' || GridElements[x][y] == 'M')
 			return false;
 		else
 			return true;

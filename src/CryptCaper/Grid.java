@@ -37,10 +37,12 @@ public class Grid extends Entity{
 					k += 1;
 					GridElements[j][i].val = levelText.valueOf(k);
 					if (levelText.charAt(k) == 'X') { 
-					GridElements[j][i].addImage(ResourceManager
-							.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+						GridElements[j][i].addImage(ResourceManager
+								.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
 					}
 					if (levelText.charAt(k) == 'M') { 
+						GridElements[j][i].addImage(ResourceManager
+								.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
 						GridElements[j][i].addImage(ResourceManager
 								.getImage(CryptCaperGame.MON_HOLEIMG_RSC));
 					}

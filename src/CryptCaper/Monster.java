@@ -11,14 +11,24 @@ class Monster extends Entity {
 	
 	int waitTime;
 	boolean waitMode = false;
+	
 	boolean active = false;
+	
+	int chaseTime;
+	boolean chaseMode = false;
+	
 	int startX[] = new int[10];
 	int startY[] = new int[10];
 	
 	private Vector velocity;
+	float speedMod = 0;
+	
+	
 	private char[][] GridElements = new char[30][15];
 	int monX = 1;
 	int monY = 1;
+	int expX;
+	int expY;
 	
 	boolean moving = false;
 	String moveDir = null;
@@ -60,6 +70,11 @@ class Monster extends Entity {
 		setPosition(24 + 35 * 48, 204 + 0 * 48);
 		monX = 35;
 		monY = 0;
+	}
+	
+	public void setExpLoc(int x, int y) {
+		expX = x;
+		expY = y;
 	}
 	
 	public void choosePath() {
@@ -120,20 +135,20 @@ class Monster extends Entity {
 	
 	
 	public boolean checkDir(String dir) {
-		if (dir == "Up")
+		if (dir == "Up" && monY > 0)
 			return checkPath(monX, monY - 1);
-		else if (dir == "Down")
+		else if (dir == "Down" && monY < 14)
 			return checkPath(monX, monY + 1);
-		else if (dir == "Left")
+		else if (dir == "Left" && monX > 0)
 			return checkPath(monX - 1, monY);
-		else if (dir == "Right")
+		else if (dir == "Right" && monX < 29)
 			return checkPath(monX + 1, monY);
 		else
 			return false;
 	}
 	
 	private boolean checkPath(int x, int y) {
-		if (GridElements[x][y] == 'X')
+		if (GridElements[x][y] == 'X' || GridElements[x][y] == 'M')
 			return false;
 		else
 			return true;
@@ -142,22 +157,22 @@ class Monster extends Entity {
 public void move(String dir) {
 		
 		if (dir == "Up") {
-			velocity = new Vector(0, -.125f);
+			velocity = new Vector(0, -.125f - speedMod);
 			monY -= 1;
 			moveV = true;
 		}
 		else if (dir == "Down") {
-			velocity = new Vector(0, .125f);
+			velocity = new Vector(0, .125f + speedMod);
 			monY += 1;
 			moveV = true;
 		}
 		else if (dir == "Left") {
-			velocity = new Vector(-.125f, 0);
+			velocity = new Vector(-.125f - speedMod, 0);
 			monX -= 1;
 			moveH = true;
 		}
 		else if (dir == "Right") {
-			velocity = new Vector(.125f, 0);
+			velocity = new Vector(.125f + speedMod, 0);
 			monX += 1;
 			moveH = true;
 		}
@@ -220,14 +235,79 @@ public void move(String dir) {
 		}
 	}
 	
+	private void checkSight() {
+		int checkX = monX;
+		int checkY = monY;
+		
+		if (moveDir == "Up") {
+			while (checkY >= 0) {
+				if (GridElements[checkX][checkY] == 'X' || 
+						GridElements[checkX][checkY] == 'M')
+					break;
+				if (checkX == expX && checkY == expY)
+					setChase();
+				checkY -= 1;
+			}
+		}
+		if (moveDir == "Down") {
+			while (checkY <= 14) {
+				if (GridElements[checkX][checkY] == 'X' || 
+						GridElements[checkX][checkY] == 'M')
+					break;
+				if (checkX == expX && checkY == expY)
+					setChase();
+				checkY += 1;
+			}
+		}
+		if (moveDir == "Left") {
+			while (checkX >= 0) {
+				if (GridElements[checkX][checkY] == 'X' || 
+						GridElements[checkX][checkY] == 'M')
+					break;
+				if (checkX == expX && checkY == expY)
+					setChase();
+				checkX -= 1;
+			}
+		}
+		if (moveDir == "Right") {
+			while (checkX <= 29) {
+				if (GridElements[checkX][checkY] == 'X' || 
+						GridElements[checkX][checkY] == 'M')
+					break;
+				if (checkX == expX && checkY == expY)
+					setChase();
+				checkX += 1;
+			}
+		}
+	}
+	
+	public void setChase() {
+		chaseMode = true;
+		chaseTime = 100;
+		speedMod = .1f;
+	}
+	
+	public void stopChase() {
+		chaseMode = false;
+		speedMod = 0;
+	}
+	
 	public void update(final int delta) {
+		
 		if (waitMode)
 			waitTime -= 1;
 		if (waitTime <= 0 && waitMode) {
 			waitMode = false;
 			active = true;
 		}
+		
 		if (active) {
+			checkSight();
+			if (chaseMode)
+				chaseTime -= 1;
+			if (chaseTime <= 0 && chaseMode)
+				stopChase();
+			
 			translate(velocity.scale(delta));
 			checkStop();
 			if (moving == false) {
