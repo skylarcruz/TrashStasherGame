@@ -15,6 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 class PlayingState extends BasicGameState {
 	
 	boolean paused = false;
+	int startCountdown = 50;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -26,29 +27,22 @@ class PlayingState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) {
 		container.setSoundOn(true);
 	
-		CryptCaperGame.ccGrid.buildGrid();
-		CryptCaperGame.ccExplorer.initExpPath();
-		CryptCaperGame.ccMon.initMonPath();
-		CryptCaperGame.ccMon2.initMonPath();
-		CryptCaperGame.ccMon3.initMonPath();
-		CryptCaperGame.ccMon4.initMonPath();
-		CryptCaperGame.ccMon5.initMonPath();
-		
+		setLevel();
 	}
-	
+		
 	@Override
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
-		g.drawString("Play", 10, 30);
+		//g.drawString("Play", 10, 30);
 		ccg.ccGrid.render(g);
 		ccg.ccExplorer.render(g);
-		ccg.ccMon.render(g);
-		ccg.ccMon2.render(g);
-		ccg.ccMon3.render(g);
-		ccg.ccMon4.render(g);
-		ccg.ccMon5.render(g);
+		
+		for (int i = 0; i < 10; i++)
+			CryptCaperGame.ccMons[i].render(g);
+		
+		g.drawString("Lives: " + ccg.lives, 10, 30);
 		
 	}
 
@@ -59,6 +53,8 @@ class PlayingState extends BasicGameState {
 		Input input = container.getInput();
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
+		startCountdown -= 1;
+		
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			if (paused == false)
 				paused = true;
@@ -66,8 +62,13 @@ class PlayingState extends BasicGameState {
 				paused = false;
 		}
 		
-		if (paused == false) {
+		if (input.isKeyPressed(Input.KEY_R))
+			setLevel();
 		
+		if (paused == false && startCountdown <= 0) {
+			
+			
+		// Player Movement Checks
 			if (input.isKeyDown(Input.KEY_W) && ccg.ccExplorer.inputAccept)
 				if (ccg.ccExplorer.checkDir("Up")) {
 					ccg.ccExplorer.inputAccept = false;
@@ -89,14 +90,44 @@ class PlayingState extends BasicGameState {
 					ccg.ccExplorer.move("Right");
 				}
 	
+		// Loss from collision into Monsters
+			for (int i = 0; i < 10; i++) {
+				if ((ccg.ccMons[i].collides(ccg.ccExplorer) != null))
+					loseLife(game);
+			}
+			
+			
+		// Update entities
 			ccg.ccExplorer.update(delta);
-			ccg.ccMon.update(delta);
-			ccg.ccMon2.update(delta);
-			ccg.ccMon3.update(delta);
-			ccg.ccMon4.update(delta);
-			ccg.ccMon5.update(delta);
+			
+			for (int i = 0; i < 10; i++)
+				ccg.ccMons[i].update(delta);
 			
 		}
+		
+	}
+	
+	public void loseLife(StateBasedGame game) {
+		if (CryptCaperGame.lives > 1) {
+			CryptCaperGame.lives -= 1;
+			setLevel();
+		}
+		else {
+			//((GameOverState)game.getState(CryptCaperGame.GAMEOVERSTATE)).setUserScore(bounces);
+			game.enterState(CryptCaperGame.GAMEOVERSTATE);
+		}
+	}
+	
+	public void setLevel() {
+		
+		startCountdown = 50;
+		
+		for (int i = 0; i < 3; i++)
+			CryptCaperGame.ccMons[i].setStartLocation(28,1);
+		for (int i = 3; i < 10; i++)
+			CryptCaperGame.ccMons[i].deactivate();
+		
+		CryptCaperGame.ccExplorer.reset(1, 1);
 		
 	}
 

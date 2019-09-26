@@ -10,6 +10,7 @@ public class Grid extends Entity{
 	
 	GridSquare[][] GridElements = new GridSquare[30][15];
 	String levelText = null;
+	boolean built = false;
 	
 	public Grid(){
 		for (int i = 0; i < 15; i++) {	
@@ -20,38 +21,46 @@ public class Grid extends Entity{
 	}
 	
 	public void buildGrid() {
-		//Read Text File
-		levelText = getLevelText();
 		
-		int k = -1;
-		for (int i = 0; i < 15; i++) {
-			//Read Across Column
+		if (built == false) {
+			built = true;
+			//Read Text File
+			levelText = getLevelText();
 			
-			for (int j = 0; j < 30; j++) {
-				//Read Across Row
+			int k = -1;
+			for (int i = 0; i < 15; i++) {
+				//Read Across Column
 				
-				k += 1;
-				GridElements[j][i].val = levelText.valueOf(k);
-				if (levelText.charAt(k) == 'X') { 
-				GridElements[j][i].addImage(ResourceManager
-						.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+				for (int j = 0; j < 30; j++) {
+					//Read Across Row
+					
+					k += 1;
+					GridElements[j][i].val = levelText.valueOf(k);
+					if (levelText.charAt(k) == 'X') { 
+					GridElements[j][i].addImage(ResourceManager
+							.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+					}
+					
+					
 				}
-				
-				
 			}
 		}
 	}
 	
 	public void destroyGrid() {
-		levelText = getLevelText();
 		
-		int k = -1;
-		for (int i = 0; i < 15; i++) {
-			for (int j = 0; j < 30; j++) {
-				k += 1;
-				GridElements[j][i].val = null;
-				GridElements[j][i].removeImage(ResourceManager
-						.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+		if (built == true) {
+			built = false;
+			levelText = getLevelText();
+			
+			int k = -1;
+			for (int i = 0; i < 15; i++) {
+				for (int j = 0; j < 30; j++) {
+					k += 1;
+					GridElements[j][i].val = null;
+					GridElements[j][i].removeImage(ResourceManager
+							.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+				}
 			}
 		}
 	}
@@ -66,6 +75,8 @@ public class Grid extends Entity{
 	}
 	
 	public void render(Graphics g) {
+		if (built == false)
+			buildGrid();
 		int k = -1;
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 30; j++) {

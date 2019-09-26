@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -30,13 +31,11 @@ public class CryptCaperGame extends StateBasedGame {
 	
 	public static final String Lvl1 = getLevelString("Level1");
 	public static int currLevel = 1;
+	public static int lives = 3;
+	
 	public static Grid ccGrid;
 	public static Explorer ccExplorer;
-	public static Monster ccMon;
-	public static Monster ccMon2;
-	public static Monster ccMon3;
-	public static Monster ccMon4;
-	public static Monster ccMon5;
+	public static Monster[] ccMons = new Monster[10];
 	
 	/**
 	 * Create the CryptCaperGame frame, saving the width and height for later use.
@@ -79,11 +78,9 @@ public class CryptCaperGame extends StateBasedGame {
 		
 		ccGrid = new Grid();
 		ccExplorer = new Explorer(1, 1);
-		ccMon = new Monster(28, 1);
-		ccMon2 = new Monster(28, 1); 
-		ccMon3 = new Monster(28, 1); 
-		ccMon4 = new Monster(28, 1); 
-		ccMon5 = new Monster(28, 1); 
+
+		for (int i = 0; i < 10; i++)
+			CryptCaperGame.ccMons[i] = new Monster(35, 0);
 		
 
 	}
