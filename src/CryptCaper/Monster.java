@@ -9,7 +9,11 @@ import jig.Vector;
 
 class Monster extends Entity {
 	
+	int waitTime;
+	boolean waitMode = false;
 	boolean active = false;
+	int startX[] = new int[10];
+	int startY[] = new int[10];
 	
 	private Vector velocity;
 	private char[][] GridElements = new char[30][15];
@@ -26,26 +30,32 @@ class Monster extends Entity {
 	public Monster(final float x, final float y) {
 		super(24 + x * 48, 204 + y * 48);
 		addImageWithBoundingBox(ResourceManager
-				.getImage(CryptCaperGame.MON_MONIMG_RSC));
+				.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
 		velocity = new Vector(0, 0);
 		monX = (int) x;
 		monY = (int) y;
 	}
 	
-	public void setStartLocation(int x, int y) {
-		setPosition(24 + x * 48, 204 + y * 48);
-		monX = x;
-		monY = y;
+	public void setStartLocation() {
 		initMonPath();
-		active = true;
+		Random ran = new Random();
+		int arrChoice = ran.nextInt(10);
+		monX = startX[arrChoice];
+		monY = startY[arrChoice];
+		setPosition(24 + monX * 48, 204 + monY * 48);
+		active = false;
+		waitMode = true;
+		waitTime = 100;
 	}
 	
 	public void deactivate() {
+		changeFace("Down");
 		moving = false;
 		moveDir = null;
 		moveH = false;
 		moveV = false;
 		velocity = new Vector(0, 0);
+		waitMode = false;
 		active = false;
 		setPosition(24 + 35 * 48, 204 + 0 * 48);
 		monX = 35;
@@ -97,10 +107,12 @@ class Monster extends Entity {
 			arrChoice = ran.nextInt(i);
 			moveDir = choices[arrChoice];
 			move(choices[arrChoice]);
+			changeFace(choices[arrChoice]);
 		}
 		else {
 			move(choices[0]);
 			moveDir = choices[0];
+			changeFace(choices[0]);
 		}
 		moving = true;
 			
@@ -150,16 +162,41 @@ public void move(String dir) {
 			moveH = true;
 		}
 	}
+
+	private void changeFace(String dir) {
+		removeImage(ResourceManager.getImage(CryptCaperGame.MON_UPIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.MON_LEFTIMG_RSC));
+		removeImage(ResourceManager.getImage(CryptCaperGame.MON_RIGHTIMG_RSC));
+		if (dir == "Up") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.MON_UPIMG_RSC));
+		else if (dir == "Down") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
+		else if (dir == "Left") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.MON_LEFTIMG_RSC));
+		else if (dir == "Right") 
+			addImageWithBoundingBox(ResourceManager
+					.getImage(CryptCaperGame.MON_RIGHTIMG_RSC));
+	}
 	
 	public void initMonPath() {
 		
 		String levelText = CryptCaperGame.Lvl1;
 		
 		int k = -1;
+		int l = 0;
 		for (int i = 0; i < 15; i++) {	
 			for (int j = 0; j < 30; j++) {
 				k += 1;
 				GridElements[j][i] = levelText.charAt(k);
+				if (levelText.charAt(k) == 'M') {
+					startX[l] = j;
+					startY[l] = i;
+					l += 1;
+				}
 			}
 		}
 	}
@@ -184,6 +221,12 @@ public void move(String dir) {
 	}
 	
 	public void update(final int delta) {
+		if (waitMode)
+			waitTime -= 1;
+		if (waitTime <= 0 && waitMode) {
+			waitMode = false;
+			active = true;
+		}
 		if (active) {
 			translate(velocity.scale(delta));
 			checkStop();

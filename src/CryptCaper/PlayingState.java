@@ -2,6 +2,7 @@ package CryptCaper;
 
 import java.util.Iterator;
 
+import jig.ResourceManager;
 import jig.Vector;
 
 import org.newdawn.slick.GameContainer;
@@ -11,11 +12,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-
 class PlayingState extends BasicGameState {
 	
 	boolean paused = false;
 	int startCountdown = 50;
+	
+	int MonsterCountdown = 1000;
+	int nextMonNum = 2;
+	boolean spawn = true;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -35,7 +39,9 @@ class PlayingState extends BasicGameState {
 			Graphics g) throws SlickException {
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
-		//g.drawString("Play", 10, 30);
+		g.drawImage(ResourceManager.getImage(ccg.BG_BGIMG_RSC), 0,
+				0);
+		
 		ccg.ccGrid.render(g);
 		ccg.ccExplorer.render(g);
 		
@@ -54,6 +60,17 @@ class PlayingState extends BasicGameState {
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
 		startCountdown -= 1;
+		MonsterCountdown -= 1;
+		
+		if (MonsterCountdown <= 0 && spawn) {
+			ccg.ccMons[nextMonNum].setStartLocation();
+			if (nextMonNum < 9) {
+				nextMonNum += 1;
+				MonsterCountdown = 1000;
+			}
+			else
+				spawn = false;
+		}
 		
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			if (paused == false)
@@ -120,14 +137,17 @@ class PlayingState extends BasicGameState {
 	
 	public void setLevel() {
 		
+		spawn = true;
 		startCountdown = 50;
 		
-		for (int i = 0; i < 3; i++)
-			CryptCaperGame.ccMons[i].setStartLocation(28,1);
-		for (int i = 3; i < 10; i++)
+		for (int i = 0; i < 10; i++)
 			CryptCaperGame.ccMons[i].deactivate();
+		for (int i = 0; i < 2; i++)
+			CryptCaperGame.ccMons[i].setStartLocation();
+		nextMonNum = 2;
+		MonsterCountdown = 1000;
 		
-		CryptCaperGame.ccExplorer.reset(1, 1);
+		CryptCaperGame.ccExplorer.reset();
 		
 	}
 

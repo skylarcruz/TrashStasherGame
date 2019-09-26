@@ -40,8 +40,10 @@ public class Grid extends Entity{
 					GridElements[j][i].addImage(ResourceManager
 							.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
 					}
-					
-					
+					if (levelText.charAt(k) == 'M') { 
+						GridElements[j][i].addImage(ResourceManager
+								.getImage(CryptCaperGame.MON_HOLEIMG_RSC));
+					}
 				}
 			}
 		}
@@ -60,6 +62,8 @@ public class Grid extends Entity{
 					GridElements[j][i].val = null;
 					GridElements[j][i].removeImage(ResourceManager
 							.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+					GridElements[j][i].removeImage(ResourceManager
+							.getImage(CryptCaperGame.MON_HOLEIMG_RSC));
 				}
 			}
 		}
@@ -81,7 +85,7 @@ public class Grid extends Entity{
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 30; j++) {
 				k += 1;
-				if (levelText.charAt(k) == 'X')
+				//if (levelText.charAt(k) == 'X')
 					GridElements[j][i].render(g);
 			}
 		}
