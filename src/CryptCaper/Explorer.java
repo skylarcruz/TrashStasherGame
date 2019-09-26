@@ -25,6 +25,25 @@ class Explorer extends Entity {
 		expY = (int) y;
 	}
 	
+	public void setVelocity(final Vector v) {
+		velocity = v;
+	}
+
+	public Vector getVelocity() {
+		return velocity;
+	}
+	
+	public void reset(int x, int y) {
+		velocity = new Vector(0, 0);
+		inputAccept = true;
+		moveH = false;
+		moveV = false;
+		expX = x;
+		expY = y;
+		speedMod = 0;
+		setPosition(24 + x * 48, 204 + y * 48);
+	}
+	
 	public boolean checkDir(String dir) {
 		if (dir == "Up")
 			return checkPath(expX, expY - 1);

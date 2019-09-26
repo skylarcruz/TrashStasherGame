@@ -9,6 +9,8 @@ import jig.Vector;
 
 class Monster extends Entity {
 	
+	boolean active = false;
+	
 	private Vector velocity;
 	private char[][] GridElements = new char[30][15];
 	int monX = 1;
@@ -28,6 +30,26 @@ class Monster extends Entity {
 		velocity = new Vector(0, 0);
 		monX = (int) x;
 		monY = (int) y;
+	}
+	
+	public void setStartLocation(int x, int y) {
+		setPosition(24 + x * 48, 204 + y * 48);
+		monX = x;
+		monY = y;
+		initMonPath();
+		active = true;
+	}
+	
+	public void deactivate() {
+		moving = false;
+		moveDir = null;
+		moveH = false;
+		moveV = false;
+		velocity = new Vector(0, 0);
+		active = false;
+		setPosition(24 + 35 * 48, 204 + 0 * 48);
+		monX = 35;
+		monY = 0;
 	}
 	
 	public void choosePath() {
@@ -162,10 +184,12 @@ public void move(String dir) {
 	}
 	
 	public void update(final int delta) {
-		translate(velocity.scale(delta));
-		checkStop();
-		if (moving == false) {
-			choosePath();
+		if (active) {
+			translate(velocity.scale(delta));
+			checkStop();
+			if (moving == false) {
+				choosePath();
+			}
 		}
 	}
 }
