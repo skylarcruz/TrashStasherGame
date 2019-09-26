@@ -29,7 +29,7 @@ public class CryptCaperGame extends StateBasedGame {
 	public static final String EXP_EXPIMG_RSC = "CryptCaper/Resource/Explorer.png";
 	public static final String MON_MONIMG_RSC = "CryptCaper/Resource/Monster.png";
 	
-	public static final String Lvl1 = getLevelString("Level1");
+	public static final String Lvl1 = getLevelString("Level1StartSpots");
 	public static int currLevel = 1;
 	public static int lives = 3;
 	

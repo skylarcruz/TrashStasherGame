@@ -10,6 +10,8 @@ import jig.Vector;
 class Monster extends Entity {
 	
 	boolean active = false;
+	int startX[] = new int[10];
+	int startY[] = new int[10];
 	
 	private Vector velocity;
 	private char[][] GridElements = new char[30][15];
@@ -32,11 +34,13 @@ class Monster extends Entity {
 		monY = (int) y;
 	}
 	
-	public void setStartLocation(int x, int y) {
-		setPosition(24 + x * 48, 204 + y * 48);
-		monX = x;
-		monY = y;
+	public void setStartLocation() {
 		initMonPath();
+		Random ran = new Random();
+		int arrChoice = ran.nextInt(10);
+		monX = startX[arrChoice];
+		monY = startY[arrChoice];
+		setPosition(24 + monX * 48, 204 + monY * 48);
 		active = true;
 	}
 	
@@ -156,10 +160,16 @@ public void move(String dir) {
 		String levelText = CryptCaperGame.Lvl1;
 		
 		int k = -1;
+		int l = 0;
 		for (int i = 0; i < 15; i++) {	
 			for (int j = 0; j < 30; j++) {
 				k += 1;
 				GridElements[j][i] = levelText.charAt(k);
+				if (levelText.charAt(k) == 'M') {
+					startX[l] = j;
+					startY[l] = i;
+					l += 1;
+				}
 			}
 		}
 	}

@@ -11,6 +11,8 @@ class Explorer extends Entity {
 	private char[][] GridElements = new char[30][15];
 	int expX = 1;
 	int expY = 1;
+	int startX;
+	int startY;
 	public boolean inputAccept = true;
 	boolean moveH = false;
 	boolean moveV = false;
@@ -33,16 +35,16 @@ class Explorer extends Entity {
 		return velocity;
 	}
 	
-	public void reset(int x, int y) {
+	public void reset() {
 		initExpPath();
 		velocity = new Vector(0, 0);
 		inputAccept = true;
 		moveH = false;
 		moveV = false;
-		expX = x;
-		expY = y;
+		expX = startX;
+		expY = startY;
 		speedMod = 0;
-		setPosition(24 + x * 48, 204 + y * 48);
+		setPosition(24 + startX * 48, 204 + startY * 48);
 	}
 	
 	public boolean checkDir(String dir) {
@@ -98,6 +100,10 @@ class Explorer extends Entity {
 			for (int j = 0; j < 30; j++) {
 				k += 1;
 				GridElements[j][i] = levelText.charAt(k);
+				if (levelText.charAt(k) == 'S') {
+					startX = j;
+					startY = i;
+				}
 			}
 		}
 	}
