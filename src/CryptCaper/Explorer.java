@@ -17,10 +17,12 @@ class Explorer extends Entity {
 	public float speedMod = 0;
 
 	public Explorer(final float x, final float y) {				
-		super(x, y);
+		super(24 + x * 48, 204 + y * 48);
 		addImageWithBoundingBox(ResourceManager
 				.getImage(CryptCaperGame.EXP_EXPIMG_RSC));
 		velocity = new Vector(0, 0);
+		expX = (int) x;
+		expY = (int) y;
 	}
 	
 	public boolean checkDir(String dir) {
@@ -97,13 +99,10 @@ class Explorer extends Entity {
 				moveH = false;
 			}
 		}
-		
 	}
 	
 	public void update(final int delta) {
 		translate(velocity.scale(delta));
 		checkStop();
-		System.out.println(expX);
-		System.out.println(expY);
 	}
 }

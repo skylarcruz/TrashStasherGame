@@ -26,11 +26,17 @@ public class CryptCaperGame extends StateBasedGame {
 	
 	public static final String WALL_WALLIMG_RSC = "CryptCaper/Resource/WallTest.png";
 	public static final String EXP_EXPIMG_RSC = "CryptCaper/Resource/Explorer.png";
+	public static final String MON_MONIMG_RSC = "CryptCaper/Resource/Monster.png";
 	
 	public static final String Lvl1 = getLevelString("Level1");
 	public static int currLevel = 1;
 	public static Grid ccGrid;
 	public static Explorer ccExplorer;
+	public static Monster ccMon;
+	public static Monster ccMon2;
+	public static Monster ccMon3;
+	public static Monster ccMon4;
+	public static Monster ccMon5;
 	
 	/**
 	 * Create the CryptCaperGame frame, saving the width and height for later use.
@@ -56,6 +62,7 @@ public class CryptCaperGame extends StateBasedGame {
 	public void initStatesList(GameContainer container) throws SlickException {
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		ResourceManager.loadImage(EXP_EXPIMG_RSC);
+		ResourceManager.loadImage(MON_MONIMG_RSC);
 		
 		addState(new StartUpState());
 		addState(new PlayingState());
@@ -71,7 +78,12 @@ public class CryptCaperGame extends StateBasedGame {
 		//ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		
 		ccGrid = new Grid();
-		ccExplorer = new Explorer(72, 252);
+		ccExplorer = new Explorer(1, 1);
+		ccMon = new Monster(28, 1);
+		ccMon2 = new Monster(28, 1); 
+		ccMon3 = new Monster(28, 1); 
+		ccMon4 = new Monster(28, 1); 
+		ccMon5 = new Monster(28, 1); 
 		
 
 	}
