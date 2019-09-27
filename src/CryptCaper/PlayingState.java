@@ -117,8 +117,11 @@ class PlayingState extends BasicGameState {
 		// Update entities
 			ccg.ccExplorer.update(delta);
 			
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 10; i++) {
 				ccg.ccMons[i].update(delta);
+				ccg.ccMons[i].setExpLoc(
+						ccg.ccExplorer.getGridX(),ccg.ccExplorer.getGridY());
+			}
 			
 		}
 		
