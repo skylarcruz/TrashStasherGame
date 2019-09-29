@@ -1,7 +1,7 @@
 package CryptCaper;
 
 import jig.Entity;
-import jig.ResourceManager;
+//import jig.ResourceManager;
 
 /**
  * The Ball class is an Entity that has a velocity (since it's moving). When

@@ -83,7 +83,6 @@ class Monster extends Entity {
 		
 		Random ran = new Random();
 		int arrChoice;
-		String dirChoice = null;
 		
 		if (moveDir != "Down" && checkDir("Up")) {
 			choices[i] = "Up";

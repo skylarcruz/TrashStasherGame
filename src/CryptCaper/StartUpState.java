@@ -1,9 +1,5 @@
 package CryptCaper;
 
-import java.util.Iterator;
-
-import jig.Vector;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -27,7 +23,7 @@ class StartUpState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
-		CryptCaperGame ccg = (CryptCaperGame)game;
+		//CryptCaperGame ccg = (CryptCaperGame)game;
 		
 		g.drawString("Start", 10, 30);
 	}

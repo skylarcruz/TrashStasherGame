@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -40,13 +39,19 @@ public class CryptCaperGame extends StateBasedGame {
 	public static final String MON_HOLEIMG_RSC = "CryptCaper/Resource/MonsterHole.png";
 	public static final String BG_BGIMG_RSC = "CryptCaper/Resource/Background.png";
 	
-	public static final String Lvl1 = getLevelString("Level1StartSpots");
-	public static int currLevel = 1;
-	public static int lives = 3;
+	public static final String ARROW_UPIMG_RSC = "CryptCaper/Resource/Path/UpArrow.png";
+	public static final String ARROW_DOWNIMG_RSC = "CryptCaper/Resource/Path/DownArrow.png";
+	public static final String ARROW_LEFTIMG_RSC = "CryptCaper/Resource/Path/LeftArrow.png";
+	public static final String ARROW_RIGHTIMG_RSC = "CryptCaper/Resource/Path/RightArrow.png";
 	
-	public static Grid ccGrid;
-	public static Explorer ccExplorer;
-	public static Monster[] ccMons = new Monster[10];
+	public static String Lvl1 = getLevelString("Level1StartSpots");
+	public static int currLevel = 1;
+	public int lives = 3;
+	
+	public Grid ccGrid;
+	public Dikjstra ccDikjstra;
+	public Explorer ccExplorer;
+	public Monster[] ccMons = new Monster[10];
 	
 	/**
 	 * Create the CryptCaperGame frame, saving the width and height for later use.
@@ -94,15 +99,21 @@ public class CryptCaperGame extends StateBasedGame {
 		
 		ResourceManager.loadImage(MON_HOLEIMG_RSC);
 		ResourceManager.loadImage(BG_BGIMG_RSC);
+		
+		ResourceManager.loadImage(ARROW_UPIMG_RSC);
+		ResourceManager.loadImage(ARROW_DOWNIMG_RSC);
+		ResourceManager.loadImage(ARROW_LEFTIMG_RSC);
+		ResourceManager.loadImage(ARROW_RIGHTIMG_RSC);
 
 		// preload all the resources to avoid warnings & minimize latency...
 		//ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		
 		ccGrid = new Grid();
+		ccDikjstra = new Dikjstra(30, 15);
 		ccExplorer = new Explorer(1, 1);
 
 		for (int i = 0; i < 10; i++)
-			CryptCaperGame.ccMons[i] = new Monster(35, 0);
+			ccMons[i] = new Monster(35, 0);
 		
 
 	}
