@@ -44,27 +44,7 @@ class PlayingState extends BasicGameState {
 		ccg.ccGrid.render(g);
 		
 		if (showPath == true) {
-			int k = -1;
-			for (int i = 0; i < 15; i++) {
-				for (int j = 0; j < 30; j++) {	
-					k += 1;
-					if (ccg.ccDikjstra.graph[j][i].cost < 500) {
-						String dir = ccg.ccDikjstra.getBestDir(j, i);
-						if (dir == "Up")
-							g.drawImage(ResourceManager.getImage(ccg.ARROW_UPIMG_RSC), 
-									j*48, 180 + i*48);
-						if (dir == "Down")
-							g.drawImage(ResourceManager.getImage(ccg.ARROW_DOWNIMG_RSC), 
-									j*48, 180 + i*48);
-						if (dir == "Left")
-							g.drawImage(ResourceManager.getImage(ccg.ARROW_LEFTIMG_RSC), 
-									j*48, 180 + i*48);
-						if (dir == "Right")
-							g.drawImage(ResourceManager.getImage(ccg.ARROW_RIGHTIMG_RSC), 
-									j*48, 180 + i*48);
-					}
-				}
-			}
+			getPath(ccg, g);
 		}
 		
 		
@@ -75,6 +55,30 @@ class PlayingState extends BasicGameState {
 		
 		g.drawString("Lives: " + ccg.lives, 10, 30);
 		
+	}
+	
+	private void getPath(StateBasedGame game, Graphics g) {
+		CryptCaperGame ccg = (CryptCaperGame)game;
+		
+		for (int i = 0; i < 15; i++) {
+			for (int j = 0; j < 30; j++) {	
+				if (ccg.ccDikjstra.graph[j][i].cost < 500) {
+					String dir = ccg.ccDikjstra.getBestDir(j, i);
+					if (dir == "Up")
+						g.drawImage(ResourceManager.getImage(CryptCaperGame.ARROW_UPIMG_RSC), 
+								j*48, 180 + i*48);
+					if (dir == "Down")
+						g.drawImage(ResourceManager.getImage(CryptCaperGame.ARROW_DOWNIMG_RSC), 
+								j*48, 180 + i*48);
+					if (dir == "Left")
+						g.drawImage(ResourceManager.getImage(CryptCaperGame.ARROW_LEFTIMG_RSC), 
+								j*48, 180 + i*48);
+					if (dir == "Right")
+						g.drawImage(ResourceManager.getImage(CryptCaperGame.ARROW_RIGHTIMG_RSC), 
+								j*48, 180 + i*48);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -157,6 +161,11 @@ class PlayingState extends BasicGameState {
 				ccg.ccMons[i].update(delta);
 				ccg.ccMons[i].setExpLoc(
 						ccg.ccExplorer.getGridX(),ccg.ccExplorer.getGridY());
+				if (ccg.ccMons[i].active == true) {
+					String bestDir = ccg.ccDikjstra.getBestDir(
+							ccg.ccMons[i].monX, ccg.ccMons[i].monY);
+					ccg.ccMons[i].setBestDir(bestDir);
+				}
 			}
 			
 		}

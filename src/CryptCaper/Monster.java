@@ -3,6 +3,8 @@ package CryptCaper;
 
 import java.util.Random;
 
+import org.newdawn.slick.state.StateBasedGame;
+
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
@@ -32,10 +34,15 @@ class Monster extends Entity {
 	
 	boolean moving = false;
 	String moveDir = null;
+	String bestDir = null;
 	String[] choices = new String[4];
 	
 	boolean moveH = false;
 	boolean moveV = false;
+	boolean moveU = false;
+	boolean moveD = false;
+	boolean moveL = false;
+	boolean moveR = false;
 	
 	public Monster(final float x, final float y) {
 		super(24 + x * 48, 204 + y * 48);
@@ -62,10 +69,13 @@ class Monster extends Entity {
 		changeFace("Down");
 		moving = false;
 		moveDir = null;
-		moveH = false;
-		moveV = false;
+		moveU = false;
+		moveD = false;
+		moveL = false;
+		moveR = false;
 		velocity = new Vector(0, 0);
 		waitMode = false;
+		stopChase();
 		active = false;
 		setPosition(24 + 35 * 48, 204 + 0 * 48);
 		monX = 35;
@@ -158,23 +168,25 @@ public void move(String dir) {
 		if (dir == "Up") {
 			velocity = new Vector(0, -.125f - speedMod);
 			monY -= 1;
-			moveV = true;
+			moveU = true;
 		}
 		else if (dir == "Down") {
 			velocity = new Vector(0, .125f + speedMod);
 			monY += 1;
-			moveV = true;
+			moveD = true;
 		}
 		else if (dir == "Left") {
 			velocity = new Vector(-.125f - speedMod, 0);
 			monX -= 1;
-			moveH = true;
+			moveL = true;
 		}
 		else if (dir == "Right") {
 			velocity = new Vector(.125f + speedMod, 0);
 			monX += 1;
-			moveH = true;
+			moveR = true;
 		}
+		
+		moving = true;
 	}
 
 	private void changeFace(String dir) {
@@ -215,21 +227,37 @@ public void move(String dir) {
 		}
 	}
 	
-	private void checkStop() {
-		if (moveV == true) {
-			if (getY() > 200 + (monY * 48) && getY() < 208 + (monY * 48) ) {
-				velocity = new Vector(0,0);
-				setY(204 + monY * 48);
-				moving = false;
-				moveV = false;	
-			}
-		}
-		if (moveH == true) {
-			if (getX() > 20 + (monX * 48) && getX() < 28 + (monX * 48) ) {
+	private void checkStop() {		
+		if (moveL == true) {
+			if (getX() < 28 + (monX * 48)) {
 				velocity = new Vector(0,0);
 				setX(24 + monX * 48);
 				moving = false;
-				moveH = false;
+				moveL = false;
+			}
+		}
+		if (moveR == true) {
+			if (getX() > 20 + (monX * 48) ) {
+				velocity = new Vector(0,0);
+				setX(24 + monX * 48);
+				moving = false;
+				moveR = false;
+			}
+		}
+		if (moveU == true) {
+			if (getY() < 208 + (monY * 48) ) {
+				velocity = new Vector(0,0);
+				setY(204 + monY * 48);
+				moving = false;
+				moveU = false;	
+			}
+		}
+		if (moveD == true) {
+			if (getY() > 200 + (monY * 48) ) {
+				velocity = new Vector(0,0);
+				setY(204 + monY * 48);
+				moving = false;
+				moveD = false;	
 			}
 		}
 	}
@@ -282,13 +310,18 @@ public void move(String dir) {
 	
 	public void setChase() {
 		chaseMode = true;
-		chaseTime = 100;
+		chaseTime = 250;
 		speedMod = .1f;
 	}
 	
 	public void stopChase() {
 		chaseMode = false;
+		chaseTime = 0;
 		speedMod = 0;
+	}
+	
+	public void setBestDir(String dir) {
+		bestDir = dir;
 	}
 	
 	public void update(final int delta) {
@@ -310,7 +343,12 @@ public void move(String dir) {
 			translate(velocity.scale(delta));
 			checkStop();
 			if (moving == false) {
-				choosePath();
+				if (chaseMode == false)
+					choosePath();
+				else {
+					move(bestDir);
+					changeFace(bestDir);
+				}
 			}
 		}
 	}

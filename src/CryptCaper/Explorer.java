@@ -13,9 +13,15 @@ class Explorer extends Entity {
 	int expY = 1;
 	int startX;
 	int startY;
+	
 	public boolean inputAccept = true;
-	boolean moveH = false;
-	boolean moveV = false;
+	
+	boolean moveU = false;
+	boolean moveD = false;
+	boolean moveL = false;
+	boolean moveR = false;
+	
+	
 	public float speedMod = 0;
 
 	public Explorer(final float x, final float y) {				
@@ -47,8 +53,10 @@ class Explorer extends Entity {
 		initExpPath();
 		velocity = new Vector(0, 0);
 		inputAccept = true;
-		moveH = false;
-		moveV = false;
+		moveU = false;
+		moveD = false;
+		moveL = false;
+		moveR = false;
 		expX = startX;
 		expY = startY;
 		speedMod = 0;
@@ -88,22 +96,22 @@ class Explorer extends Entity {
 		if (dir == "Up") {
 			velocity = new Vector(0, -.3f - speedMod);
 			expY -= 1;
-			moveV = true;
+			moveU = true;
 		}
 		else if (dir == "Down") {
 			velocity = new Vector(0, .3f + speedMod);
 			expY += 1;
-			moveV = true;
+			moveD = true;
 		}
 		else if (dir == "Left") {
 			velocity = new Vector(-.3f - speedMod, 0);
 			expX -= 1;
-			moveH = true;
+			moveL = true;
 		}
 		else if (dir == "Right") {
 			velocity = new Vector(.3f + speedMod, 0);
 			expX += 1;
-			moveH = true;
+			moveR = true;
 		}
 	}
 	
@@ -144,20 +152,36 @@ class Explorer extends Entity {
 	}
 	
 	private void checkStop() {
-		if (moveV == true) {
-			if (getY() > 198 + (expY * 48) && getY() < 210 + (expY * 48) ) {
-				velocity = new Vector(0,0);
-				setY(204 + expY * 48);
-				inputAccept = true;
-				moveV = false;	
-			}
-		}
-		if (moveH == true) {
-			if (getX() > 18 + (expX * 48) && getX() < 30 + (expX * 48) ) {
+		if (moveL == true) {
+			if (getX() < 30 + (expX * 48) ) {
 				velocity = new Vector(0,0);
 				setX(24 + expX * 48);
 				inputAccept = true;
-				moveH = false;
+				moveL = false;
+			}
+		}
+		if (moveR == true) {
+			if (getX() > 18 + (expX * 48)) {
+				velocity = new Vector(0,0);
+				setX(24 + expX * 48);
+				inputAccept = true;
+				moveR = false;
+			}
+		}
+		if (moveU == true) {
+			if (getY() < 210 + (expY * 48) ) {
+				velocity = new Vector(0,0);
+				setY(204 + expY * 48);
+				inputAccept = true;
+				moveU = false;	
+			}
+		}
+		if (moveD == true) {
+			if (getY() > 198 + (expY * 48)) {
+				velocity = new Vector(0,0);
+				setY(204 + expY * 48);
+				inputAccept = true;
+				moveD = false;	
 			}
 		}
 	}
