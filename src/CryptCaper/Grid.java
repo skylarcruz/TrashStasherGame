@@ -57,10 +57,8 @@ public class Grid extends Entity{
 			built = false;
 			levelText = getLevelText();
 			
-			int k = -1;
 			for (int i = 0; i < 15; i++) {
 				for (int j = 0; j < 30; j++) {
-					k += 1;
 					GridElements[j][i].val = null;
 					GridElements[j][i].removeImage(ResourceManager
 							.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
@@ -83,12 +81,9 @@ public class Grid extends Entity{
 	public void render(Graphics g) {
 		if (built == false)
 			buildGrid();
-		int k = -1;
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 30; j++) {
-				k += 1;
-				//if (levelText.charAt(k) == 'X')
-					GridElements[j][i].render(g);
+				GridElements[j][i].render(g);
 			}
 		}
 	}
