@@ -11,13 +11,15 @@ public class Treasure extends Entity {
 	int score;
 	int weight;
 	
-	boolean inMap = false;
-	boolean inInventory = false;
+	boolean inMap;
+	boolean inInventory;
 	
 	public Treasure() {
 		id = 0;
 		score = 0;
 		weight = 0;
+		inMap = false;
+		inInventory = false;
 	}
 	
 	public void setNewTreasure(int x, int y) {
@@ -65,7 +67,7 @@ public class Treasure extends Entity {
 	}
 	
 	private void setTreasure(String image, int i, int s, int w) {
-		this.addImage(ResourceManager
+		this.addImageWithBoundingBox(ResourceManager
 				.getImage(image));
 		this.id = i;
 		this.score = s;
@@ -73,12 +75,68 @@ public class Treasure extends Entity {
 		this.inMap = true;
 	}
 	
+	public void copy(Treasure t) {
+		this.id = t.id;
+		this.score = t.score;
+		this.weight = t.weight;
+	}
+	
+	public void moveToInv(int x) {
+		switch(this.id) {
+		case 1:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 2:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 3:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 4:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 5:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 6:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 7:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 8:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 9:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		case 10:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			break;
+		default:
+			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+		}
+	}
+	
+	private void setInv(String image, int x) {
+		this.inMap = false;
+		this.inInventory = true;
+		this.setPosition(311 + (x * 150), 75);
+		this.addImage(ResourceManager
+				.getImage(image));
+	}
+	
+	
+	
 	public void reset() {
+		this.setPosition(24 + 35 * 48, 204 + 0 * 48);
 		this.id = 0;
 		this.score = 0;
 		this.weight = 0;
 		this.removeImage(ResourceManager
 				.getImage(CryptCaperGame.TREASURE_COINIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(CryptCaperGame.TREASURE_COINBIGIMG_RSC));
 		this.inMap = false;
 		this.inInventory = false;
 	}

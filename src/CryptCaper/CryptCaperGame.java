@@ -38,6 +38,7 @@ public class CryptCaperGame extends StateBasedGame {
 	
 	public static final String MON_HOLEIMG_RSC = "CryptCaper/Resource/MonsterHole.png";
 	public static final String BG_BGIMG_RSC = "CryptCaper/Resource/Background.png";
+	public static final String HUD_LINESIMG_RSC = "CryptCaper/Resource/HudLines.png";
 	
 	public static final String ARROW_UPIMG_RSC = "CryptCaper/Resource/Path/UpArrow.png";
 	public static final String ARROW_DOWNIMG_RSC = "CryptCaper/Resource/Path/DownArrow.png";
@@ -45,6 +46,7 @@ public class CryptCaperGame extends StateBasedGame {
 	public static final String ARROW_RIGHTIMG_RSC = "CryptCaper/Resource/Path/RightArrow.png";
 	
 	public static final String TREASURE_COINIMG_RSC = "CryptCaper/Resource/Treasure/coin.png";
+	public static final String TREASURE_COINBIGIMG_RSC = "CryptCaper/Resource/Treasure/coinBig.png";
 	
 	public static String Lvl1 = getLevelString("Level1StartSpots");
 	public static int currLevel = 1;
@@ -102,6 +104,7 @@ public class CryptCaperGame extends StateBasedGame {
 		
 		ResourceManager.loadImage(MON_HOLEIMG_RSC);
 		ResourceManager.loadImage(BG_BGIMG_RSC);
+		ResourceManager.loadImage(HUD_LINESIMG_RSC);
 		
 		ResourceManager.loadImage(ARROW_UPIMG_RSC);
 		ResourceManager.loadImage(ARROW_DOWNIMG_RSC);
@@ -109,6 +112,7 @@ public class CryptCaperGame extends StateBasedGame {
 		ResourceManager.loadImage(ARROW_RIGHTIMG_RSC);
 		
 		ResourceManager.loadImage(TREASURE_COINIMG_RSC);
+		ResourceManager.loadImage(TREASURE_COINBIGIMG_RSC);
 
 		// preload all the resources to avoid warnings & minimize latency...
 		//ResourceManager.loadImage(WALL_WALLIMG_RSC);

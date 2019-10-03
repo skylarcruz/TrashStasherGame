@@ -9,16 +9,17 @@ public class TreasureTracker {
 	int startX[] = new int[10];
 	int startY[] = new int[10];
 	
-	Treasure[] iTreasure;
-	Treasure[] mTreasure;
+	Treasure[] invTreasure;
+	int invCnt = 0;
+	Treasure[] mapTreasure;
 	
 	public TreasureTracker() {
-		iTreasure = new Treasure[8];
+		invTreasure = new Treasure[8];
 		for (int i = 0; i < 8; i ++)
-			iTreasure[i] = new Treasure();
-		mTreasure = new Treasure[3];
+			invTreasure[i] = new Treasure();
+		mapTreasure = new Treasure[3];
 		for (int i = 0; i < 3; i ++)
-			mTreasure[i] = new Treasure();
+			mapTreasure[i] = new Treasure();
 		
 		initTreasureLoc();
 	}
@@ -43,8 +44,8 @@ public class TreasureTracker {
 	
 	public void addToMap() {
 		for (int i = 0; i < 3; i++) {
-			if (mTreasure[i].inMap == false) {
-				placeOnMap(mTreasure[i]);
+			if (mapTreasure[i].inMap == false) {
+				placeOnMap(mapTreasure[i]);
 				break;
 			}
 		}
@@ -59,23 +60,36 @@ public class TreasureTracker {
 		
 	}
 	
+	public void moveToInv(Treasure t) {
+		if (invCnt < 8) {
+			invTreasure[invCnt].copy(t);
+			t.reset();
+			invTreasure[invCnt].moveToInv(invCnt);
+			invCnt += 1;
+		}
+	}
+	
 	public void render(Graphics g) {
 		for (int i = 0; i < 8; i++) {
-			if (iTreasure[i].inInventory == true)
-				iTreasure[i].render(g);
+			if (invTreasure[i].inInventory == true)
+				invTreasure[i].render(g);
+				g.drawString(invTreasure[i].score + " g", 250 + (i * 150), 130);
+				g.drawString(invTreasure[i].weight + " lbs", 250 + (i * 150), 145);
 		}
 		for (int i = 0; i < 3; i++) {
-			if (mTreasure[i].inMap == true)
-				mTreasure[i].render(g);
+			if (mapTreasure[i].inMap == true)
+				mapTreasure[i].render(g);
 		}
 	}
 	
 	public void reset() {
-		for (int i = 0; i < 8; i++)
-			iTreasure[i].reset();
+		for (int i = 0; i < 8; i++) {
+			invTreasure[i].reset();
+		}
 		for (int i = 0; i < 3; i++)
-			mTreasure[i].reset();
+			mapTreasure[i].reset();
 		addToMap();
+		invCnt = 0;
 	}
 	
 }

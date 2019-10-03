@@ -19,6 +19,8 @@ class PlayingState extends BasicGameState {
 	int nextMonNum = 2;
 	boolean spawn = true;
 	
+	int tCountdown;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -39,6 +41,8 @@ class PlayingState extends BasicGameState {
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
 		g.drawImage(ResourceManager.getImage(CryptCaperGame.BG_BGIMG_RSC), 0,
+				0);
+		g.drawImage(ResourceManager.getImage(CryptCaperGame.HUD_LINESIMG_RSC), 0,
 				0);
 		
 		ccg.ccGrid.render(g);
@@ -94,18 +98,6 @@ class PlayingState extends BasicGameState {
 				ccg.ccExplorer.getGridY()) == true)
 			ccg.ccDikjstra.runDikjstra();
 		
-		MonsterCountdown -= 1;
-		
-		// Monster Spawn. Spawn until all Monsters on board
-		if (MonsterCountdown <= 0 && spawn) {
-			ccg.ccMons[nextMonNum].setStartLocation();
-			if (nextMonNum < 9) {
-				nextMonNum += 1;
-				MonsterCountdown = 1000;
-			}
-			else
-				spawn = false;
-		}
 		
 		// Pause Game
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
@@ -140,8 +132,27 @@ class PlayingState extends BasicGameState {
 		
 		if (paused == false && startCountdown <= 0) {
 			
+			MonsterCountdown -= 1;
 			
-		// Player Movement Checks
+			// Monster Spawn. Spawn until all Monsters on board
+			if (MonsterCountdown <= 0 && spawn) {
+				ccg.ccMons[nextMonNum].setStartLocation();
+				if (nextMonNum < 9) {
+					nextMonNum += 1;
+					MonsterCountdown = 1000;
+				}
+				else
+					spawn = false;
+			}
+			
+			
+			tCountdown -= 1;
+			if (tCountdown <= 0) {
+				ccg.ccTT.addToMap();
+				tCountdown = 300;
+			}
+			
+			// Player Movement Checks
 			if (input.isKeyDown(Input.KEY_W) && ccg.ccExplorer.inputAccept)
 				if (ccg.ccExplorer.checkDir("Up")) {
 					ccg.ccExplorer.inputAccept = false;
@@ -163,14 +174,21 @@ class PlayingState extends BasicGameState {
 					ccg.ccExplorer.move("Right");
 				}
 	
-		// Loss from collision into Monsters
+			// Loss from collision into Monsters
 			for (int i = 0; i < 10; i++) {
 				if ((ccg.ccMons[i].collides(ccg.ccExplorer) != null))
 					loseLife(game);
 			}
 			
+			// Treasure Pickup
+			for (int i = 0; i < 3; i++) {
+				if (ccg.ccTT.mapTreasure[i].collides(ccg.ccExplorer) != null) {
+					ccg.ccTT.moveToInv(ccg.ccTT.mapTreasure[i]);
+				}
+			}
 			
-		// Update entities
+			
+			// Update entities
 			ccg.ccExplorer.update(delta);
 			
 			for (int i = 0; i < 10; i++) {
@@ -223,6 +241,7 @@ class PlayingState extends BasicGameState {
 		ccg.ccExplorer.reset();
 		
 		ccg.ccTT.reset();
+		tCountdown = 300;
 		
 	}
 
