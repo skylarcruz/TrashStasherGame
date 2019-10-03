@@ -20,6 +20,14 @@ class PlayingState extends BasicGameState {
 	boolean spawn = true;
 	
 	int tCountdown;
+	int weightMod;
+	float speedMod;
+	
+	boolean scoreCompile = false;
+	int scoreTimer;
+	int multiplier = 1;
+	int addScore;
+	int totAddScore;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
@@ -59,6 +67,9 @@ class PlayingState extends BasicGameState {
 			ccg.ccMons[i].render(g);
 		
 		g.drawString("Lives: " + ccg.lives, 10, 30);
+		g.drawString("Score: " + ccg.score, 10, 50);
+		if (totAddScore > 0)
+			g.drawString("+" + totAddScore, 10, 70);
 		
 	}
 	
@@ -149,7 +160,42 @@ class PlayingState extends BasicGameState {
 			tCountdown -= 1;
 			if (tCountdown <= 0) {
 				ccg.ccTT.addToMap();
-				tCountdown = 300;
+				tCountdown = 50;
+			}
+			
+			// pop Treasure off Inv
+			if (input.isKeyPressed(Input.KEY_J)) {
+				weightMod = ccg.ccTT.popInv();
+				speedMod = (float) weightMod * .0008f;
+				ccg.ccExplorer.changeSpeed(speedMod);
+			}
+			
+			// Treasure Scoring
+			if (input.isKeyPressed(Input.KEY_SPACE)) {
+				if (scoreCompile == false && ccg.ccTT.invCnt > 0 &&
+					ccg.ccGrid.checkForDropBox(ccg.ccExplorer.getGridX(),ccg.ccExplorer.getGridY())) {
+						multiplier = ccg.ccTT.invCnt;
+						scoreTimer = multiplier * 25;
+						scoreCompile = true;
+				}
+			}
+			
+			if (scoreCompile == true) {
+				if (scoreTimer % 25 == 0) {
+					addScore = multiplier * ccg.ccTT.popScore();
+					totAddScore += addScore;
+					ccg.score += addScore;
+					weightMod = ccg.ccTT.popInv();
+					speedMod = (float) weightMod * .0008f;
+					ccg.ccExplorer.changeSpeed(speedMod);
+				}
+				scoreTimer -= 1;
+				if (scoreTimer <= 0) {
+					multiplier = 1;
+					scoreCompile = false;
+					addScore = 0;
+					totAddScore = 0;
+				}			
 			}
 			
 			// Player Movement Checks
@@ -181,12 +227,26 @@ class PlayingState extends BasicGameState {
 			}
 			
 			// Treasure Pickup
-			for (int i = 0; i < 3; i++) {
-				if (ccg.ccTT.mapTreasure[i].collides(ccg.ccExplorer) != null) {
-					ccg.ccTT.moveToInv(ccg.ccTT.mapTreasure[i]);
+			if (scoreCompile == false) {
+				for (int i = 0; i < 3; i++) {
+					if (ccg.ccTT.mapTreasure[i].collides(ccg.ccExplorer) != null) {
+						weightMod = -1 * ccg.ccTT.moveToInv(ccg.ccTT.mapTreasure[i]);
+						speedMod = (float) weightMod * .0008f;
+						ccg.ccExplorer.changeSpeed(speedMod);
+					}
 				}
 			}
-			
+			// Treasure lands on other Treasure
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					if (i != j && ccg.ccTT.mapTreasure[i].inMap == true) {
+						if (ccg.ccTT.mapTreasure[i].collides(ccg.ccTT.mapTreasure[j]) != null) {
+							ccg.ccTT.mapTreasure[j].reset();
+							ccg.ccTT.addToMap();
+						}
+					}
+				}
+			}			
 			
 			// Update entities
 			ccg.ccExplorer.update(delta);
@@ -215,6 +275,7 @@ class PlayingState extends BasicGameState {
 		}
 		else {
 			//((GameOverState)game.getState(CryptCaperGame.GAMEOVERSTATE)).setUserScore(bounces);
+			ccg.score = 0;
 			game.enterState(CryptCaperGame.GAMEOVERSTATE);
 		}
 	}
@@ -241,7 +302,7 @@ class PlayingState extends BasicGameState {
 		ccg.ccExplorer.reset();
 		
 		ccg.ccTT.reset();
-		tCountdown = 300;
+		tCountdown = 50;
 		
 	}
 

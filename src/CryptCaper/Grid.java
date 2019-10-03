@@ -1,5 +1,8 @@
 package CryptCaper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.newdawn.slick.Graphics;
 
 
@@ -8,6 +11,8 @@ public class Grid {
 	GridSquare[][] GridElements = new GridSquare[30][15];
 	String levelText = null;
 	boolean built = false;
+	
+	public List<GridSquare> dropBoxes = new ArrayList<GridSquare>(); 
 	
 	public Grid(){
 		for (int i = 0; i < 15; i++) {	
@@ -33,6 +38,10 @@ public class Grid {
 					if (levelText.charAt(k) == 'M') { 
 						GridElements[j][i].addMonsterHole();
 					}
+					if (levelText.charAt(k) == 'D') { 
+						GridElements[j][i].addDropBox();
+						dropBoxes.add(GridElements[j][i]);
+					}
 				}
 			}
 		}
@@ -48,7 +57,18 @@ public class Grid {
 					GridElements[j][i].clear();
 				}
 			}
+			dropBoxes.clear();
 		}
+	}
+	
+	public boolean checkForDropBox(int x, int y) {
+		boolean nearBox = false;
+		for (int i = y - 1; i <= y + 1; i++) {
+			for (int j = x - 1; j <= x + 1; j ++)
+				if (dropBoxes.contains(GridElements[j][i]))
+					nearBox = true;
+		}
+		return nearBox;
 	}
 	
 	public String getLevelText() {

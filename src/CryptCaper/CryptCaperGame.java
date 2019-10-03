@@ -25,6 +25,7 @@ public class CryptCaperGame extends StateBasedGame {
 	public final int ScreenHeight;
 	
 	public static final String WALL_WALLIMG_RSC = "CryptCaper/Resource/WallTest.png";
+	public static final String DROP_BOXIMG_RSC = "CryptCaper/Resource/DropBox.png";
 	
 	public static final String EXP_UPIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerU.png";
 	public static final String EXP_DOWNIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerD.png";
@@ -51,6 +52,7 @@ public class CryptCaperGame extends StateBasedGame {
 	public static String Lvl1 = getLevelString("Level1StartSpots");
 	public static int currLevel = 1;
 	public int lives = 3;
+	public int score = 0;
 	
 	public Grid ccGrid;
 	public Dikjstra ccDikjstra;
@@ -91,6 +93,7 @@ public class CryptCaperGame extends StateBasedGame {
 		// unless that is done now, we can't *disable* sound as we
 		// attempt to do in the startUp() method.
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
+		ResourceManager.loadImage(DROP_BOXIMG_RSC);
 		
 		ResourceManager.loadImage(EXP_UPIMG_RSC);
 		ResourceManager.loadImage(EXP_DOWNIMG_RSC);

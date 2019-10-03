@@ -32,11 +32,18 @@ import jig.ResourceManager;
 		this.val = "M";
 	}
 	
+	public void addDropBox() {
+		this.addImage(ResourceManager
+				.getImage(CryptCaperGame.DROP_BOXIMG_RSC));
+	}
+	
 	public void clear() {
 		this.removeImage(ResourceManager
 				.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
 		this.removeImage(ResourceManager
 				.getImage(CryptCaperGame.MON_HOLEIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(CryptCaperGame.DROP_BOXIMG_RSC));
 		this.val = null;
 	}
 }

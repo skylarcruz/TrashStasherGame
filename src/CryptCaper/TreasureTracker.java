@@ -60,21 +60,40 @@ public class TreasureTracker {
 		
 	}
 	
-	public void moveToInv(Treasure t) {
+	public int moveToInv(Treasure t) {
+		int newWeight = 0;
 		if (invCnt < 8) {
+			newWeight = t.weight;
 			invTreasure[invCnt].copy(t);
 			t.reset();
 			invTreasure[invCnt].moveToInv(invCnt);
 			invCnt += 1;
 		}
+		return newWeight;
+	}
+	
+	public int popScore() {
+			return invTreasure[invCnt - 1].score;
+	}
+	
+	public int popInv() {
+		if (invCnt > 0) {
+			invCnt -= 1;
+			int w = invTreasure[invCnt].weight;
+			invTreasure[invCnt].reset();
+			return w;
+		}
+		else
+			return 0;
 	}
 	
 	public void render(Graphics g) {
 		for (int i = 0; i < 8; i++) {
-			if (invTreasure[i].inInventory == true)
+			if (invTreasure[i].inInventory == true) {
 				invTreasure[i].render(g);
 				g.drawString(invTreasure[i].score + " g", 250 + (i * 150), 130);
-				g.drawString(invTreasure[i].weight + " lbs", 250 + (i * 150), 145);
+				g.drawString(invTreasure[i].weight + " lbs", 250 + (i * 150), 150);
+			}
 		}
 		for (int i = 0; i < 3; i++) {
 			if (mapTreasure[i].inMap == true)
