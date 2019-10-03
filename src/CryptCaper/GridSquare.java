@@ -2,6 +2,7 @@ package CryptCaper;
 
 import jig.Entity;
 //import jig.ResourceManager;
+import jig.ResourceManager;
 
 /**
  * The Ball class is an Entity that has a velocity (since it's moving). When
@@ -15,5 +16,34 @@ import jig.Entity;
 
 	public GridSquare(final float x, final float y) {
 		super(x, y);
+	}
+	
+	public void addWall() {
+		this.addImage(ResourceManager
+				.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+		this.val = "X";
+	}
+	
+	public void addMonsterHole() {
+		this.addImage(ResourceManager
+				.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+		this.addImage(ResourceManager
+				.getImage(CryptCaperGame.MON_HOLEIMG_RSC));
+		this.val = "M";
+	}
+	
+	public void addDropBox() {
+		this.addImage(ResourceManager
+				.getImage(CryptCaperGame.DROP_BOXIMG_RSC));
+	}
+	
+	public void clear() {
+		this.removeImage(ResourceManager
+				.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(CryptCaperGame.MON_HOLEIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(CryptCaperGame.DROP_BOXIMG_RSC));
+		this.val = null;
 	}
 }

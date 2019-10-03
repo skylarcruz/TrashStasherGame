@@ -1,9 +1,8 @@
 package CryptCaper;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-
-import org.newdawn.slick.state.StateBasedGame;
 
 import jig.Entity;
 import jig.ResourceManager;
@@ -44,6 +43,8 @@ class Monster extends Entity {
 	boolean moveL = false;
 	boolean moveR = false;
 	
+	public List<Character> barrierChars = new ArrayList<Character>(); 
+	
 	public Monster(final float x, final float y) {
 		super(24 + x * 48, 204 + y * 48);
 		addImageWithBoundingBox(ResourceManager
@@ -51,6 +52,10 @@ class Monster extends Entity {
 		velocity = new Vector(0, 0);
 		monX = (int) x;
 		monY = (int) y;
+		
+		barrierChars.add('X');
+		barrierChars.add('M');
+		barrierChars.add('D');
 	}
 	
 	public void setStartLocation() {
@@ -157,7 +162,7 @@ class Monster extends Entity {
 	}
 	
 	private boolean checkPath(int x, int y) {
-		if (GridElements[x][y] == 'X' || GridElements[x][y] == 'M')
+		if (barrierChars.contains(GridElements[x][y]) == true)
 			return false;
 		else
 			return true;
@@ -268,8 +273,7 @@ public void move(String dir) {
 		
 		if (moveDir == "Up") {
 			while (checkY >= 0) {
-				if (GridElements[checkX][checkY] == 'X' || 
-						GridElements[checkX][checkY] == 'M')
+				if (barrierChars.contains(GridElements[checkX][checkY]) == true)
 					break;
 				if (checkX == expX && checkY == expY)
 					setChase();
@@ -278,8 +282,7 @@ public void move(String dir) {
 		}
 		if (moveDir == "Down") {
 			while (checkY <= 14) {
-				if (GridElements[checkX][checkY] == 'X' || 
-						GridElements[checkX][checkY] == 'M')
+				if (barrierChars.contains(GridElements[checkX][checkY]) == true)
 					break;
 				if (checkX == expX && checkY == expY)
 					setChase();
@@ -288,8 +291,7 @@ public void move(String dir) {
 		}
 		if (moveDir == "Left") {
 			while (checkX >= 0) {
-				if (GridElements[checkX][checkY] == 'X' || 
-						GridElements[checkX][checkY] == 'M')
+				if (barrierChars.contains(GridElements[checkX][checkY]) == true)
 					break;
 				if (checkX == expX && checkY == expY)
 					setChase();
@@ -298,8 +300,7 @@ public void move(String dir) {
 		}
 		if (moveDir == "Right") {
 			while (checkX <= 29) {
-				if (GridElements[checkX][checkY] == 'X' || 
-						GridElements[checkX][checkY] == 'M')
+				if (barrierChars.contains(GridElements[checkX][checkY]) == true)
 					break;
 				if (checkX == expX && checkY == expY)
 					setChase();
@@ -311,7 +312,7 @@ public void move(String dir) {
 	public void setChase() {
 		chaseMode = true;
 		chaseTime = 250;
-		speedMod = .1f;
+		speedMod = .075f;
 	}
 	
 	public void stopChase() {

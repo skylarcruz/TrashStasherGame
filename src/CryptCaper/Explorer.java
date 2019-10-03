@@ -1,6 +1,9 @@
 package CryptCaper;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
@@ -21,8 +24,9 @@ class Explorer extends Entity {
 	boolean moveL = false;
 	boolean moveR = false;
 	
-	
 	public float speedMod = 0;
+	
+	public List<Character> barrierChars = new ArrayList<Character>(); 
 
 	public Explorer(final float x, final float y) {				
 		super(24 + x * 48, 204 + y * 48);
@@ -31,6 +35,10 @@ class Explorer extends Entity {
 		velocity = new Vector(0, 0);
 		expX = (int) x;
 		expY = (int) y;
+		
+		barrierChars.add('X');
+		barrierChars.add('M');
+		barrierChars.add('D');
 	}
 	
 	public void setVelocity(final Vector v) {
@@ -85,7 +93,7 @@ class Explorer extends Entity {
 	}
 	
 	private boolean checkPath(int x, int y) {
-		if (GridElements[x][y] == 'X' || GridElements[x][y] == 'M')
+		if (barrierChars.contains(GridElements[x][y]) == true)
 			return false;
 		else
 			return true;
@@ -132,6 +140,10 @@ class Explorer extends Entity {
 		else if (dir == "Right") 
 			addImageWithBoundingBox(ResourceManager
 					.getImage(CryptCaperGame.EXP_RIGHTIMG_RSC));
+	}
+	
+	public void changeSpeed(float s) {
+		speedMod += s;
 	}
 	
 	public void initExpPath() {
