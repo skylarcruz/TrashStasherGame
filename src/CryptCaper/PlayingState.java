@@ -42,6 +42,7 @@ class PlayingState extends BasicGameState {
 				0);
 		
 		ccg.ccGrid.render(g);
+		ccg.ccTT.render(g);
 		
 		if (showPath == true) {
 			getPath(ccg, g);
@@ -88,13 +89,14 @@ class PlayingState extends BasicGameState {
 		Input input = container.getInput();
 		CryptCaperGame ccg = (CryptCaperGame)game;
 		
-		ccg.ccDikjstra.setExpLoc(
-				ccg.ccExplorer.getGridX(),ccg.ccExplorer.getGridY());
-		ccg.ccDikjstra.runDikjstra();
+		// updates the dikjstra source and runs algorithm if change occurs
+		if (ccg.ccDikjstra.setExpLoc(ccg.ccExplorer.getGridX(),
+				ccg.ccExplorer.getGridY()) == true)
+			ccg.ccDikjstra.runDikjstra();
 		
-		startCountdown -= 1;
 		MonsterCountdown -= 1;
 		
+		// Monster Spawn. Spawn until all Monsters on board
 		if (MonsterCountdown <= 0 && spawn) {
 			ccg.ccMons[nextMonNum].setStartLocation();
 			if (nextMonNum < 9) {
@@ -105,6 +107,7 @@ class PlayingState extends BasicGameState {
 				spawn = false;
 		}
 		
+		// Pause Game
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			if (paused == false)
 				paused = true;
@@ -112,6 +115,8 @@ class PlayingState extends BasicGameState {
 				paused = false;
 		}
 		
+		
+		// Displays Dikjstra generated best paths to Player
 		if (input.isKeyPressed(Input.KEY_P)) {
 			if (showPath == false)
 				showPath = true;
@@ -119,8 +124,19 @@ class PlayingState extends BasicGameState {
 				showPath = false;
 		}
 		
+		// Resets level. Used for Testing
 		if (input.isKeyPressed(Input.KEY_R))
 			setLevel(game);
+		
+		// prevent starting monsters from spawning on the same location, also start countdown
+		if (startCountdown > 0) {
+			startCountdown -= 1;
+			if (ccg.ccMons[0].collides(ccg.ccMons[1]) != null) {
+				ccg.ccMons[1].deactivate();
+				ccg.ccMons[1].setStartLocation();
+				System.out.println("Thing Happened");
+			}
+		}
 		
 		if (paused == false && startCountdown <= 0) {
 			
@@ -205,6 +221,8 @@ class PlayingState extends BasicGameState {
 		MonsterCountdown = 1000;
 		
 		ccg.ccExplorer.reset();
+		
+		ccg.ccTT.reset();
 		
 	}
 

@@ -1,9 +1,6 @@
 package CryptCaper;
 
-
 import java.util.Random;
-
-import org.newdawn.slick.state.StateBasedGame;
 
 import jig.Entity;
 import jig.ResourceManager;

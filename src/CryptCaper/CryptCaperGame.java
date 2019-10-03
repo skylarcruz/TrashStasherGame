@@ -44,6 +44,8 @@ public class CryptCaperGame extends StateBasedGame {
 	public static final String ARROW_LEFTIMG_RSC = "CryptCaper/Resource/Path/LeftArrow.png";
 	public static final String ARROW_RIGHTIMG_RSC = "CryptCaper/Resource/Path/RightArrow.png";
 	
+	public static final String TREASURE_COINIMG_RSC = "CryptCaper/Resource/Treasure/coin.png";
+	
 	public static String Lvl1 = getLevelString("Level1StartSpots");
 	public static int currLevel = 1;
 	public int lives = 3;
@@ -52,6 +54,7 @@ public class CryptCaperGame extends StateBasedGame {
 	public Dikjstra ccDikjstra;
 	public Explorer ccExplorer;
 	public Monster[] ccMons = new Monster[10];
+	public TreasureTracker ccTT;
 	
 	/**
 	 * Create the CryptCaperGame frame, saving the width and height for later use.
@@ -104,6 +107,8 @@ public class CryptCaperGame extends StateBasedGame {
 		ResourceManager.loadImage(ARROW_DOWNIMG_RSC);
 		ResourceManager.loadImage(ARROW_LEFTIMG_RSC);
 		ResourceManager.loadImage(ARROW_RIGHTIMG_RSC);
+		
+		ResourceManager.loadImage(TREASURE_COINIMG_RSC);
 
 		// preload all the resources to avoid warnings & minimize latency...
 		//ResourceManager.loadImage(WALL_WALLIMG_RSC);
@@ -114,6 +119,8 @@ public class CryptCaperGame extends StateBasedGame {
 
 		for (int i = 0; i < 10; i++)
 			ccMons[i] = new Monster(35, 0);
+		
+		ccTT = new TreasureTracker();
 		
 
 	}

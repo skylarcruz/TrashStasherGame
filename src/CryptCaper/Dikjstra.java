@@ -2,8 +2,6 @@ package CryptCaper;
 
 import java.util.*;
 
-import jig.ResourceManager;
-
 public class Dikjstra {
 	
 	public Node[][] graph;
@@ -22,10 +20,8 @@ public class Dikjstra {
 		xSize = x;
 		ySize = y;
 
-		int k = -1;
 		for (int i = 0; i < y; i++) {	
 			for (int j = 0; j < x; j++) {
-				k += 1;
 				graph[j][i] = new Node(100000, 1, j, i);
 			}
 		}
@@ -148,9 +144,14 @@ public class Dikjstra {
 		
 	}
 	
-	public void setExpLoc(int x, int y) {
+	public boolean setExpLoc(int x, int y) {
+		boolean change = false;
+		if (expX != x || expY != y)
+			change = true;
 		expX = x;
 		expY = y;
+		
+		return change;
 	}
 	
 	public String getLevelText() {
