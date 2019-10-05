@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 public class Treasures {
 

@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class TreasureTracker {
 
 	public void initTreasureLoc() {
 	
-		String levelText = CryptCaperGame.Lvl1;
+		String levelText = TrashStasherGame.Lvl1;
 		
 		int k = -1;
 		int l = 0;

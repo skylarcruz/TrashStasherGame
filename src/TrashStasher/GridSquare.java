@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import jig.Entity;
 //import jig.ResourceManager;
@@ -20,30 +20,30 @@ import jig.ResourceManager;
 	
 	public void addWall() {
 		this.addImage(ResourceManager
-				.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+				.getImage(TrashStasherGame.WALL_WALLIMG_RSC));
 		this.val = "X";
 	}
 	
 	public void addMonsterHole() {
 		this.addImage(ResourceManager
-				.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+				.getImage(TrashStasherGame.WALL_WALLIMG_RSC));
 		this.addImage(ResourceManager
-				.getImage(CryptCaperGame.MON_HOLEIMG_RSC));
+				.getImage(TrashStasherGame.MON_HOLEIMG_RSC));
 		this.val = "M";
 	}
 	
 	public void addDropBox() {
 		this.addImage(ResourceManager
-				.getImage(CryptCaperGame.DROP_BOXIMG_RSC));
+				.getImage(TrashStasherGame.DROP_BOXIMG_RSC));
 	}
 	
 	public void clear() {
 		this.removeImage(ResourceManager
-				.getImage(CryptCaperGame.WALL_WALLIMG_RSC));
+				.getImage(TrashStasherGame.WALL_WALLIMG_RSC));
 		this.removeImage(ResourceManager
-				.getImage(CryptCaperGame.MON_HOLEIMG_RSC));
+				.getImage(TrashStasherGame.MON_HOLEIMG_RSC));
 		this.removeImage(ResourceManager
-				.getImage(CryptCaperGame.DROP_BOXIMG_RSC));
+				.getImage(TrashStasherGame.DROP_BOXIMG_RSC));
 		this.val = null;
 	}
 }

@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -37,19 +37,19 @@ class GameOverState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game,
 			int delta) throws SlickException {
 
-		CryptCaperGame ccg = (CryptCaperGame)game;
+		TrashStasherGame ccg = (TrashStasherGame)game;
 		
 		countdown -= 1;
 		ccg.lives = 3;
 		
 		if (countdown <= 0)
-			game.enterState(CryptCaperGame.PLAYINGSTATE);
+			game.enterState(TrashStasherGame.PLAYINGSTATE);
 		
 	}
 
 	@Override
 	public int getID() {
-		return CryptCaperGame.GAMEOVERSTATE;
+		return TrashStasherGame.GAMEOVERSTATE;
 	}
 	
 }

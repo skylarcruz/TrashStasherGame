@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -33,16 +33,16 @@ class StartUpState extends BasicGameState {
 			int delta) throws SlickException {
 
 		Input input = container.getInput();
-		CryptCaperGame ccg = (CryptCaperGame)game;
+		TrashStasherGame ccg = (TrashStasherGame)game;
 		
 		if (input.isKeyDown(Input.KEY_SPACE))
-			ccg.enterState(CryptCaperGame.PLAYINGSTATE);	
+			ccg.enterState(TrashStasherGame.PLAYINGSTATE);	
 		
 	}
 
 	@Override
 	public int getID() {
-		return CryptCaperGame.STARTUPSTATE;
+		return TrashStasherGame.STARTUPSTATE;
 	}
 	
 }

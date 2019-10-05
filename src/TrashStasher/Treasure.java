@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import java.util.Random;
 
@@ -31,37 +31,37 @@ public class Treasure extends Entity {
 		
 		switch (arrChoice) {
 			case 0:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 1, 20, 5);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 1, 20, 5);
 				break;
 			case 1:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 2, 40, 10);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 2, 40, 10);
 				break;
 			case 2:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 3, 75, 15);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 3, 75, 15);
 				break;
 			case 3:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 4, 125, 20);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 4, 125, 20);
 				break;
 			case 4:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 5, 200, 25);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 5, 200, 25);
 				break;
 			case 5:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 6, 300, 30);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 6, 300, 30);
 				break;
 			case 6:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 7, 425, 35);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 7, 425, 35);
 				break;
 			case 7:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 8, 575, 40);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 8, 575, 40);
 				break;
 			case 8:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 9, 750, 45);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 9, 750, 45);
 				break;
 			case 9:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 10, 1000, 50);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 10, 1000, 50);
 				break;
 			default:
-				setTreasure(CryptCaperGame.TREASURE_COINIMG_RSC, 1, 10, 5);
+				setTreasure(TrashStasherGame.TREASURE_COINIMG_RSC, 1, 10, 5);
 		}
 		
 	}
@@ -84,37 +84,37 @@ public class Treasure extends Entity {
 	public void moveToInv(int x) {
 		switch(this.id) {
 		case 1:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 2:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 3:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 4:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 5:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 6:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 7:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 8:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 9:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		case 10:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 			break;
 		default:
-			setInv(CryptCaperGame.TREASURE_COINBIGIMG_RSC, x);
+			setInv(TrashStasherGame.TREASURE_COINBIGIMG_RSC, x);
 		}
 	}
 	
@@ -134,9 +134,9 @@ public class Treasure extends Entity {
 		this.score = 0;
 		this.weight = 0;
 		this.removeImage(ResourceManager
-				.getImage(CryptCaperGame.TREASURE_COINIMG_RSC));
+				.getImage(TrashStasherGame.TREASURE_COINIMG_RSC));
 		this.removeImage(ResourceManager
-				.getImage(CryptCaperGame.TREASURE_COINBIGIMG_RSC));
+				.getImage(TrashStasherGame.TREASURE_COINBIGIMG_RSC));
 		this.inMap = false;
 		this.inInventory = false;
 	}

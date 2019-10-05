@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import java.util.*;
 
@@ -12,8 +12,8 @@ public class Dikjstra {
 	PriorityQueue<Node> pq;
 	
 	private String levelText;
-	private int expX;
-	private int expY;
+	private int raccX;
+	private int raccY;
 	
 	public Dikjstra(int x, int y) {
 		graph = new Node[x][y];
@@ -116,7 +116,7 @@ public class Dikjstra {
 			}
 		}
 		
-		graph[expX][expY].cost = 0;
+		graph[raccX][raccY].cost = 0;
 	}
 	
 	public String getBestDir(int x, int y) {
@@ -144,21 +144,21 @@ public class Dikjstra {
 		
 	}
 	
-	public boolean setExpLoc(int x, int y) {
+	public boolean setRaccLoc(int x, int y) {
 		boolean change = false;
-		if (expX != x || expY != y)
+		if (raccX != x || raccY != y)
 			change = true;
-		expX = x;
-		expY = y;
+		raccX = x;
+		raccY = y;
 		
 		return change;
 	}
 	
 	public String getLevelText() {
-		if (CryptCaperGame.currLevel == 1)
-			return CryptCaperGame.Lvl1;
+		if (TrashStasherGame.currLevel == 1)
+			return TrashStasherGame.Lvl1;
 		else
-			return CryptCaperGame.Lvl1;
+			return TrashStasherGame.Lvl1;
 	}
 }
 

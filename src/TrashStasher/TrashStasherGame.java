@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import jig.Entity;
 import jig.ResourceManager;
@@ -15,7 +15,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class CryptCaperGame extends StateBasedGame {
+public class TrashStasherGame extends StateBasedGame {
 	
 	public static final int STARTUPSTATE = 0;
 	public static final int PLAYINGSTATE = 1;
@@ -24,44 +24,51 @@ public class CryptCaperGame extends StateBasedGame {
 	public final int ScreenWidth;
 	public final int ScreenHeight;
 	
-	public static final String WALL_WALLIMG_RSC = "CryptCaper/Resource/WallTest.png";
-	public static final String DROP_BOXIMG_RSC = "CryptCaper/Resource/DropBox.png";
+	public static final String WALL_WALLIMG_RSC = "TrashStasher/Resource/WallTest.png";
+	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/DropBox.png";
 	
-	public static final String EXP_UPIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerU.png";
-	public static final String EXP_DOWNIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerD.png";
-	public static final String EXP_LEFTIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerL.png";
-	public static final String EXP_RIGHTIMG_RSC = "CryptCaper/Resource/Explorer/ExplorerR.png";
 	
-	public static final String MON_UPIMG_RSC = "CryptCaper/Resource/Monster/MonsterU.png";
-	public static final String MON_DOWNIMG_RSC = "CryptCaper/Resource/Monster/MonsterD.png";
-	public static final String MON_LEFTIMG_RSC = "CryptCaper/Resource/Monster/MonsterL.png";
-	public static final String MON_RIGHTIMG_RSC = "CryptCaper/Resource/Monster/MonsterR.png";
+	// Raccoon Graphics courtesy of whtdragon at rpgtileset.com
+	// https://rpgtileset.com/sprite/raccoons-sprite-for-rpg-maker-mv/
+	public static final String RACC_UPIMG_RSC = "TrashStasher/Resource/Racc/RaccU.png";
+	public static final String RACC_DOWNIMG_RSC = "TrashStasher/Resource/Racc/RaccD.png";
+	public static final String RACC_LEFTIMG_RSC = "TrashStasher/Resource/Racc/RaccL.png";
+	public static final String RACC_RIGHTIMG_RSC = "TrashStasher/Resource/Racc/RaccR.png";
+	public static final String RACC_UPWIMG_RSC = "TrashStasher/Resource/Racc/RaccUW.png";
+	public static final String RACC_DOWNWIMG_RSC = "TrashStasher/Resource/Racc/RaccDW.png";
+	public static final String RACC_LEFTWIMG_RSC = "TrashStasher/Resource/Racc/RaccLW.png";
+	public static final String RACC_RIGHTWIMG_RSC = "TrashStasher/Resource/Racc/RaccRW.png";
 	
-	public static final String MON_HOLEIMG_RSC = "CryptCaper/Resource/MonsterHole.png";
-	public static final String BG_BGIMG_RSC = "CryptCaper/Resource/Background.png";
-	public static final String HUD_LINESIMG_RSC = "CryptCaper/Resource/HudLines.png";
+	public static final String MON_UPIMG_RSC = "TrashStasher/Resource/Monster/MonsterU.png";
+	public static final String MON_DOWNIMG_RSC = "TrashStasher/Resource/Monster/MonsterD.png";
+	public static final String MON_LEFTIMG_RSC = "TrashStasher/Resource/Monster/MonsterL.png";
+	public static final String MON_RIGHTIMG_RSC = "TrashStasher/Resource/Monster/MonsterR.png";
 	
-	public static final String ARROW_UPIMG_RSC = "CryptCaper/Resource/Path/UpArrow.png";
-	public static final String ARROW_DOWNIMG_RSC = "CryptCaper/Resource/Path/DownArrow.png";
-	public static final String ARROW_LEFTIMG_RSC = "CryptCaper/Resource/Path/LeftArrow.png";
-	public static final String ARROW_RIGHTIMG_RSC = "CryptCaper/Resource/Path/RightArrow.png";
+	public static final String MON_HOLEIMG_RSC = "TrashStasher/Resource/MonsterHole.png";
+	public static final String BG_BGIMG_RSC = "TrashStasher/Resource/Background.png";
+	public static final String HUD_LINESIMG_RSC = "TrashStasher/Resource/HudLines.png";
 	
-	public static final String TREASURE_COINIMG_RSC = "CryptCaper/Resource/Treasure/coin.png";
-	public static final String TREASURE_COINBIGIMG_RSC = "CryptCaper/Resource/Treasure/coinBig.png";
+	public static final String ARROW_UPIMG_RSC = "TrashStasher/Resource/Path/UpArrow.png";
+	public static final String ARROW_DOWNIMG_RSC = "TrashStasher/Resource/Path/DownArrow.png";
+	public static final String ARROW_LEFTIMG_RSC = "TrashStasher/Resource/Path/LeftArrow.png";
+	public static final String ARROW_RIGHTIMG_RSC = "TrashStasher/Resource/Path/RightArrow.png";
+	
+	public static final String TREASURE_COINIMG_RSC = "TrashStasher/Resource/Treasure/coin.png";
+	public static final String TREASURE_COINBIGIMG_RSC = "TrashStasher/Resource/Treasure/coinBig.png";
 	
 	public static String Lvl1 = getLevelString("Level1StartSpots");
 	public static int currLevel = 1;
 	public int lives = 3;
 	public int score = 0;
 	
-	public Grid ccGrid;
-	public Dikjstra ccDikjstra;
-	public Explorer ccExplorer;
-	public Monster[] ccMons = new Monster[10];
-	public TreasureTracker ccTT;
+	public Grid tsGrid;
+	public Dikjstra tsDikjstra;
+	public Raccoon tsRacc;
+	public Monster[] tsMons = new Monster[10];
+	public TreasureTracker tsTT;
 	
 	/**
-	 * Create the CryptCaperGame frame, saving the width and height for later use.
+	 * Create the TrashStasherGame frame, saving the width and height for later use.
 	 * 
 	 * @param title
 	 *            the window's title
@@ -70,7 +77,7 @@ public class CryptCaperGame extends StateBasedGame {
 	 * @param height
 	 *            the window's height
 	 */
-	public CryptCaperGame(String title, int width, int height) {
+	public TrashStasherGame(String title, int width, int height) {
 		super(title);
 		ScreenHeight = height;
 		ScreenWidth = width;
@@ -95,10 +102,15 @@ public class CryptCaperGame extends StateBasedGame {
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		ResourceManager.loadImage(DROP_BOXIMG_RSC);
 		
-		ResourceManager.loadImage(EXP_UPIMG_RSC);
-		ResourceManager.loadImage(EXP_DOWNIMG_RSC);
-		ResourceManager.loadImage(EXP_LEFTIMG_RSC);
-		ResourceManager.loadImage(EXP_RIGHTIMG_RSC);
+		ResourceManager.loadImage(RACC_UPIMG_RSC);
+		ResourceManager.loadImage(RACC_DOWNIMG_RSC);
+		ResourceManager.loadImage(RACC_LEFTIMG_RSC);
+		ResourceManager.loadImage(RACC_RIGHTIMG_RSC);
+		
+		ResourceManager.loadImage(RACC_UPWIMG_RSC);
+		ResourceManager.loadImage(RACC_DOWNWIMG_RSC);
+		ResourceManager.loadImage(RACC_LEFTWIMG_RSC);
+		ResourceManager.loadImage(RACC_RIGHTWIMG_RSC);
 		
 		ResourceManager.loadImage(MON_UPIMG_RSC);
 		ResourceManager.loadImage(MON_DOWNIMG_RSC);
@@ -120,14 +132,14 @@ public class CryptCaperGame extends StateBasedGame {
 		// preload all the resources to avoid warnings & minimize latency...
 		//ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		
-		ccGrid = new Grid();
-		ccDikjstra = new Dikjstra(30, 15);
-		ccExplorer = new Explorer(1, 1);
+		tsGrid = new Grid();
+		tsDikjstra = new Dikjstra(30, 15);
+		tsRacc = new Raccoon(1, 1);
 
 		for (int i = 0; i < 10; i++)
-			ccMons[i] = new Monster(35, 0);
+			tsMons[i] = new Monster(35, 0);
 		
-		ccTT = new TreasureTracker();
+		tsTT = new TreasureTracker();
 		
 
 	}
@@ -168,7 +180,7 @@ public class CryptCaperGame extends StateBasedGame {
 	public static void main(String[] args) {
 		AppGameContainer app;
 		try {
-			app = new AppGameContainer(new CryptCaperGame("Crypt Caper!", 1440, 900));
+			app = new AppGameContainer(new TrashStasherGame("Trash Stasher!", 1440, 900));
 			app.setDisplayMode(1440, 900, false);
 			app.setVSync(true);
 			app.start();

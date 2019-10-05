@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +28,8 @@ class Monster extends Entity {
 	private char[][] GridElements = new char[30][15];
 	int monX = 1;
 	int monY = 1;
-	int expX;
-	int expY;
+	int raccX;
+	int raccY;
 	
 	boolean moving = false;
 	String moveDir = null;
@@ -48,7 +48,7 @@ class Monster extends Entity {
 	public Monster(final float x, final float y) {
 		super(24 + x * 48, 204 + y * 48);
 		addImageWithBoundingBox(ResourceManager
-				.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
+				.getImage(TrashStasherGame.MON_DOWNIMG_RSC));
 		velocity = new Vector(0, 0);
 		monX = (int) x;
 		monY = (int) y;
@@ -87,9 +87,9 @@ class Monster extends Entity {
 		monY = 0;
 	}
 	
-	public void setExpLoc(int x, int y) {
-		expX = x;
-		expY = y;
+	public void setRaccLoc(int x, int y) {
+		raccX = x;
+		raccY = y;
 	}
 	
 	public void choosePath() {
@@ -195,27 +195,27 @@ public void move(String dir) {
 	}
 
 	private void changeFace(String dir) {
-		removeImage(ResourceManager.getImage(CryptCaperGame.MON_UPIMG_RSC));
-		removeImage(ResourceManager.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
-		removeImage(ResourceManager.getImage(CryptCaperGame.MON_LEFTIMG_RSC));
-		removeImage(ResourceManager.getImage(CryptCaperGame.MON_RIGHTIMG_RSC));
+		removeImage(ResourceManager.getImage(TrashStasherGame.MON_UPIMG_RSC));
+		removeImage(ResourceManager.getImage(TrashStasherGame.MON_DOWNIMG_RSC));
+		removeImage(ResourceManager.getImage(TrashStasherGame.MON_LEFTIMG_RSC));
+		removeImage(ResourceManager.getImage(TrashStasherGame.MON_RIGHTIMG_RSC));
 		if (dir == "Up") 
 			addImageWithBoundingBox(ResourceManager
-					.getImage(CryptCaperGame.MON_UPIMG_RSC));
+					.getImage(TrashStasherGame.MON_UPIMG_RSC));
 		else if (dir == "Down") 
 			addImageWithBoundingBox(ResourceManager
-					.getImage(CryptCaperGame.MON_DOWNIMG_RSC));
+					.getImage(TrashStasherGame.MON_DOWNIMG_RSC));
 		else if (dir == "Left") 
 			addImageWithBoundingBox(ResourceManager
-					.getImage(CryptCaperGame.MON_LEFTIMG_RSC));
+					.getImage(TrashStasherGame.MON_LEFTIMG_RSC));
 		else if (dir == "Right") 
 			addImageWithBoundingBox(ResourceManager
-					.getImage(CryptCaperGame.MON_RIGHTIMG_RSC));
+					.getImage(TrashStasherGame.MON_RIGHTIMG_RSC));
 	}
 	
 	public void initMonPath() {
 		
-		String levelText = CryptCaperGame.Lvl1;
+		String levelText = TrashStasherGame.Lvl1;
 		
 		int k = -1;
 		int l = 0;
@@ -275,7 +275,7 @@ public void move(String dir) {
 			while (checkY >= 0) {
 				if (barrierChars.contains(GridElements[checkX][checkY]) == true)
 					break;
-				if (checkX == expX && checkY == expY)
+				if (checkX == raccX && checkY == raccY)
 					setChase();
 				checkY -= 1;
 			}
@@ -284,7 +284,7 @@ public void move(String dir) {
 			while (checkY <= 14) {
 				if (barrierChars.contains(GridElements[checkX][checkY]) == true)
 					break;
-				if (checkX == expX && checkY == expY)
+				if (checkX == raccX && checkY == raccY)
 					setChase();
 				checkY += 1;
 			}
@@ -293,7 +293,7 @@ public void move(String dir) {
 			while (checkX >= 0) {
 				if (barrierChars.contains(GridElements[checkX][checkY]) == true)
 					break;
-				if (checkX == expX && checkY == expY)
+				if (checkX == raccX && checkY == raccY)
 					setChase();
 				checkX -= 1;
 			}
@@ -302,7 +302,7 @@ public void move(String dir) {
 			while (checkX <= 29) {
 				if (barrierChars.contains(GridElements[checkX][checkY]) == true)
 					break;
-				if (checkX == expX && checkY == expY)
+				if (checkX == raccX && checkY == raccY)
 					setChase();
 				checkX += 1;
 			}
@@ -311,8 +311,8 @@ public void move(String dir) {
 	
 	public void setChase() {
 		chaseMode = true;
-		chaseTime = 250;
-		speedMod = .075f;
+		chaseTime = 400;
+		speedMod = .05f;
 	}
 	
 	public void stopChase() {

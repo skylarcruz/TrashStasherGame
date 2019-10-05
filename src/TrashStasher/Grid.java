@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +73,10 @@ public class Grid {
 	
 	public String getLevelText() {
 		
-		if (CryptCaperGame.currLevel == 1)
-			return CryptCaperGame.Lvl1;
+		if (TrashStasherGame.currLevel == 1)
+			return TrashStasherGame.Lvl1;
 		else
-			return CryptCaperGame.Lvl1;
+			return TrashStasherGame.Lvl1;
 		
 	}
 	

@@ -1,4 +1,4 @@
-package CryptCaper;
+package TrashStasher;
 
 import jig.ResourceManager;
 
@@ -15,11 +15,13 @@ class PlayingState extends BasicGameState {
 	boolean showPath = false;
 	int startCountdown = 50;
 	
-	int MonsterCountdown = 1000;
+	int MonsterCountdown;
+	static int mc = 2500;
 	int nextMonNum = 2;
 	boolean spawn = true;
 	
 	int tCountdown;
+	static int tc = 450;
 	int weightMod;
 	float speedMod;
 	
@@ -46,51 +48,51 @@ class PlayingState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 		
-		CryptCaperGame ccg = (CryptCaperGame)game;
+		TrashStasherGame tsg = (TrashStasherGame)game;
 		
-		g.drawImage(ResourceManager.getImage(CryptCaperGame.BG_BGIMG_RSC), 0,
+		g.drawImage(ResourceManager.getImage(TrashStasherGame.BG_BGIMG_RSC), 0,
 				0);
-		g.drawImage(ResourceManager.getImage(CryptCaperGame.HUD_LINESIMG_RSC), 0,
+		g.drawImage(ResourceManager.getImage(TrashStasherGame.HUD_LINESIMG_RSC), 0,
 				0);
 		
-		ccg.ccGrid.render(g);
-		ccg.ccTT.render(g);
+		tsg.tsGrid.render(g);
+		tsg.tsTT.render(g);
 		
 		if (showPath == true) {
-			getPath(ccg, g);
+			getPath(tsg, g);
 		}
 		
 		
-		ccg.ccExplorer.render(g);
+		tsg.tsRacc.render(g);
 		
 		for (int i = 0; i < 10; i++)
-			ccg.ccMons[i].render(g);
+			tsg.tsMons[i].render(g);
 		
-		g.drawString("Lives: " + ccg.lives, 10, 30);
-		g.drawString("Score: " + ccg.score, 10, 50);
+		g.drawString("Lives: " + tsg.lives, 10, 30);
+		g.drawString("Score: " + tsg.score, 10, 50);
 		if (totAddScore > 0)
 			g.drawString("+" + totAddScore, 10, 70);
 		
 	}
 	
 	private void getPath(StateBasedGame game, Graphics g) {
-		CryptCaperGame ccg = (CryptCaperGame)game;
+		TrashStasherGame tsg = (TrashStasherGame)game;
 		
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 30; j++) {	
-				if (ccg.ccDikjstra.graph[j][i].cost < 500) {
-					String dir = ccg.ccDikjstra.getBestDir(j, i);
+				if (tsg.tsDikjstra.graph[j][i].cost < 500) {
+					String dir = tsg.tsDikjstra.getBestDir(j, i);
 					if (dir == "Up")
-						g.drawImage(ResourceManager.getImage(CryptCaperGame.ARROW_UPIMG_RSC), 
+						g.drawImage(ResourceManager.getImage(TrashStasherGame.ARROW_UPIMG_RSC), 
 								j*48, 180 + i*48);
 					if (dir == "Down")
-						g.drawImage(ResourceManager.getImage(CryptCaperGame.ARROW_DOWNIMG_RSC), 
+						g.drawImage(ResourceManager.getImage(TrashStasherGame.ARROW_DOWNIMG_RSC), 
 								j*48, 180 + i*48);
 					if (dir == "Left")
-						g.drawImage(ResourceManager.getImage(CryptCaperGame.ARROW_LEFTIMG_RSC), 
+						g.drawImage(ResourceManager.getImage(TrashStasherGame.ARROW_LEFTIMG_RSC), 
 								j*48, 180 + i*48);
 					if (dir == "Right")
-						g.drawImage(ResourceManager.getImage(CryptCaperGame.ARROW_RIGHTIMG_RSC), 
+						g.drawImage(ResourceManager.getImage(TrashStasherGame.ARROW_RIGHTIMG_RSC), 
 								j*48, 180 + i*48);
 				}
 			}
@@ -102,12 +104,12 @@ class PlayingState extends BasicGameState {
 			int delta) throws SlickException {
 
 		Input input = container.getInput();
-		CryptCaperGame ccg = (CryptCaperGame)game;
+		TrashStasherGame tsg = (TrashStasherGame)game;
 		
 		// updates the dikjstra source and runs algorithm if change occurs
-		if (ccg.ccDikjstra.setExpLoc(ccg.ccExplorer.getGridX(),
-				ccg.ccExplorer.getGridY()) == true)
-			ccg.ccDikjstra.runDikjstra();
+		if (tsg.tsDikjstra.setRaccLoc(tsg.tsRacc.getGridX(),
+				tsg.tsRacc.getGridY()) == true)
+			tsg.tsDikjstra.runDikjstra();
 		
 		
 		// Pause Game
@@ -134,9 +136,9 @@ class PlayingState extends BasicGameState {
 		// prevent starting monsters from spawning on the same location, also start countdown
 		if (startCountdown > 0) {
 			startCountdown -= 1;
-			if (ccg.ccMons[0].collides(ccg.ccMons[1]) != null) {
-				ccg.ccMons[1].deactivate();
-				ccg.ccMons[1].setStartLocation();
+			if (tsg.tsMons[0].collides(tsg.tsMons[1]) != null) {
+				tsg.tsMons[1].deactivate();
+				tsg.tsMons[1].setStartLocation();
 				System.out.println("Thing Happened");
 			}
 		}
@@ -147,10 +149,10 @@ class PlayingState extends BasicGameState {
 			
 			// Monster Spawn. Spawn until all Monsters on board
 			if (MonsterCountdown <= 0 && spawn) {
-				ccg.ccMons[nextMonNum].setStartLocation();
+				tsg.tsMons[nextMonNum].setStartLocation();
 				if (nextMonNum < 9) {
 					nextMonNum += 1;
-					MonsterCountdown = 1000;
+					MonsterCountdown = mc;
 				}
 				else
 					spawn = false;
@@ -159,22 +161,22 @@ class PlayingState extends BasicGameState {
 			
 			tCountdown -= 1;
 			if (tCountdown <= 0) {
-				ccg.ccTT.addToMap();
-				tCountdown = 50;
+				tsg.tsTT.addToMap();
+				tCountdown = tc;
 			}
 			
 			// pop Treasure off Inv
 			if (input.isKeyPressed(Input.KEY_J)) {
-				weightMod = ccg.ccTT.popInv();
+				weightMod = tsg.tsTT.popInv();
 				speedMod = (float) weightMod * .0008f;
-				ccg.ccExplorer.changeSpeed(speedMod);
+				tsg.tsRacc.changeSpeed(speedMod);
 			}
 			
 			// Treasure Scoring
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
-				if (scoreCompile == false && ccg.ccTT.invCnt > 0 &&
-					ccg.ccGrid.checkForDropBox(ccg.ccExplorer.getGridX(),ccg.ccExplorer.getGridY())) {
-						multiplier = ccg.ccTT.invCnt;
+				if (scoreCompile == false && tsg.tsTT.invCnt > 0 &&
+					tsg.tsGrid.checkForDropBox(tsg.tsRacc.getGridX(),tsg.tsRacc.getGridY())) {
+						multiplier = tsg.tsTT.invCnt;
 						scoreTimer = multiplier * 25;
 						scoreCompile = true;
 				}
@@ -182,12 +184,12 @@ class PlayingState extends BasicGameState {
 			
 			if (scoreCompile == true) {
 				if (scoreTimer % 25 == 0) {
-					addScore = multiplier * ccg.ccTT.popScore();
+					addScore = multiplier * tsg.tsTT.popScore();
 					totAddScore += addScore;
-					ccg.score += addScore;
-					weightMod = ccg.ccTT.popInv();
+					tsg.score += addScore;
+					weightMod = tsg.tsTT.popInv();
 					speedMod = (float) weightMod * .0008f;
-					ccg.ccExplorer.changeSpeed(speedMod);
+					tsg.tsRacc.changeSpeed(speedMod);
 				}
 				scoreTimer -= 1;
 				if (scoreTimer <= 0) {
@@ -199,66 +201,66 @@ class PlayingState extends BasicGameState {
 			}
 			
 			// Player Movement Checks
-			if (input.isKeyDown(Input.KEY_W) && ccg.ccExplorer.inputAccept)
-				if (ccg.ccExplorer.checkDir("Up")) {
-					ccg.ccExplorer.inputAccept = false;
-					ccg.ccExplorer.move("Up");
+			if (input.isKeyDown(Input.KEY_W) && tsg.tsRacc.inputAccept)
+				if (tsg.tsRacc.checkDir("Up")) {
+					tsg.tsRacc.inputAccept = false;
+					tsg.tsRacc.move("Up");
 				}
-			if (input.isKeyDown(Input.KEY_S) && ccg.ccExplorer.inputAccept)
-				if (ccg.ccExplorer.checkDir("Down")){
-					ccg.ccExplorer.inputAccept = false;
-					ccg.ccExplorer.move("Down");
+			if (input.isKeyDown(Input.KEY_S) && tsg.tsRacc.inputAccept)
+				if (tsg.tsRacc.checkDir("Down")){
+					tsg.tsRacc.inputAccept = false;
+					tsg.tsRacc.move("Down");
 				}
-			if (input.isKeyDown(Input.KEY_A) && ccg.ccExplorer.inputAccept)
-				if (ccg.ccExplorer.checkDir("Left")){
-					ccg.ccExplorer.inputAccept = false;
-					ccg.ccExplorer.move("Left");
+			if (input.isKeyDown(Input.KEY_A) && tsg.tsRacc.inputAccept)
+				if (tsg.tsRacc.checkDir("Left")){
+					tsg.tsRacc.inputAccept = false;
+					tsg.tsRacc.move("Left");
 				}
-			if (input.isKeyDown(Input.KEY_D) && ccg.ccExplorer.inputAccept)
-				if (ccg.ccExplorer.checkDir("Right")){
-					ccg.ccExplorer.inputAccept = false;
-					ccg.ccExplorer.move("Right");
+			if (input.isKeyDown(Input.KEY_D) && tsg.tsRacc.inputAccept)
+				if (tsg.tsRacc.checkDir("Right")){
+					tsg.tsRacc.inputAccept = false;
+					tsg.tsRacc.move("Right");
 				}
 	
 			// Loss from collision into Monsters
 			for (int i = 0; i < 10; i++) {
-				if ((ccg.ccMons[i].collides(ccg.ccExplorer) != null))
+				if ((tsg.tsMons[i].collides(tsg.tsRacc) != null))
 					loseLife(game);
 			}
 			
 			// Treasure Pickup
 			if (scoreCompile == false) {
 				for (int i = 0; i < 3; i++) {
-					if (ccg.ccTT.mapTreasure[i].collides(ccg.ccExplorer) != null) {
-						weightMod = -1 * ccg.ccTT.moveToInv(ccg.ccTT.mapTreasure[i]);
+					if (tsg.tsTT.mapTreasure[i].collides(tsg.tsRacc) != null) {
+						weightMod = -1 * tsg.tsTT.moveToInv(tsg.tsTT.mapTreasure[i]);
 						speedMod = (float) weightMod * .0008f;
-						ccg.ccExplorer.changeSpeed(speedMod);
+						tsg.tsRacc.changeSpeed(speedMod);
 					}
 				}
 			}
 			// Treasure lands on other Treasure
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
-					if (i != j && ccg.ccTT.mapTreasure[i].inMap == true) {
-						if (ccg.ccTT.mapTreasure[i].collides(ccg.ccTT.mapTreasure[j]) != null) {
-							ccg.ccTT.mapTreasure[j].reset();
-							ccg.ccTT.addToMap();
+					if (i != j && tsg.tsTT.mapTreasure[i].inMap == true) {
+						if (tsg.tsTT.mapTreasure[i].collides(tsg.tsTT.mapTreasure[j]) != null) {
+							tsg.tsTT.mapTreasure[j].reset();
+							tsg.tsTT.addToMap();
 						}
 					}
 				}
 			}			
 			
 			// Update entities
-			ccg.ccExplorer.update(delta);
+			tsg.tsRacc.update(delta);
 			
 			for (int i = 0; i < 10; i++) {
-				ccg.ccMons[i].update(delta);
-				ccg.ccMons[i].setExpLoc(
-						ccg.ccExplorer.getGridX(),ccg.ccExplorer.getGridY());
-				if (ccg.ccMons[i].active == true) {
-					String bestDir = ccg.ccDikjstra.getBestDir(
-							ccg.ccMons[i].monX, ccg.ccMons[i].monY);
-					ccg.ccMons[i].setBestDir(bestDir);
+				tsg.tsMons[i].update(delta);
+				tsg.tsMons[i].setRaccLoc(
+						tsg.tsRacc.getGridX(),tsg.tsRacc.getGridY());
+				if (tsg.tsMons[i].active == true) {
+					String bestDir = tsg.tsDikjstra.getBestDir(
+							tsg.tsMons[i].monX, tsg.tsMons[i].monY);
+					tsg.tsMons[i].setBestDir(bestDir);
 				}
 			}
 			
@@ -267,48 +269,48 @@ class PlayingState extends BasicGameState {
 	}
 	
 	public void loseLife(StateBasedGame game) {
-		CryptCaperGame ccg = (CryptCaperGame)game;
+		TrashStasherGame tsg = (TrashStasherGame)game;
 		
-		if (ccg.lives > 1) {
-			ccg.lives -= 1;
+		if (tsg.lives > 1) {
+			tsg.lives -= 1;
 			setLevel(game);
 		}
 		else {
 			//((GameOverState)game.getState(CryptCaperGame.GAMEOVERSTATE)).setUserScore(bounces);
-			ccg.score = 0;
-			game.enterState(CryptCaperGame.GAMEOVERSTATE);
+			tsg.score = 0;
+			game.enterState(TrashStasherGame.GAMEOVERSTATE);
 		}
 	}
 	
 	public void setLevel(StateBasedGame game) {
 		
-		CryptCaperGame ccg = (CryptCaperGame)game;
+		TrashStasherGame tsg = (TrashStasherGame)game;
 		
-		ccg.ccDikjstra.setGrid();
-		ccg.ccDikjstra.setExpLoc(
-				ccg.ccExplorer.getGridX(),ccg.ccExplorer.getGridY());
-		ccg.ccDikjstra.runDikjstra();
+		tsg.tsDikjstra.setGrid();
+		tsg.tsDikjstra.setRaccLoc(
+				tsg.tsRacc.getGridX(),tsg.tsRacc.getGridY());
+		tsg.tsDikjstra.runDikjstra();
 		
 		spawn = true;
 		startCountdown = 50;
 		
 		for (int i = 0; i < 10; i++)
-			ccg.ccMons[i].deactivate();
+			tsg.tsMons[i].deactivate();
 		for (int i = 0; i < 2; i++)
-			ccg.ccMons[i].setStartLocation();
+			tsg.tsMons[i].setStartLocation();
 		nextMonNum = 2;
-		MonsterCountdown = 1000;
+		MonsterCountdown = mc;
 		
-		ccg.ccExplorer.reset();
+		tsg.tsRacc.reset();
 		
-		ccg.ccTT.reset();
-		tCountdown = 50;
+		tsg.tsTT.reset();
+		tCountdown = tc;
 		
 	}
 
 	@Override
 	public int getID() {
-		return CryptCaperGame.PLAYINGSTATE;
+		return TrashStasherGame.PLAYINGSTATE;
 	}
 	
 }
