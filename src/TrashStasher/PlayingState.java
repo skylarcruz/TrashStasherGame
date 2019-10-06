@@ -275,7 +275,7 @@ class PlayingState extends BasicGameState {
 			setLevel(game);
 		}
 		else {
-			//((GameOverState)game.getState(CryptCaperGame.GAMEOVERSTATE)).setUserScore(bounces);
+			((GameOverState)game.getState(TrashStasherGame.GAMEOVERSTATE)).setUserScore(tsg.score);
 			tsg.score = 0;
 			game.enterState(TrashStasherGame.GAMEOVERSTATE);
 		}

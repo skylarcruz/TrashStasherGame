@@ -4,10 +4,14 @@ import jig.Entity;
 import jig.ResourceManager;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 
 import org.newdawn.slick.AppGameContainer;
@@ -56,11 +60,19 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String TREASURE_COINIMG_RSC = "TrashStasher/Resource/Treasure/coin.png";
 	public static final String TREASURE_COINBIGIMG_RSC = "TrashStasher/Resource/Treasure/coinBig.png";
 	
+	public static final String LVL1_SCORES_TXT = "lvl1Score.txt";
+	public static final String LVL2_SCORES_TXT = "lvl2Score.txt";
+	public static final String LVL3_SCORES_TXT = "lvl3Score.txt";
+	
 	public static String Lvl1 = getLevelString("Level1StartSpots");
 	public static int currLevel = 1;
-	public static int raccNum = 5;
-	public int lives = 3;
+	public static int raccNum = 1;
+	public int lives = 1;
 	public int score = 0;
+	
+	public static int[] highScore1 = new int[10];
+	public static int[] highScore2 = new int[10];
+	public static int[] highScore3 = new int[10];
 	
 	public Grid tsGrid;
 	public Dikjstra tsDikjstra;
@@ -178,6 +190,68 @@ public class TrashStasherGame extends StateBasedGame {
 		    }
 		
 		return content;
+		
+	}
+	
+	public static void getHighScores(String scoreTXT, int[] scoreArr) {
+		
+		String str;
+		int i;
+		File fileDir;
+		BufferedReader in;
+
+		try {
+			fileDir = new File(scoreTXT);
+				
+			in = new BufferedReader(new InputStreamReader
+					(new FileInputStream(fileDir), "UTF8"));
+			        
+			i = 0;
+			while ((str = in.readLine()) != null) {
+				scoreArr[i] = Integer.parseInt(str);
+				i += 1;
+			}
+	        in.close();
+		} 
+	    catch (UnsupportedEncodingException e) {
+			System.out.println(e.getMessage()); }
+	    catch (IOException e) {
+			System.out.println(e.getMessage());}
+	    catch (Exception e){
+			System.out.println(e.getMessage()); }
+		
+	}
+	
+	public static void setHighScores(String scoreTXT, int[]scoreArr) {
+		
+		File fileDir;
+		BufferedWriter out;
+
+		try {
+			fileDir = new File(scoreTXT);
+			
+			if(fileDir.delete()){
+			    fileDir.createNewFile();
+			}else{
+			    //throw an exception indicating that the file could not be cleared
+			}
+			
+			out = new BufferedWriter(new OutputStreamWriter
+					(new FileOutputStream(fileDir)));
+			     
+			for (int i = 0; i < 10; i++) {
+				out.write(Integer.toString(scoreArr[i]));
+				out.newLine();
+			}
+
+	        out.close();
+		} 
+	    catch (UnsupportedEncodingException e) {
+			System.out.println(e.getMessage()); }
+	    catch (IOException e) {
+			System.out.println(e.getMessage());}
+	    catch (Exception e){
+			System.out.println(e.getMessage()); }
 		
 	}
 	
