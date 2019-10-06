@@ -139,7 +139,6 @@ class PlayingState extends BasicGameState {
 			if (tsg.tsMons[0].collides(tsg.tsMons[1]) != null) {
 				tsg.tsMons[1].deactivate();
 				tsg.tsMons[1].setStartLocation();
-				System.out.println("Thing Happened");
 			}
 		}
 		

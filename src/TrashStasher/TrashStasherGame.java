@@ -30,14 +30,14 @@ public class TrashStasherGame extends StateBasedGame {
 	
 	// Raccoon Graphics courtesy of whtdragon at rpgtileset.com
 	// https://rpgtileset.com/sprite/raccoons-sprite-for-rpg-maker-mv/
-	public static final String RACC_UPIMG_RSC = "TrashStasher/Resource/Racc/RaccU.png";
-	public static final String RACC_DOWNIMG_RSC = "TrashStasher/Resource/Racc/RaccD.png";
-	public static final String RACC_LEFTIMG_RSC = "TrashStasher/Resource/Racc/RaccL.png";
-	public static final String RACC_RIGHTIMG_RSC = "TrashStasher/Resource/Racc/RaccR.png";
-	public static final String RACC_UPWIMG_RSC = "TrashStasher/Resource/Racc/RaccUW.png";
-	public static final String RACC_DOWNWIMG_RSC = "TrashStasher/Resource/Racc/RaccDW.png";
-	public static final String RACC_LEFTWIMG_RSC = "TrashStasher/Resource/Racc/RaccLW.png";
-	public static final String RACC_RIGHTWIMG_RSC = "TrashStasher/Resource/Racc/RaccRW.png";
+	public static final String RACC_UPIMG_RSC = "TrashStasher/Resource/Racc/RaccU";
+	public static final String RACC_DOWNIMG_RSC = "TrashStasher/Resource/Racc/RaccD";
+	public static final String RACC_LEFTIMG_RSC = "TrashStasher/Resource/Racc/RaccL";
+	public static final String RACC_RIGHTIMG_RSC = "TrashStasher/Resource/Racc/RaccR";
+	public static final String RACC_UPWIMG_RSC = "TrashStasher/Resource/Racc/RaccUW";
+	public static final String RACC_DOWNWIMG_RSC = "TrashStasher/Resource/Racc/RaccDW";
+	public static final String RACC_LEFTWIMG_RSC = "TrashStasher/Resource/Racc/RaccLW";
+	public static final String RACC_RIGHTWIMG_RSC = "TrashStasher/Resource/Racc/RaccRW";
 	
 	public static final String MON_UPIMG_RSC = "TrashStasher/Resource/Monster/MonsterU.png";
 	public static final String MON_DOWNIMG_RSC = "TrashStasher/Resource/Monster/MonsterD.png";
@@ -58,6 +58,7 @@ public class TrashStasherGame extends StateBasedGame {
 	
 	public static String Lvl1 = getLevelString("Level1StartSpots");
 	public static int currLevel = 1;
+	public static int raccNum = 5;
 	public int lives = 3;
 	public int score = 0;
 	
@@ -99,18 +100,21 @@ public class TrashStasherGame extends StateBasedGame {
 		// and (2) because loading it will load the audio libraries and
 		// unless that is done now, we can't *disable* sound as we
 		// attempt to do in the startUp() method.
+		ResourceManager.setFilterMethod(2);
+		
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		ResourceManager.loadImage(DROP_BOXIMG_RSC);
 		
-		ResourceManager.loadImage(RACC_UPIMG_RSC);
-		ResourceManager.loadImage(RACC_DOWNIMG_RSC);
-		ResourceManager.loadImage(RACC_LEFTIMG_RSC);
-		ResourceManager.loadImage(RACC_RIGHTIMG_RSC);
-		
-		ResourceManager.loadImage(RACC_UPWIMG_RSC);
-		ResourceManager.loadImage(RACC_DOWNWIMG_RSC);
-		ResourceManager.loadImage(RACC_LEFTWIMG_RSC);
-		ResourceManager.loadImage(RACC_RIGHTWIMG_RSC);
+		for (int i = 1; i <= 5; i ++) {
+			ResourceManager.loadImage(RACC_UPIMG_RSC + Integer.toString(i) + ".png");
+			ResourceManager.loadImage(RACC_DOWNIMG_RSC + Integer.toString(i) + ".png");
+			ResourceManager.loadImage(RACC_LEFTIMG_RSC + Integer.toString(i) + ".png");
+			ResourceManager.loadImage(RACC_RIGHTIMG_RSC + Integer.toString(i) + ".png");
+			ResourceManager.loadImage(RACC_UPWIMG_RSC + Integer.toString(i) + ".png");
+			ResourceManager.loadImage(RACC_DOWNWIMG_RSC + Integer.toString(i) + ".png");
+			ResourceManager.loadImage(RACC_LEFTWIMG_RSC + Integer.toString(i) + ".png");
+			ResourceManager.loadImage(RACC_RIGHTWIMG_RSC + Integer.toString(i) + ".png");
+		}
 		
 		ResourceManager.loadImage(MON_UPIMG_RSC);
 		ResourceManager.loadImage(MON_DOWNIMG_RSC);

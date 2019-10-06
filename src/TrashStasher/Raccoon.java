@@ -18,6 +18,7 @@ class Raccoon extends Entity {
 	int raccY = 1;
 	int startX;
 	int startY;
+	int raccType = TrashStasherGame.raccNum;
 	
 	public boolean inputAccept = true;
 	
@@ -37,12 +38,9 @@ class Raccoon extends Entity {
 
 	public Raccoon(final float x, final float y) {				
 		super(24 + x * 48, 204 + y * 48);
-		addImage(ResourceManager
-				.getImage(TrashStasherGame.RACC_DOWNIMG_RSC));
-		setCoarseGrainedMinX(24 + x * 48);
-		setCoarseGrainedMinY(204 + y * 48);
-		setCoarseGrainedMaxX(24 + x * 48);
-		setCoarseGrainedMaxY(204 + y * 48);
+		addImageWithBoundingBox(ResourceManager
+				.getImage(TrashStasherGame.RACC_DOWNIMG_RSC 
+						+ Integer.toString(raccType) + ".png"));
 	    
 		velocity = new Vector(0, 0);
 		raccX = (int) x;
@@ -52,19 +50,7 @@ class Raccoon extends Entity {
 		barrierChars.add('M');
 		barrierChars.add('D');
 		
-		walkUp = new Animation(ResourceManager.getSpriteSheet
-				(TrashStasherGame.RACC_UPWIMG_RSC, 19, 41), 100);
-		walkUp.setLooping(true);
-		walkDown = new Animation(ResourceManager.getSpriteSheet
-				(TrashStasherGame.RACC_DOWNWIMG_RSC, 19, 41), 100);
-		walkDown.setLooping(true);
-		walkLeft = new Animation(ResourceManager.getSpriteSheet
-				(TrashStasherGame.RACC_LEFTWIMG_RSC, 39, 29), 100);
-		walkLeft.setLooping(true);
-		walkRight = new Animation(ResourceManager.getSpriteSheet
-				(TrashStasherGame.RACC_RIGHTWIMG_RSC, 39, 29), 100);
-		walkRight.setLooping(true);
-		
+		setAllAnimations();
 	}
 	
 	public void setVelocity(final Vector v) {
@@ -85,6 +71,10 @@ class Raccoon extends Entity {
 	
 	public void reset() {
 		initRaccPath();
+		cleanSprite();
+		raccType = TrashStasherGame.raccNum;
+		setAllAnimations();
+		changeFace("Down");
 		velocity = new Vector(0, 0);
 		inputAccept = true;
 		moveU = false;
@@ -95,6 +85,25 @@ class Raccoon extends Entity {
 		raccY = startY;
 		speedMod = 0;
 		setPosition(24 + startX * 48, 204 + startY * 48);
+	}
+	
+	public void setAllAnimations() {
+		walkUp = new Animation(ResourceManager.getSpriteSheet
+				(TrashStasherGame.RACC_UPWIMG_RSC
+						+ Integer.toString(raccType) + ".png", 19, 41), 100);
+		walkUp.setLooping(true);
+		walkDown = new Animation(ResourceManager.getSpriteSheet
+				(TrashStasherGame.RACC_DOWNWIMG_RSC
+						+ Integer.toString(raccType) + ".png", 19, 41), 100);
+		walkDown.setLooping(true);
+		walkLeft = new Animation(ResourceManager.getSpriteSheet
+				(TrashStasherGame.RACC_LEFTWIMG_RSC
+						+ Integer.toString(raccType) + ".png", 39, 29), 100);
+		walkLeft.setLooping(true);
+		walkRight = new Animation(ResourceManager.getSpriteSheet
+				(TrashStasherGame.RACC_RIGHTWIMG_RSC 
+						+ Integer.toString(raccType) + ".png", 39, 29), 100);
+		walkRight.setLooping(true);
 	}
 	
 	public boolean checkDir(String dir) {
@@ -164,10 +173,14 @@ class Raccoon extends Entity {
 	}
 	
 	private void cleanSprite() {
-		removeImage(ResourceManager.getImage(TrashStasherGame.RACC_UPIMG_RSC));
-		removeImage(ResourceManager.getImage(TrashStasherGame.RACC_DOWNIMG_RSC));
-		removeImage(ResourceManager.getImage(TrashStasherGame.RACC_LEFTIMG_RSC));
-		removeImage(ResourceManager.getImage(TrashStasherGame.RACC_RIGHTIMG_RSC));
+		removeImage(ResourceManager.getImage(TrashStasherGame.RACC_UPIMG_RSC 
+				+ Integer.toString(raccType) + ".png"));
+		removeImage(ResourceManager.getImage(TrashStasherGame.RACC_DOWNIMG_RSC 
+				+ Integer.toString(raccType) + ".png"));
+		removeImage(ResourceManager.getImage(TrashStasherGame.RACC_LEFTIMG_RSC 
+				+ Integer.toString(raccType) + ".png"));
+		removeImage(ResourceManager.getImage(TrashStasherGame.RACC_RIGHTIMG_RSC 
+				+ Integer.toString(raccType) + ".png"));
 		removeAnimation(walkDown);
 		removeAnimation(walkUp);
 		removeAnimation(walkLeft);
@@ -178,16 +191,20 @@ class Raccoon extends Entity {
 		cleanSprite();
 		if (dir == "Up") 
 			addImageWithBoundingBox(ResourceManager
-					.getImage(TrashStasherGame.RACC_UPIMG_RSC));
+					.getImage(TrashStasherGame.RACC_UPIMG_RSC 
+							+ Integer.toString(raccType) + ".png"));
 		else if (dir == "Down") 
 			addImageWithBoundingBox(ResourceManager
-					.getImage(TrashStasherGame.RACC_DOWNIMG_RSC));
+					.getImage(TrashStasherGame.RACC_DOWNIMG_RSC 
+							+ Integer.toString(raccType) + ".png"));
 		else if (dir == "Left") 
 			addImageWithBoundingBox(ResourceManager
-					.getImage(TrashStasherGame.RACC_LEFTIMG_RSC));
+					.getImage(TrashStasherGame.RACC_LEFTIMG_RSC 
+							+ Integer.toString(raccType) + ".png"));
 		else if (dir == "Right") 
 			addImageWithBoundingBox(ResourceManager
-					.getImage(TrashStasherGame.RACC_RIGHTIMG_RSC));
+					.getImage(TrashStasherGame.RACC_RIGHTIMG_RSC 
+							 + Integer.toString(raccType) + ".png"));
 	}
 	
 	public void changeSpeed(float s) {
@@ -222,7 +239,6 @@ class Raccoon extends Entity {
 			}
 		}
 		if (moveR == true) {
-			System.out.println("Test");
 			if (getX() > 24 + (raccX * 48)) {
 				velocity = new Vector(0,0);
 				setX(24 + raccX * 48);
