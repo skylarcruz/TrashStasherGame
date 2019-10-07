@@ -28,8 +28,6 @@ class StartUpState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 		
-		//TrashStasherGame tsg = (TrashStasherGame)game;
-		
 		g.drawString("MAIN MENU", 200, 220);
 		g.drawString("Start Game", 200, 300);
 		g.drawString("Raccoon: ", 200, 350);

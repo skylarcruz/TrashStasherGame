@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,7 +28,8 @@ public class TrashStasherGame extends StateBasedGame {
 	public final int ScreenHeight;
 	
 	public static final String WALL_WALLIMG_RSC = "TrashStasher/Resource/WallTest.png";
-	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/DropBox.png";
+	public static final String PATH_PATHIMG_RSC = "TrashStasher/Resource/City/PathBig.png";
+	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan.png";
 	
 	
 	// Raccoon Graphics courtesy of whtdragon at rpgtileset.com
@@ -43,10 +43,14 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String RACC_LEFTWIMG_RSC = "TrashStasher/Resource/Racc/RaccLW";
 	public static final String RACC_RIGHTWIMG_RSC = "TrashStasher/Resource/Racc/RaccRW";
 	
-	public static final String MON_UPIMG_RSC = "TrashStasher/Resource/Monster/MonsterU.png";
-	public static final String MON_DOWNIMG_RSC = "TrashStasher/Resource/Monster/MonsterD.png";
-	public static final String MON_LEFTIMG_RSC = "TrashStasher/Resource/Monster/MonsterL.png";
-	public static final String MON_RIGHTIMG_RSC = "TrashStasher/Resource/Monster/MonsterR.png";
+	public static final String DOG_UPIMG_RSC = "TrashStasher/Resource/Dog/dogU.png";
+	public static final String DOG_DOWNIMG_RSC = "TrashStasher/Resource/Dog/dogD.png";
+	public static final String DOG_LEFTIMG_RSC = "TrashStasher/Resource/Dog/dogL.png";
+	public static final String DOG_RIGHTIMG_RSC = "TrashStasher/Resource/Dog/dogR.png";
+	public static final String DOG_UPWIMG_RSC = "TrashStasher/Resource/Dog/dogUW.png";
+	public static final String DOG_DOWNWIMG_RSC = "TrashStasher/Resource/Dog/dogDW.png";
+	public static final String DOG_LEFTWIMG_RSC = "TrashStasher/Resource/Dog/dogLW.png";
+	public static final String DOG_RIGHTWIMG_RSC = "TrashStasher/Resource/Dog/dogRW.png";
 	
 	public static final String MON_HOLEIMG_RSC = "TrashStasher/Resource/MonsterHole.png";
 	public static final String BG_BGIMG_RSC = "TrashStasher/Resource/Background.png";
@@ -64,10 +68,10 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String LVL2_SCORES_TXT = "lvl2Score.txt";
 	public static final String LVL3_SCORES_TXT = "lvl3Score.txt";
 	
-	public static String Lvl1 = getLevelString("Level1StartSpots");
+	public static String Lvl1 = getLevelString("Level1");
 	public static int currLevel = 1;
 	public static int raccNum = 1;
-	public int lives = 1;
+	public int lives = 3;
 	public int score = 0;
 	
 	public static int[] highScore1 = new int[10];
@@ -77,7 +81,7 @@ public class TrashStasherGame extends StateBasedGame {
 	public Grid tsGrid;
 	public Dikjstra tsDikjstra;
 	public Raccoon tsRacc;
-	public Monster[] tsMons = new Monster[10];
+	public Dog[] tsDogs = new Dog[10];
 	public TreasureTracker tsTT;
 	
 	/**
@@ -115,6 +119,7 @@ public class TrashStasherGame extends StateBasedGame {
 		ResourceManager.setFilterMethod(2);
 		
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
+		ResourceManager.loadImage(PATH_PATHIMG_RSC);
 		ResourceManager.loadImage(DROP_BOXIMG_RSC);
 		
 		for (int i = 1; i <= 5; i ++) {
@@ -128,10 +133,14 @@ public class TrashStasherGame extends StateBasedGame {
 			ResourceManager.loadImage(RACC_RIGHTWIMG_RSC + Integer.toString(i) + ".png");
 		}
 		
-		ResourceManager.loadImage(MON_UPIMG_RSC);
-		ResourceManager.loadImage(MON_DOWNIMG_RSC);
-		ResourceManager.loadImage(MON_LEFTIMG_RSC);
-		ResourceManager.loadImage(MON_RIGHTIMG_RSC);
+		ResourceManager.loadImage(DOG_UPIMG_RSC);
+		ResourceManager.loadImage(DOG_DOWNIMG_RSC);
+		ResourceManager.loadImage(DOG_LEFTIMG_RSC);
+		ResourceManager.loadImage(DOG_RIGHTIMG_RSC);
+		ResourceManager.loadImage(DOG_UPWIMG_RSC);
+		ResourceManager.loadImage(DOG_DOWNWIMG_RSC);
+		ResourceManager.loadImage(DOG_LEFTWIMG_RSC);
+		ResourceManager.loadImage(DOG_RIGHTWIMG_RSC);
 		
 		ResourceManager.loadImage(MON_HOLEIMG_RSC);
 		ResourceManager.loadImage(BG_BGIMG_RSC);
@@ -146,14 +155,13 @@ public class TrashStasherGame extends StateBasedGame {
 		ResourceManager.loadImage(TREASURE_COINBIGIMG_RSC);
 
 		// preload all the resources to avoid warnings & minimize latency...
-		//ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		
 		tsGrid = new Grid();
 		tsDikjstra = new Dikjstra(30, 15);
 		tsRacc = new Raccoon(1, 1);
 
 		for (int i = 0; i < 10; i++)
-			tsMons[i] = new Monster(35, 0);
+			tsDogs[i] = new Dog(35, 0);
 		
 		tsTT = new TreasureTracker();
 		
