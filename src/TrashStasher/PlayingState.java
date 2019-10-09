@@ -184,7 +184,7 @@ class PlayingState extends BasicGameState {
 			}
 			
 			if (scoreCompile == true) {
-				if (scoreTimer % 25 == 0) {
+				if (scoreTimer % 25 == 0 && tsg.tsTT.invCnt > 0) {
 					addScore = multiplier * tsg.tsTT.popScore();
 					totAddScore += addScore;
 					tsg.score += addScore;
@@ -306,6 +306,13 @@ class PlayingState extends BasicGameState {
 		
 		tsg.tsTT.reset();
 		tCountdown = tc;
+		
+		scoreTimer = 0;
+		multiplier = 1;
+		scoreCompile = false;
+		addScore = 0;
+		totAddScore = 0;
+		
 		
 	}
 

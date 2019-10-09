@@ -102,13 +102,13 @@ public class TreasureTracker {
 	}
 	
 	public void reset() {
+		invCnt = 0;
 		for (int i = 0; i < 8; i++) {
 			invTreasure[i].reset();
 		}
 		for (int i = 0; i < 3; i++)
 			mapTreasure[i].reset();
 		addToMap();
-		invCnt = 0;
 	}
 	
 }

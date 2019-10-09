@@ -27,6 +27,8 @@ public class TrashStasherGame extends StateBasedGame {
 	public final int ScreenWidth;
 	public final int ScreenHeight;
 	
+	public static final String TITLE_NAMEIMG_RSC = "TrashStasher/Resource/titleName.png";
+	
 	public static final String WALL_WALLIMG_RSC = "TrashStasher/Resource/WallTest.png";
 	public static final String PATH_PATHIMG_RSC = "TrashStasher/Resource/City/PathBig.png";
 	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan.png";
@@ -117,6 +119,8 @@ public class TrashStasherGame extends StateBasedGame {
 		// unless that is done now, we can't *disable* sound as we
 		// attempt to do in the startUp() method.
 		ResourceManager.setFilterMethod(2);
+		
+		ResourceManager.loadImage(TITLE_NAMEIMG_RSC);
 		
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		ResourceManager.loadImage(PATH_PATHIMG_RSC);
