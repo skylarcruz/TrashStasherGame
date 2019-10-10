@@ -35,6 +35,7 @@ class StartUpState extends BasicGameState {
 		g.drawString("Raccoon: ", 600, 425);
 		renderRaccSprite(g, TrashStasherGame.raccNum);
 		g.drawString("Cheat Menu", 600, 475);
+		g.drawString("Quit", 600, 525);
 		
 		if (currSel == 1)
 			g.drawString("=>", 550, 375);
@@ -44,6 +45,8 @@ class StartUpState extends BasicGameState {
 		}
 		if (currSel == 3)
 			g.drawString("=>", 550, 475);
+		if (currSel == 4)
+			g.drawString("=>", 550, 525);
 	}
 	
 	public void renderRaccSprite(Graphics g, int r) {
@@ -87,8 +90,27 @@ class StartUpState extends BasicGameState {
 		else if (currSel == 3) {
 			if (input.isKeyPressed(Input.KEY_W))
 				currSel = 2;
+			if (input.isKeyPressed(Input.KEY_S))
+				currSel = 4;
 		}
 		
+		else if (currSel == 4) {
+			if (input.isKeyPressed(Input.KEY_W))
+				currSel = 3;
+			if (input.isKeyPressed(Input.KEY_SPACE))
+				container.exit();
+		}
+		
+		clearInput(input);
+		
+	}
+	
+	public void clearInput(Input input) {
+		input.isKeyPressed(Input.KEY_SPACE);
+		input.isKeyPressed(Input.KEY_W);
+		input.isKeyPressed(Input.KEY_A);
+		input.isKeyPressed(Input.KEY_S);
+		input.isKeyPressed(Input.KEY_D);
 	}
 
 	@Override
