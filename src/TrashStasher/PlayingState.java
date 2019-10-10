@@ -2,6 +2,7 @@ package TrashStasher;
 
 import jig.ResourceManager;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -12,6 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
 class PlayingState extends BasicGameState {
 	
 	boolean paused = false;
+	int pauseSel = 1;
+	
 	boolean showPath = false;
 	int startCountdown = 50;
 	
@@ -41,6 +44,8 @@ class PlayingState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) {
 		container.setSoundOn(true);
 	
+		TrashStasherGame tsg = (TrashStasherGame)game;
+		tsg.score = 0;
 		setLevel(game);
 	}
 		
@@ -74,6 +79,25 @@ class PlayingState extends BasicGameState {
 		g.drawString("Score: " + tsg.score, 10, 50);
 		if (totAddScore > 0)
 			g.drawString("+" + totAddScore, 10, 70);
+		
+		if (paused == true) {
+			g.setColor(new Color(0,0,0));
+			g.fillRect(520, 300, 400, 300);
+			
+			g.setColor(new Color(255,255,255));
+			g.drawString("Pause Menu", 680, 325);
+			
+			g.drawString("Continue", 600, 400);
+			g.drawString("Quit to Main Menu", 600, 450);
+			g.drawString("Quit Game", 600, 500);
+			
+			if (pauseSel == 1)
+				g.drawString("=>", 550, 400);
+			if (pauseSel == 2)
+				g.drawString("=>", 550, 450);
+			if (pauseSel == 3)
+				g.drawString("=>", 550, 500);
+		}
 		
 	}
 	
@@ -116,8 +140,10 @@ class PlayingState extends BasicGameState {
 		
 		// Pause Game
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-			if (paused == false)
+			if (paused == false) {
 				paused = true;
+				pauseSel = 1;
+			}
 			else 
 				paused = false;
 		}
@@ -143,6 +169,9 @@ class PlayingState extends BasicGameState {
 				tsg.tsDogs[1].setStartLocation();
 			}
 		}
+		
+		if (paused == true)
+			pauseMenu(input, tsg, container);
 		
 		if (paused == false && startCountdown <= 0) {
 			
@@ -267,6 +296,43 @@ class PlayingState extends BasicGameState {
 			
 		}
 		
+		clearInput(input);
+		
+	}
+	
+	public void pauseMenu(Input input, StateBasedGame tsg, GameContainer c) {
+		if (pauseSel == 1) {
+			if (input.isKeyPressed(Input.KEY_S))
+				pauseSel = 2;
+			if (input.isKeyPressed(Input.KEY_SPACE))
+				paused = false;
+		}
+		
+		else if (pauseSel == 2) {
+			if (input.isKeyPressed(Input.KEY_W))
+				pauseSel = 1;
+			if (input.isKeyPressed(Input.KEY_S))
+				pauseSel = 3;
+			if (input.isKeyPressed(Input.KEY_SPACE)) {
+				paused = false;
+				tsg.enterState(TrashStasherGame.STARTUPSTATE);
+			}
+		}
+		
+		else if (pauseSel == 3) {
+			if (input.isKeyPressed(Input.KEY_W))
+				pauseSel = 2;
+			if (input.isKeyPressed(Input.KEY_SPACE))
+				c.exit();
+		}
+	}
+	
+	public void clearInput(Input input) {
+		input.isKeyPressed(Input.KEY_SPACE);
+		input.isKeyPressed(Input.KEY_W);
+		input.isKeyPressed(Input.KEY_A);
+		input.isKeyPressed(Input.KEY_S);
+		input.isKeyPressed(Input.KEY_D);
 	}
 	
 	public void loseLife(StateBasedGame game) {
