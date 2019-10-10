@@ -28,27 +28,27 @@ class StartUpState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 		
-		//TrashStasherGame tsg = (TrashStasherGame)game;
+		g.drawImage(ResourceManager.getImage((
+				TrashStasherGame.TITLE_NAMEIMG_RSC)), 175, 25);
 		
-		g.drawString("MAIN MENU", 200, 220);
-		g.drawString("Start Game", 200, 300);
-		g.drawString("Raccoon: ", 200, 350);
+		g.drawString("Start Game", 600, 375);
+		g.drawString("Raccoon: ", 600, 425);
 		renderRaccSprite(g, TrashStasherGame.raccNum);
-		g.drawString("Cheat Menu", 200, 400);
+		g.drawString("Cheat Menu", 600, 475);
 		
 		if (currSel == 1)
-			g.drawString("=>", 150, 300);
+			g.drawString("=>", 550, 375);
 		if (currSel == 2) {
-			g.drawString("=>", 150, 350);
-			g.drawString("<      >", 285, 350);
+			g.drawString("=>", 550, 425);
+			g.drawString("<      >", 685, 425);
 		}
 		if (currSel == 3)
-			g.drawString("=>", 150, 400);
+			g.drawString("=>", 550, 475);
 	}
 	
 	public void renderRaccSprite(Graphics g, int r) {
 		g.drawImage(ResourceManager.getImage((TrashStasherGame.RACC_RIGHTIMG_RSC 
-				+ Integer.toString(r) + ".png")), 300, 340);
+				+ Integer.toString(r) + ".png")), 700, 415);
 	}
 
 	@Override

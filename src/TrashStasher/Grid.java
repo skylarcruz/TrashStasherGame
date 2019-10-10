@@ -35,10 +35,10 @@ public class Grid {
 					if (levelText.charAt(k) == 'X') { 
 						GridElements[j][i].addWall();
 					}
-					if (levelText.charAt(k) == 'M') { 
+					else if (levelText.charAt(k) == 'M') { 
 						GridElements[j][i].addMonsterHole();
 					}
-					if (levelText.charAt(k) == 'D') { 
+					else if (levelText.charAt(k) == 'D') { 
 						GridElements[j][i].addDropBox();
 						dropBoxes.add(GridElements[j][i]);
 					}

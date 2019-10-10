@@ -15,9 +15,9 @@ class PlayingState extends BasicGameState {
 	boolean showPath = false;
 	int startCountdown = 50;
 	
-	int MonsterCountdown;
-	static int mc = 2500;
-	int nextMonNum = 2;
+	int DogCountdown;
+	static int dc = 2500;
+	int nextDogNum = 2;
 	boolean spawn = true;
 	
 	int tCountdown;
@@ -48,6 +48,8 @@ class PlayingState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 		
+		
+		
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		
 		g.drawImage(ResourceManager.getImage(TrashStasherGame.BG_BGIMG_RSC), 0,
@@ -66,7 +68,7 @@ class PlayingState extends BasicGameState {
 		tsg.tsRacc.render(g);
 		
 		for (int i = 0; i < 10; i++)
-			tsg.tsMons[i].render(g);
+			tsg.tsDogs[i].render(g);
 		
 		g.drawString("Lives: " + tsg.lives, 10, 30);
 		g.drawString("Score: " + tsg.score, 10, 50);
@@ -133,25 +135,25 @@ class PlayingState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_R))
 			setLevel(game);
 		
-		// prevent starting monsters from spawning on the same location, also start countdown
+		// prevent starting dogsters from spawning on the same location, also start countdown
 		if (startCountdown > 0) {
 			startCountdown -= 1;
-			if (tsg.tsMons[0].collides(tsg.tsMons[1]) != null) {
-				tsg.tsMons[1].deactivate();
-				tsg.tsMons[1].setStartLocation();
+			if (tsg.tsDogs[0].collides(tsg.tsDogs[1]) != null) {
+				tsg.tsDogs[1].deactivate();
+				tsg.tsDogs[1].setStartLocation();
 			}
 		}
 		
 		if (paused == false && startCountdown <= 0) {
 			
-			MonsterCountdown -= 1;
+			DogCountdown -= 1;
 			
-			// Monster Spawn. Spawn until all Monsters on board
-			if (MonsterCountdown <= 0 && spawn) {
-				tsg.tsMons[nextMonNum].setStartLocation();
-				if (nextMonNum < 9) {
-					nextMonNum += 1;
-					MonsterCountdown = mc;
+			// Dog Spawn. Spawn until all Dogs on board
+			if (DogCountdown <= 0 && spawn) {
+				tsg.tsDogs[nextDogNum].setStartLocation();
+				if (nextDogNum < 9) {
+					nextDogNum += 1;
+					DogCountdown = dc;
 				}
 				else
 					spawn = false;
@@ -182,7 +184,7 @@ class PlayingState extends BasicGameState {
 			}
 			
 			if (scoreCompile == true) {
-				if (scoreTimer % 25 == 0) {
+				if (scoreTimer % 25 == 0 && tsg.tsTT.invCnt > 0) {
 					addScore = multiplier * tsg.tsTT.popScore();
 					totAddScore += addScore;
 					tsg.score += addScore;
@@ -221,9 +223,9 @@ class PlayingState extends BasicGameState {
 					tsg.tsRacc.move("Right");
 				}
 	
-			// Loss from collision into Monsters
+			// Loss from collision into Dogs
 			for (int i = 0; i < 10; i++) {
-				if ((tsg.tsMons[i].collides(tsg.tsRacc) != null))
+				if ((tsg.tsDogs[i].collides(tsg.tsRacc) != null))
 					loseLife(game);
 			}
 			
@@ -253,13 +255,13 @@ class PlayingState extends BasicGameState {
 			tsg.tsRacc.update(delta);
 			
 			for (int i = 0; i < 10; i++) {
-				tsg.tsMons[i].update(delta);
-				tsg.tsMons[i].setRaccLoc(
+				tsg.tsDogs[i].update(delta);
+				tsg.tsDogs[i].setRaccLoc(
 						tsg.tsRacc.getGridX(),tsg.tsRacc.getGridY());
-				if (tsg.tsMons[i].active == true) {
+				if (tsg.tsDogs[i].active == true) {
 					String bestDir = tsg.tsDikjstra.getBestDir(
-							tsg.tsMons[i].monX, tsg.tsMons[i].monY);
-					tsg.tsMons[i].setBestDir(bestDir);
+							tsg.tsDogs[i].dogX, tsg.tsDogs[i].dogY);
+					tsg.tsDogs[i].setBestDir(bestDir);
 				}
 			}
 			
@@ -294,16 +296,23 @@ class PlayingState extends BasicGameState {
 		startCountdown = 50;
 		
 		for (int i = 0; i < 10; i++)
-			tsg.tsMons[i].deactivate();
+			tsg.tsDogs[i].deactivate();
 		for (int i = 0; i < 2; i++)
-			tsg.tsMons[i].setStartLocation();
-		nextMonNum = 2;
-		MonsterCountdown = mc;
+			tsg.tsDogs[i].setStartLocation();
+		nextDogNum = 2;
+		DogCountdown = dc;
 		
 		tsg.tsRacc.reset();
 		
 		tsg.tsTT.reset();
 		tCountdown = tc;
+		
+		scoreTimer = 0;
+		multiplier = 1;
+		scoreCompile = false;
+		addScore = 0;
+		totAddScore = 0;
+		
 		
 	}
 
