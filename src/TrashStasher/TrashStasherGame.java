@@ -77,8 +77,11 @@ public class TrashStasherGame extends StateBasedGame {
 	public int score = 0;
 	
 	public static int[] highScore1 = new int[10];
+	public static String[] hsNames1 = new String[10];
 	public static int[] highScore2 = new int[10];
+	public static String[] hsNames2 = new String[10];
 	public static int[] highScore3 = new int[10];
+	public static String[] hsNames3 = new String[10];
 	
 	public Grid tsGrid;
 	public Dikjstra tsDikjstra;
@@ -205,9 +208,11 @@ public class TrashStasherGame extends StateBasedGame {
 		
 	}
 	
-	public static void getHighScores(String scoreTXT, int[] scoreArr) {
+	public static void getHighScores(String scoreTXT, int[] scoreArr, String[] names) {
 		
 		String str;
+		String scoreParse;
+		char c;
 		int i;
 		File fileDir;
 		BufferedReader in;
@@ -220,7 +225,18 @@ public class TrashStasherGame extends StateBasedGame {
 			        
 			i = 0;
 			while ((str = in.readLine()) != null) {
-				scoreArr[i] = Integer.parseInt(str);
+				names[i] = "";
+				scoreParse= "";
+				for (int j = 0; j < str.length(); j ++) {
+					c = str.charAt(j);
+					if (j < 3) {
+						names[i] += String.valueOf(c);
+					}
+					else {
+						scoreParse += String.valueOf(c);
+					}
+				}
+				scoreArr[i] = Integer.parseInt(scoreParse);
 				i += 1;
 			}
 	        in.close();
@@ -234,7 +250,7 @@ public class TrashStasherGame extends StateBasedGame {
 		
 	}
 	
-	public static void setHighScores(String scoreTXT, int[]scoreArr) {
+	public static void setHighScores(String scoreTXT, int[] scoreArr, String[] names) {
 		
 		File fileDir;
 		BufferedWriter out;
@@ -252,7 +268,7 @@ public class TrashStasherGame extends StateBasedGame {
 					(new FileOutputStream(fileDir)));
 			     
 			for (int i = 0; i < 10; i++) {
-				out.write(Integer.toString(scoreArr[i]));
+				out.write(names[i] += Integer.toString(scoreArr[i]));
 				out.newLine();
 			}
 

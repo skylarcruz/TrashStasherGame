@@ -132,6 +132,11 @@ class PlayingState extends BasicGameState {
 		Input input = container.getInput();
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		
+		if (input.isKeyPressed(Input.KEY_G)) {
+			((GameOverState)game.getState(TrashStasherGame.GAMEOVERSTATE)).setUserScore(1000);
+			game.enterState(TrashStasherGame.GAMEOVERSTATE);
+		}
+		
 		// updates the dikjstra source and runs algorithm if change occurs
 		if (tsg.tsDikjstra.setRaccLoc(tsg.tsRacc.getGridX(),
 				tsg.tsRacc.getGridY()) == true)
@@ -300,7 +305,9 @@ class PlayingState extends BasicGameState {
 		
 	}
 	
-	public void pauseMenu(Input input, StateBasedGame tsg, GameContainer c) {
+	public void pauseMenu(Input input, StateBasedGame game, GameContainer c) {
+		TrashStasherGame tsg = (TrashStasherGame)game;
+		
 		if (pauseSel == 1) {
 			if (input.isKeyPressed(Input.KEY_S))
 				pauseSel = 2;
@@ -315,6 +322,7 @@ class PlayingState extends BasicGameState {
 				pauseSel = 3;
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
 				paused = false;
+				tsg.score = 0;
 				tsg.enterState(TrashStasherGame.STARTUPSTATE);
 			}
 		}
