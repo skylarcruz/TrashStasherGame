@@ -7,6 +7,8 @@ import jig.ResourceManager;
 
 public class Power extends Entity {
 	
+	Random ran = new Random();
+	
 	String name;
 	String info1;
 	String info2;
@@ -22,14 +24,35 @@ public class Power extends Entity {
 	
 	public void setNewPower(int x, int y) {
 		
+		int ranPow = ran.nextInt(3);
+		
 		this.setPosition(24 + x * 48, 204 + y * 48);
 		this.inMap = true;
-		this.name = " Dig";
-		this.info1 = "Move past one";
-		this.info2 = "wall space";
-		this.info3 = null;
-		this.addImageWithBoundingBox(ResourceManager
-				.getImage(TrashStasherGame.POWER_DIGIMG_RSC));
+		
+		if (ranPow == 0) {
+			this.name = " Dig";
+			this.info1 = "Move past one";
+			this.info2 = "wall space";
+			this.info3 = null;
+			this.addImageWithBoundingBox(ResourceManager
+					.getImage(TrashStasherGame.POWER_DIGIMG_RSC));
+		}
+		if (ranPow == 1) {
+			this.name = "Speed";
+			this.info1 = "Move at faster";
+			this.info2 = "speed even with";
+			this.info3 = "lots of trash";
+			this.addImageWithBoundingBox(ResourceManager
+					.getImage(TrashStasherGame.POWER_SPDIMG_RSC));
+		}
+		if (ranPow == 2) {
+			this.name = "Pause";
+			this.info1 = "Freeze All Dogs";
+			this.info2 = "in place for";
+			this.info3 = "a short time";
+			this.addImageWithBoundingBox(ResourceManager
+					.getImage(TrashStasherGame.POWER_PAUSEIMG_RSC));
+		}
 		
 	}
 	
@@ -37,8 +60,15 @@ public class Power extends Entity {
 		this.inMap = false;
 		this.inInventory = true;
 		this.setPosition(40, 125);
-		this.addImage(ResourceManager
+		if (this.name == " Dig")
+			this.addImage(ResourceManager
 				.getImage(TrashStasherGame.POWER_DIGIMG_RSC));
+		if (this.name == "Speed")
+			this.addImage(ResourceManager
+				.getImage(TrashStasherGame.POWER_SPDIMG_RSC));
+		if (this.name == "Pause")
+			this.addImage(ResourceManager
+				.getImage(TrashStasherGame.POWER_PAUSEIMG_RSC));
 	}
 	
 	public void reset() {
@@ -47,10 +77,12 @@ public class Power extends Entity {
 		this.info1 = null;
 		this.info2 = null;
 		this.info3 = null;
-		//this.removeImage(ResourceManager
-		//		.getImage(TrashStasherGame.TREASURE_COINIMG_RSC));
-		//this.removeImage(ResourceManager
-		//		.getImage(TrashStasherGame.TREASURE_COINBIGIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(TrashStasherGame.POWER_DIGIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(TrashStasherGame.POWER_SPDIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(TrashStasherGame.POWER_PAUSEIMG_RSC));
 		this.inMap = false;
 		this.inInventory = false;
 	}

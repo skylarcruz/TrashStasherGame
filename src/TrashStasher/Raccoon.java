@@ -26,8 +26,11 @@ class Raccoon extends Entity {
 	boolean moveD = false;
 	boolean moveL = false;
 	boolean moveR = false;
+	String faceDir;
 	
 	public float speedMod = 0;
+	private boolean speedy = false;
+	private int speedyTime;
 	
 	public List<Character> barrierChars = new ArrayList<Character>(); 
 	
@@ -107,6 +110,7 @@ class Raccoon extends Entity {
 	}
 	
 	public boolean checkDir(String dir) {
+		faceDir = dir;
 		if (dir == "Up" && raccY > 0) {
 			changeFace("Up");
 			return checkPath(raccX, raccY - 1);
@@ -142,25 +146,37 @@ class Raccoon extends Entity {
 		}
 		
 		if (dir == "Up") {
-			velocity = new Vector(0, -.275f - speedModf);
+			if (speedy == false)
+				velocity = new Vector(0, -.275f - speedModf);
+			else
+				velocity = new Vector(0, -.300f);
 			raccY -= 1;
 			moveU = true;
 			setAnimation(walkUp);
 		}
 		else if (dir == "Down") {
-			velocity = new Vector(0, .275f + speedModf);
+			if (speedy == false)
+				velocity = new Vector(0, .275f + speedModf);
+			else
+				velocity = new Vector(0, .300f);
 			raccY += 1;
 			moveD = true;
 			setAnimation(walkDown);
 		}
 		else if (dir == "Left") {
-			velocity = new Vector(-.275f - speedModf, 0);
+			if (speedy == false)
+				velocity = new Vector(-.275f - speedModf, 0);
+			else 
+				velocity = new Vector(-.300f, 0);
 			raccX -= 1;
 			moveL = true;
 			setAnimation(walkLeft);
 		}
 		else if (dir == "Right") {
-			velocity = new Vector(.275f + speedModf, 0);
+			if (speedy == false)
+				velocity = new Vector(.275f + speedModf, 0);
+			else
+				velocity = new Vector(.300f, 0);
 			raccX += 1;
 			moveR = true;
 			setAnimation(walkRight);
@@ -267,8 +283,65 @@ class Raccoon extends Entity {
 		}
 	}
 	
+	public boolean dig() {
+		if (faceDir == "Up") {
+			if (raccY > 1 && checkPath(raccX, raccY - 1) == false
+					&& checkPath(raccX, raccY - 2) == true) {
+				digTo(raccX, raccY - 2, faceDir);
+				return true;
+			}
+		}
+		if (faceDir == "Down") {
+			if (raccY < 13 && checkPath(raccX, raccY + 1) == false
+					&& checkPath(raccX, raccY + 2) == true) {
+				digTo(raccX, raccY + 2, faceDir);
+				return true;
+			}
+		}
+		if (faceDir == "Left") {
+			if (raccX > 1 && checkPath(raccX - 1, raccY) == false
+					&& checkPath(raccX - 2, raccY) == true) {
+				digTo(raccX - 2, raccY, faceDir);
+				return true;
+			}
+		}
+		if (faceDir == "Right") {
+			if (raccX < 28 && checkPath(raccX + 1, raccY) == false
+					&& checkPath(raccX + 2, raccY) == true) {
+				digTo(raccX + 2, raccY, faceDir);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private void digTo(int x, int y, String f) {
+		velocity = new Vector(0,0);
+		setX(24 + x * 48);
+		setY(204 + y * 48);
+		raccX = x;
+		raccY = y;
+		inputAccept = true;
+		moveU = false;
+		moveD = false;
+		moveL = false;
+		moveR = false;
+		changeFace(f);
+	}
+	
+	public void speedUp() {
+		speedy = true;
+		speedyTime = 500;
+	}
+	
 	public void update(final int delta) {
 		translate(velocity.scale(delta));
 		checkStop();
+		if (speedyTime > 0) {
+			speedyTime -= 1;
+		}
+		else
+			speedy = false;
 	}
 }

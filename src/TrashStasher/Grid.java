@@ -85,24 +85,32 @@ public class Grid {
 			Random ran = new Random();
 			int powerSpace = ran.nextInt(powerSpots.size());
 			GridSquare temp = powerSpots.get(powerSpace);
-			System.out.println(temp.xVal + " " + temp.yVal);
 			mapPower.setNewPower(temp.xVal, temp.yVal);
 		}
 	}
 	
 	public void powerPickup() {
-		if (invPower.inInventory == false) {
-			invPower.name = mapPower.name;
-			invPower.info1 = mapPower.info1;
-			invPower.info2 = mapPower.info2;
-			invPower.info3 = mapPower.info3;
-			mapPower.reset();
-			invPower.setInv();
-		}
+		if (invPower.inInventory == true)
+			invPower.reset();
+		
+		invPower.name = mapPower.name;
+		invPower.info1 = mapPower.info1;
+		invPower.info2 = mapPower.info2;
+		invPower.info3 = mapPower.info3;
+		mapPower.reset();
+		invPower.setInv();
 	}
 	
 	public boolean hasPower() {
 		return invPower.inInventory;
+	}
+	
+	public String getPower() {
+		return invPower.name;
+	}
+	
+	public void usePower() {
+		invPower.reset();
 	}
 	
 	public String getLevelText() {
