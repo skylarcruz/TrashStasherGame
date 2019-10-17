@@ -75,6 +75,8 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String LVL3_SCORES_TXT = "lvl3Score.txt";
 	
 	public static String Lvl1 = getLevelString("Level1");
+	public static String Lvl2 = getLevelString("Level2");
+	public static String Lvl3 = getLevelString("Level3");
 	public static int currLevel = 1;
 	public static int raccNum = 1;
 	public int lives = 3;
@@ -86,6 +88,8 @@ public class TrashStasherGame extends StateBasedGame {
 	public static String[] hsNames2 = new String[10];
 	public static int[] highScore3 = new int[10];
 	public static String[] hsNames3 = new String[10];
+	
+	public static boolean cheatMode = false;
 	
 	public Grid tsGrid;
 	public Dikjstra tsDikjstra;

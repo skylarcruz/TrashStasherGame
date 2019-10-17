@@ -39,7 +39,7 @@ public class Dikjstra {
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 30; j++) {	
 				k += 1;
-				if (levelText.charAt(k) == 'X' || levelText.charAt(k) == 'M') { 
+				if (levelText.charAt(k) == 'X' || levelText.charAt(k) == 'M' || levelText.charAt(k) == 'D') { 
 					graph[j][i] = new Node(1000, 1000, j, i);
 				}
 				else {
@@ -157,8 +157,10 @@ public class Dikjstra {
 	public String getLevelText() {
 		if (TrashStasherGame.currLevel == 1)
 			return TrashStasherGame.Lvl1;
+		else if (TrashStasherGame.currLevel == 2)
+			return TrashStasherGame.Lvl2;
 		else
-			return TrashStasherGame.Lvl1;
+			return TrashStasherGame.Lvl3;
 	}
 }
 

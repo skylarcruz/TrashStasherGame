@@ -16,8 +16,8 @@ class Raccoon extends Entity {
 	private char[][] GridElements = new char[30][15];
 	int raccX = 1;
 	int raccY = 1;
-	int startX;
-	int startY;
+	int startX = 1;
+	int startY = 1;
 	int raccType = TrashStasherGame.raccNum;
 	
 	public boolean inputAccept = true;
@@ -229,7 +229,7 @@ class Raccoon extends Entity {
 	
 	public void initRaccPath() {
 		
-		String levelText = TrashStasherGame.Lvl1;
+		String levelText = getLevelText();
 		
 		int k = -1;
 		for (int i = 0; i < 15; i++) {	
@@ -343,5 +343,14 @@ class Raccoon extends Entity {
 		}
 		else
 			speedy = false;
+	}
+	
+	public String getLevelText() {
+		if (TrashStasherGame.currLevel == 1)
+			return TrashStasherGame.Lvl1;
+		else if (TrashStasherGame.currLevel == 2)
+			return TrashStasherGame.Lvl2;
+		else
+			return TrashStasherGame.Lvl3;
 	}
 }

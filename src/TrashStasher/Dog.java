@@ -191,7 +191,7 @@ class Dog extends Entity {
 			return true;
 	}
 	
-public void move(String dir) {
+	public void move(String dir) {
 		
 		if (dir == "Up") {
 			velocity = new Vector(0, -.125f - speedMod);
@@ -255,7 +255,7 @@ public void move(String dir) {
 	
 	public void initDogPath() {
 		
-		String levelText = TrashStasherGame.Lvl1;
+		String levelText = getLevelText();
 		
 		int k = -1;
 		int l = 0;
@@ -393,5 +393,14 @@ public void move(String dir) {
 				}
 			}
 		}
+	}
+	
+	public String getLevelText() {
+		if (TrashStasherGame.currLevel == 1)
+			return TrashStasherGame.Lvl1;
+		else if (TrashStasherGame.currLevel == 2)
+			return TrashStasherGame.Lvl2;
+		else
+			return TrashStasherGame.Lvl3;
 	}
 }

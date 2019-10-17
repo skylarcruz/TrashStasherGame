@@ -117,19 +117,26 @@ public class Grid {
 		
 		if (TrashStasherGame.currLevel == 1)
 			return TrashStasherGame.Lvl1;
+		else if (TrashStasherGame.currLevel == 2)
+			return TrashStasherGame.Lvl2;
 		else
-			return TrashStasherGame.Lvl1;
+			return TrashStasherGame.Lvl3;
 		
 	}
 	
 	public void render(Graphics g) {
-		if (built == false)
-			buildGrid();
+//		if (built == false)
+//			buildGrid();
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 30; j++) {
 				GridElements[j][i].render(g);
 			}
 		}
+		mapPower.render(g);
+		invPower.render(g);
+	}
+	
+	public void renderPow(Graphics g) {
 		mapPower.render(g);
 		invPower.render(g);
 	}
