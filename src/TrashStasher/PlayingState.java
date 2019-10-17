@@ -34,6 +34,10 @@ class PlayingState extends BasicGameState {
 	int addScore;
 	int totAddScore;
 	
+	int powerTimer;
+	boolean freezeDogs = false;
+	int freezeTimer;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -79,6 +83,16 @@ class PlayingState extends BasicGameState {
 		g.drawString("Score: " + tsg.score, 10, 50);
 		if (totAddScore > 0)
 			g.drawString("+" + totAddScore, 10, 70);
+		
+		if (tsg.tsGrid.invPower.inInventory == true) {
+			g.drawString(tsg.tsGrid.invPower.name, 15, 152);
+			if(tsg.tsGrid.invPower.info1 != null)
+				g.drawString(tsg.tsGrid.invPower.info1, 80, 98);
+			if(tsg.tsGrid.invPower.info2 != null)
+				g.drawString(tsg.tsGrid.invPower.info2, 80, 118);
+			if(tsg.tsGrid.invPower.info3 != null)
+				g.drawString(tsg.tsGrid.invPower.info3, 80, 138);
+		}
 		
 		if (paused == true) {
 			g.setColor(new Color(0,0,0));
@@ -180,6 +194,13 @@ class PlayingState extends BasicGameState {
 		
 		if (paused == false && startCountdown <= 0) {
 			
+			if (powerTimer <= 0) {
+				powerTimer = 1750;
+				tsg.tsGrid.addPowerMap();
+			}
+			else
+				powerTimer -= 1;
+			
 			DogCountdown -= 1;
 			
 			// Dog Spawn. Spawn until all Dogs on board
@@ -205,6 +226,11 @@ class PlayingState extends BasicGameState {
 				weightMod = tsg.tsTT.popInv();
 				speedMod = (float) weightMod * .0008f;
 				tsg.tsRacc.changeSpeed(speedMod);
+			}
+			
+			// use Power
+			if (input.isKeyPressed(Input.KEY_K) && tsg.tsGrid.hasPower()) {
+				usePower(tsg);
 			}
 			
 			// Treasure Scoring
@@ -273,6 +299,12 @@ class PlayingState extends BasicGameState {
 					}
 				}
 			}
+			
+			// Power Pickup
+			if (tsg.tsGrid.mapPower.collides(tsg.tsRacc) != null) {
+				tsg.tsGrid.powerPickup();
+			}
+			
 			// Treasure lands on other Treasure
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
@@ -288,15 +320,20 @@ class PlayingState extends BasicGameState {
 			// Update entities
 			tsg.tsRacc.update(delta);
 			
-			for (int i = 0; i < 10; i++) {
-				tsg.tsDogs[i].update(delta);
-				tsg.tsDogs[i].setRaccLoc(
-						tsg.tsRacc.getGridX(),tsg.tsRacc.getGridY());
-				if (tsg.tsDogs[i].active == true) {
-					String bestDir = tsg.tsDikjstra.getBestDir(
-							tsg.tsDogs[i].dogX, tsg.tsDogs[i].dogY);
-					tsg.tsDogs[i].setBestDir(bestDir);
+			if (freezeTimer <= 0) {
+				for (int i = 0; i < 10; i++) {
+					tsg.tsDogs[i].update(delta);
+					tsg.tsDogs[i].setRaccLoc(
+							tsg.tsRacc.getGridX(),tsg.tsRacc.getGridY());
+					if (tsg.tsDogs[i].active == true) {
+						String bestDir = tsg.tsDikjstra.getBestDir(
+								tsg.tsDogs[i].dogX, tsg.tsDogs[i].dogY);
+						tsg.tsDogs[i].setBestDir(bestDir);
+					}
 				}
+			}
+			else {
+				freezeTimer -= 1;
 			}
 			
 		}
@@ -343,6 +380,27 @@ class PlayingState extends BasicGameState {
 		input.isKeyPressed(Input.KEY_D);
 	}
 	
+	public void usePower(StateBasedGame game) {
+		TrashStasherGame tsg = (TrashStasherGame)game;
+		
+		String p = tsg.tsGrid.getPower();
+		
+		if (p == " Dig") {
+			if (tsg.tsRacc.dig() == true)
+				tsg.tsGrid.usePower();
+		}
+		if (p == "Speed") {
+			tsg.tsRacc.speedUp();
+			tsg.tsGrid.usePower();
+		}
+		if (p == "Pause") {
+			//freezeDogs = true;
+			freezeTimer = 300;
+			tsg.tsGrid.usePower();
+		}
+		
+	}
+	
 	public void loseLife(StateBasedGame game) {
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		
@@ -387,7 +445,9 @@ class PlayingState extends BasicGameState {
 		addScore = 0;
 		totAddScore = 0;
 		
-		
+		tsg.tsGrid.mapPower.reset();
+		tsg.tsGrid.invPower.reset();
+		powerTimer = 0;
 	}
 
 	@Override

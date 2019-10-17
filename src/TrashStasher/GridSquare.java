@@ -13,9 +13,13 @@ import jig.ResourceManager;
  class GridSquare extends Entity {
 	 
 	public String val = null;
+	public int xVal;
+	public int yVal;
 
-	public GridSquare(final float x, final float y) {
+	public GridSquare(final float x, final float y, int gridX, int gridY) {
 		super(x, y);
+		xVal = gridX;
+		yVal = gridY;
 	}
 	
 	public void addWall() {
