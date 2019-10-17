@@ -66,6 +66,8 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String TREASURE_COINIMG_RSC = "TrashStasher/Resource/Treasure/coin.png";
 	public static final String TREASURE_COINBIGIMG_RSC = "TrashStasher/Resource/Treasure/coinBig.png";
 	
+	public static final String POWER_DIGIMG_RSC = "TrashStasher/Resource/Powers/dig.png";
+	
 	public static final String LVL1_SCORES_TXT = "lvl1Score.txt";
 	public static final String LVL2_SCORES_TXT = "lvl2Score.txt";
 	public static final String LVL3_SCORES_TXT = "lvl3Score.txt";
@@ -160,6 +162,8 @@ public class TrashStasherGame extends StateBasedGame {
 		
 		ResourceManager.loadImage(TREASURE_COINIMG_RSC);
 		ResourceManager.loadImage(TREASURE_COINBIGIMG_RSC);
+		
+		ResourceManager.loadImage(POWER_DIGIMG_RSC);
 
 		// preload all the resources to avoid warnings & minimize latency...
 		

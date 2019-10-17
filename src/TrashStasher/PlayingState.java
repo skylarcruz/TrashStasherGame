@@ -80,6 +80,16 @@ class PlayingState extends BasicGameState {
 		if (totAddScore > 0)
 			g.drawString("+" + totAddScore, 10, 70);
 		
+		if (tsg.tsGrid.invPower.inInventory == true) {
+			g.drawString(tsg.tsGrid.invPower.name, 12, 152);
+			if(tsg.tsGrid.invPower.info1 != null)
+				g.drawString(tsg.tsGrid.invPower.info1, 80, 100);
+			if(tsg.tsGrid.invPower.info2 != null)
+				g.drawString(tsg.tsGrid.invPower.info2, 80, 120);
+			if(tsg.tsGrid.invPower.info3 != null)
+				g.drawString(tsg.tsGrid.invPower.info3, 80, 140);
+		}
+		
 		if (paused == true) {
 			g.setColor(new Color(0,0,0));
 			g.fillRect(520, 300, 400, 300);
@@ -180,6 +190,8 @@ class PlayingState extends BasicGameState {
 		
 		if (paused == false && startCountdown <= 0) {
 			
+			tsg.tsGrid.addPowerMap();
+			
 			DogCountdown -= 1;
 			
 			// Dog Spawn. Spawn until all Dogs on board
@@ -273,6 +285,12 @@ class PlayingState extends BasicGameState {
 					}
 				}
 			}
+			
+			// Power Pickup
+			if (tsg.tsGrid.mapPower.collides(tsg.tsRacc) != null) {
+				tsg.tsGrid.powerPickup();
+			}
+			
 			// Treasure lands on other Treasure
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {

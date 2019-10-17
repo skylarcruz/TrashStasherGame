@@ -2,6 +2,7 @@ package TrashStasher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.newdawn.slick.Graphics;
 
@@ -12,12 +13,16 @@ public class Grid {
 	String levelText = null;
 	boolean built = false;
 	
-	public List<GridSquare> dropBoxes = new ArrayList<GridSquare>(); 
+	public List<GridSquare> dropBoxes = new ArrayList<GridSquare>();
+	
+	public List<GridSquare> powerSpots = new ArrayList<GridSquare>();
+	public Power mapPower = new Power();
+	public Power invPower = new Power();
 	
 	public Grid(){
 		for (int i = 0; i < 15; i++) {	
 			for (int j = 0; j < 30; j++) {
-				GridElements[j][i] = new GridSquare(24 + j*48, 204 + i*48);
+				GridElements[j][i] = new GridSquare(24 + j*48, 204 + i*48, j, i);
 			}
 		}
 	}
@@ -42,6 +47,9 @@ public class Grid {
 						GridElements[j][i].addDropBox();
 						dropBoxes.add(GridElements[j][i]);
 					}
+					else if (levelText.charAt(k) == 'O') { 
+						powerSpots.add(GridElements[j][i]);
+					}
 				}
 			}
 		}
@@ -58,6 +66,7 @@ public class Grid {
 				}
 			}
 			dropBoxes.clear();
+			powerSpots.clear();
 		}
 	}
 	
@@ -69,6 +78,31 @@ public class Grid {
 					nearBox = true;
 		}
 		return nearBox;
+	}
+	
+	public void addPowerMap() {
+		if (mapPower.inMap == false) {
+			Random ran = new Random();
+			int powerSpace = ran.nextInt(powerSpots.size());
+			GridSquare temp = powerSpots.get(powerSpace);
+			System.out.println(temp.xVal + " " + temp.yVal);
+			mapPower.setNewPower(temp.xVal, temp.yVal);
+		}
+	}
+	
+	public void powerPickup() {
+		if (invPower.inInventory == false) {
+			invPower.name = mapPower.name;
+			invPower.info1 = mapPower.info1;
+			invPower.info2 = mapPower.info2;
+			invPower.info3 = mapPower.info3;
+			mapPower.reset();
+			invPower.setInv();
+		}
+	}
+	
+	public boolean hasPower() {
+		return invPower.inInventory;
 	}
 	
 	public String getLevelText() {
@@ -88,6 +122,8 @@ public class Grid {
 				GridElements[j][i].render(g);
 			}
 		}
+		mapPower.render(g);
+		invPower.render(g);
 	}
 
 }
