@@ -94,6 +94,17 @@ class Dog extends Entity {
 		barrierChars.add('2');
 		barrierChars.add('3');
 		barrierChars.add('4');
+		barrierChars.add('5');
+		barrierChars.add('6');
+		barrierChars.add('7');
+		barrierChars.add('8');
+		barrierChars.add('9');
+		barrierChars.add('a');
+		barrierChars.add('┴');
+		barrierChars.add('├');
+		barrierChars.add('┤');
+		barrierChars.add('┬');
+		barrierChars.add('█');
 	}
 	
 	public void setAllAnimations() {

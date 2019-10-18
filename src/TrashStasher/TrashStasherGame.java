@@ -38,6 +38,7 @@ public class TrashStasherGame extends StateBasedGame {
 	// Wall Graphics
 	//public static final String WALL_-IMG_RSC = "TrashStasher/Resource/City/Walls/-.png";
 	public static final String WALL_BASEIMG_RSC = "TrashStasher/Resource/City/Walls/base.png";
+	public static final String WALL_SQUAREIMG_RSC = "TrashStasher/Resource/City/Walls/Square.png";
 	
 	public static final String WALL_CDLIMG_RSC = "TrashStasher/Resource/City/Walls/CornerDL.png";
 	public static final String WALL_CDRIMG_RSC = "TrashStasher/Resource/City/Walls/CornerDR.png";
@@ -115,8 +116,8 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String LVL3_SCORES_TXT = "lvl3Score.txt";
 	
 	public static String Lvl1 = getLevelString("Level1revamp");
-	public static String Lvl2 = getLevelString("Level2");
-	public static String Lvl3 = getLevelString("Level3");
+	public static String Lvl2 = getLevelString("Level2revamp");
+	public static String Lvl3 = getLevelString("Level3revamp");
 	public static int currLevel = 1;
 	public static int raccNum = 1;
 	public int lives = 3;
@@ -179,6 +180,7 @@ public class TrashStasherGame extends StateBasedGame {
 		
 		// Load Walls
 		ResourceManager.loadImage(WALL_BASEIMG_RSC);
+		ResourceManager.loadImage(WALL_SQUAREIMG_RSC);
 		
 		ResourceManager.loadImage(WALL_CDLIMG_RSC);
 		ResourceManager.loadImage(WALL_CDRIMG_RSC);

@@ -10,8 +10,18 @@
 
 ╟ ╢ ╧ ╤ Monster Edge Spawns
 
+┴ ├ ┤ ┬ One Side
+
+█ square
+
 Special Cases
 1. Base, Tdown, ElbowFragUL
 2. Base, oneSideL, ElbowFragUR
 3. Base, oneSideD, ElbowFragUL
 4. Base, Tdown, ElbowFragUR
+5. Base, oneSideD, ElbowFragUR
+6. Base, oneSideU, ElbowFragDL
+7. Base, oneSideU, ElbowFragDR
+8. Base, oneSideR, ElbowFragUL
+9. Base, oneSideR, ElbowFragDL
+a. Base, oneSideL, ElbowFragDR

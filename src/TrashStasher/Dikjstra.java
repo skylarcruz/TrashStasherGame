@@ -15,6 +15,8 @@ public class Dikjstra {
 	private int raccX;
 	private int raccY;
 	
+	public List<Character> barrierChars = new ArrayList<Character>(); 
+	
 	public Dikjstra(int x, int y) {
 		graph = new Node[x][y];
 		xSize = x;
@@ -28,6 +30,51 @@ public class Dikjstra {
 		
 		closedList = new ArrayList<Node>(x * y);
 		pq = new PriorityQueue<Node>((x * y), new Node());
+		
+		fillBarrierChars();
+	}
+	
+	public void fillBarrierChars() {
+		barrierChars.add('X');
+		barrierChars.add('M');
+		barrierChars.add('D');
+		barrierChars.add('║');
+		barrierChars.add('═');
+		barrierChars.add('╚');
+		barrierChars.add('╗');
+		barrierChars.add('╔');
+		barrierChars.add('╝');
+		barrierChars.add('└');
+		barrierChars.add('┐');
+		barrierChars.add('┌');
+		barrierChars.add('┘');
+		barrierChars.add('╦');
+		barrierChars.add('╩');
+		barrierChars.add('╣');
+		barrierChars.add('╠');
+		barrierChars.add('^');
+		barrierChars.add('v');
+		barrierChars.add('<');
+		barrierChars.add('>');
+		barrierChars.add('╟');
+		barrierChars.add('╢');
+		barrierChars.add('╧');
+		barrierChars.add('╤');
+		barrierChars.add('1');
+		barrierChars.add('2');
+		barrierChars.add('3');
+		barrierChars.add('4');
+		barrierChars.add('5');
+		barrierChars.add('6');
+		barrierChars.add('7');
+		barrierChars.add('8');
+		barrierChars.add('9');
+		barrierChars.add('a');
+		barrierChars.add('┴');
+		barrierChars.add('├');
+		barrierChars.add('┤');
+		barrierChars.add('┬');
+		barrierChars.add('█');
 	}
 	
 	public void setGrid() {
@@ -39,7 +86,8 @@ public class Dikjstra {
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 30; j++) {	
 				k += 1;
-				if (levelText.charAt(k) == 'X' || levelText.charAt(k) == 'M' || levelText.charAt(k) == 'D') { 
+				if (barrierChars.contains(levelText.charAt(k))) {
+				//if (levelText.charAt(k) == 'X' || levelText.charAt(k) == 'M' || levelText.charAt(k) == 'D') { 
 					graph[j][i] = new Node(1000, 1000, j, i);
 				}
 				else {

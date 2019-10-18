@@ -57,6 +57,12 @@ import jig.ResourceManager;
 		this.val = "X";
 	}
 	
+	public void addSquare() {
+		this.addImage(ResourceManager
+				.getImage(TrashStasherGame.WALL_SQUAREIMG_RSC));
+		this.val = "X";
+	}
+	
 	// Elbows
 	public void addElbowDL() {
 		this.addImage(ResourceManager
@@ -129,6 +135,26 @@ import jig.ResourceManager;
 				.getImage(TrashStasherGame.WALL_TUIMG_RSC));
 		this.val = "X";
 	}
+	public void addSideD() {
+		this.addImage(ResourceManager
+				.getImage(TrashStasherGame.WALL_OSDIMG_RSC));
+		this.val = "X";
+	}
+	public void addSideL() {
+		this.addImage(ResourceManager
+				.getImage(TrashStasherGame.WALL_OSLIMG_RSC));
+		this.val = "X";
+	}
+	public void addSideR() {
+		this.addImage(ResourceManager
+				.getImage(TrashStasherGame.WALL_OSRIMG_RSC));
+		this.val = "X";
+	}
+	public void addSideU() {
+		this.addImage(ResourceManager
+				.getImage(TrashStasherGame.WALL_OSUIMG_RSC));
+		this.val = "X";
+	}
 	
 	// End Pieces
 	public void addEndD() {
@@ -180,6 +206,42 @@ import jig.ResourceManager;
 			this.addImage(ResourceManager
 					.getImage(TrashStasherGame.WALL_EFURIMG_RSC));
 		}
+		if (k == '5') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_OSDIMG_RSC));
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_EFURIMG_RSC));
+		}
+		if (k == '6') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_OSUIMG_RSC));
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_EFDLIMG_RSC));
+		}
+		if (k == '7') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_OSUIMG_RSC));
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_EFDRIMG_RSC));
+		}
+		if (k == '8') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_OSRIMG_RSC));
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_EFULIMG_RSC));
+		}
+		if (k == '9') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_OSRIMG_RSC));
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_EFDLIMG_RSC));
+		}
+		if (k == 'a') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_OSLIMG_RSC));
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_EFDRIMG_RSC));
+		}
 		this.val = "X";
 	}
 	
@@ -196,6 +258,8 @@ import jig.ResourceManager;
 		// Remove Walls
 		this.removeImage(ResourceManager
 				.getImage(TrashStasherGame.WALL_BASEIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(TrashStasherGame.WALL_SQUAREIMG_RSC));
 		this.removeImage(ResourceManager
 				.getImage(TrashStasherGame.WALL_CDLIMG_RSC));
 		this.removeImage(ResourceManager
