@@ -152,10 +152,6 @@ class PlayingState extends BasicGameState {
 			game.enterState(TrashStasherGame.GAMEOVERSTATE);
 		}
 		
-		if (input.isKeyPressed(Input.KEY_M)) {
-			tsg.tsGrid.destroyGrid();
-		}
-		
 		// updates the dikjstra source and runs algorithm if change occurs
 		if (tsg.tsDikjstra.setRaccLoc(tsg.tsRacc.getGridX(),
 				tsg.tsRacc.getGridY()) == true)

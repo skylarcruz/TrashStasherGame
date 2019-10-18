@@ -87,6 +87,7 @@ class Raccoon extends Entity {
 		raccX = startX;
 		raccY = startY;
 		speedMod = 0;
+		speedy = false;
 		setPosition(24 + startX * 48, 204 + startY * 48);
 	}
 	
