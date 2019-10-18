@@ -49,11 +49,41 @@ class Raccoon extends Entity {
 		raccX = (int) x;
 		raccY = (int) y;
 		
+		fillBarrierChars();
+		
+		setAllAnimations();
+	}
+	
+	public void fillBarrierChars() {
 		barrierChars.add('X');
 		barrierChars.add('M');
 		barrierChars.add('D');
-		
-		setAllAnimations();
+		barrierChars.add('║');
+		barrierChars.add('═');
+		barrierChars.add('╚');
+		barrierChars.add('╗');
+		barrierChars.add('╔');
+		barrierChars.add('╝');
+		barrierChars.add('└');
+		barrierChars.add('┐');
+		barrierChars.add('┌');
+		barrierChars.add('┘');
+		barrierChars.add('╦');
+		barrierChars.add('╩');
+		barrierChars.add('╣');
+		barrierChars.add('╠');
+		barrierChars.add('^');
+		barrierChars.add('v');
+		barrierChars.add('<');
+		barrierChars.add('>');
+		barrierChars.add('╟');
+		barrierChars.add('╢');
+		barrierChars.add('╧');
+		barrierChars.add('╤');
+		barrierChars.add('1');
+		barrierChars.add('2');
+		barrierChars.add('3');
+		barrierChars.add('4');
 	}
 	
 	public void setVelocity(final Vector v) {

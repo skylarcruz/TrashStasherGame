@@ -1,0 +1,17 @@
+║ ═ Tubes
+
+╚ ╗╔ ╝ Edge Elbow
+
+└ ┐┌ ┘ Corner
+
+╦ ╩ ╣ ╠ Edge T
+
+^ v < > Ends
+
+╟ ╢ ╧ ╤ Monster Edge Spawns
+
+Special Cases
+1. Base, Tdown, ElbowFragUL
+2. Base, oneSideL, ElbowFragUR
+3. Base, oneSideD, ElbowFragUL
+4. Base, Tdown, ElbowFragUR

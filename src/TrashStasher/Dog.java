@@ -59,11 +59,41 @@ class Dog extends Entity {
 		dogX = (int) x;
 		dogY = (int) y;
 		
+		fillBarrierChars();
+		
+		setAllAnimations();
+	}
+	
+	public void fillBarrierChars() {
 		barrierChars.add('X');
 		barrierChars.add('M');
 		barrierChars.add('D');
-		
-		setAllAnimations();
+		barrierChars.add('║');
+		barrierChars.add('═');
+		barrierChars.add('╚');
+		barrierChars.add('╗');
+		barrierChars.add('╔');
+		barrierChars.add('╝');
+		barrierChars.add('└');
+		barrierChars.add('┐');
+		barrierChars.add('┌');
+		barrierChars.add('┘');
+		barrierChars.add('╦');
+		barrierChars.add('╩');
+		barrierChars.add('╣');
+		barrierChars.add('╠');
+		barrierChars.add('^');
+		barrierChars.add('v');
+		barrierChars.add('<');
+		barrierChars.add('>');
+		barrierChars.add('╟');
+		barrierChars.add('╢');
+		barrierChars.add('╧');
+		barrierChars.add('╤');
+		barrierChars.add('1');
+		barrierChars.add('2');
+		barrierChars.add('3');
+		barrierChars.add('4');
 	}
 	
 	public void setAllAnimations() {
@@ -263,7 +293,11 @@ class Dog extends Entity {
 			for (int j = 0; j < 30; j++) {
 				k += 1;
 				GridElements[j][i] = levelText.charAt(k);
-				if (levelText.charAt(k) == 'M') {
+				if (levelText.charAt(k) == '╟' ||
+					levelText.charAt(k) == '╢' ||
+					levelText.charAt(k) == '╧' ||
+					levelText.charAt(k) == '╤' ||
+					levelText.charAt(k) == 'M') {
 					startX[l] = j;
 					startY[l] = i;
 					l += 1;

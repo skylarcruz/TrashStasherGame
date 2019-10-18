@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -32,6 +33,45 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String WALL_WALLIMG_RSC = "TrashStasher/Resource/WallTest.png";
 	public static final String PATH_PATHIMG_RSC = "TrashStasher/Resource/City/PathBig.png";
 	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan.png";
+	
+	
+	// Wall Graphics
+	//public static final String WALL_-IMG_RSC = "TrashStasher/Resource/City/Walls/-.png";
+	public static final String WALL_BASEIMG_RSC = "TrashStasher/Resource/City/Walls/base.png";
+	
+	public static final String WALL_CDLIMG_RSC = "TrashStasher/Resource/City/Walls/CornerDL.png";
+	public static final String WALL_CDRIMG_RSC = "TrashStasher/Resource/City/Walls/CornerDR.png";
+	public static final String WALL_CULIMG_RSC = "TrashStasher/Resource/City/Walls/CornerUL.png";
+	public static final String WALL_CURIMG_RSC = "TrashStasher/Resource/City/Walls/CornerUR.png";
+	
+	public static final String WALL_EDLIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowDL.png";
+	public static final String WALL_EDRIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowDR.png";
+	public static final String WALL_EULIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowUL.png";
+	public static final String WALL_EURIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowUR.png";
+	
+	public static final String WALL_EFDLIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowFragDL.png";
+	public static final String WALL_EFDRIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowFragDR.png";
+	public static final String WALL_EFULIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowFragUL.png";
+	public static final String WALL_EFURIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowFragUR.png";
+	
+	public static final String WALL_EndDIMG_RSC = "TrashStasher/Resource/City/Walls/EndD.png";
+	public static final String WALL_EndLIMG_RSC = "TrashStasher/Resource/City/Walls/EndL.png";
+	public static final String WALL_EndRIMG_RSC = "TrashStasher/Resource/City/Walls/EndR.png";
+	public static final String WALL_EndUIMG_RSC = "TrashStasher/Resource/City/Walls/EndU.png";
+	
+	public static final String WALL_OSDIMG_RSC = "TrashStasher/Resource/City/Walls/oneSideD.png";
+	public static final String WALL_OSLIMG_RSC = "TrashStasher/Resource/City/Walls/oneSideL.png";
+	public static final String WALL_OSRIMG_RSC = "TrashStasher/Resource/City/Walls/oneSideR.png";
+	public static final String WALL_OSUIMG_RSC = "TrashStasher/Resource/City/Walls/oneSideU.png";
+	
+	public static final String WALL_TDIMG_RSC = "TrashStasher/Resource/City/Walls/TfragD.png";
+	public static final String WALL_TLIMG_RSC = "TrashStasher/Resource/City/Walls/TfragL.png";
+	public static final String WALL_TRIMG_RSC = "TrashStasher/Resource/City/Walls/TfragR.png";
+	public static final String WALL_TUIMG_RSC = "TrashStasher/Resource/City/Walls/TfragU.png";
+	
+	public static final String WALL_TUBEHIMG_RSC = "TrashStasher/Resource/City/Walls/TubeH.png";
+	public static final String WALL_TUBEVIMG_RSC = "TrashStasher/Resource/City/Walls/TubeV.png";
+	
 	
 	
 	// Raccoon Graphics courtesy of whtdragon at rpgtileset.com
@@ -74,7 +114,7 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String LVL2_SCORES_TXT = "lvl2Score.txt";
 	public static final String LVL3_SCORES_TXT = "lvl3Score.txt";
 	
-	public static String Lvl1 = getLevelString("Level1");
+	public static String Lvl1 = getLevelString("Level1revamp");
 	public static String Lvl2 = getLevelString("Level2");
 	public static String Lvl3 = getLevelString("Level3");
 	public static int currLevel = 1;
@@ -137,6 +177,43 @@ public class TrashStasherGame extends StateBasedGame {
 		ResourceManager.loadImage(PATH_PATHIMG_RSC);
 		ResourceManager.loadImage(DROP_BOXIMG_RSC);
 		
+		// Load Walls
+		ResourceManager.loadImage(WALL_BASEIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_CDLIMG_RSC);
+		ResourceManager.loadImage(WALL_CDRIMG_RSC);
+		ResourceManager.loadImage(WALL_CULIMG_RSC);
+		ResourceManager.loadImage(WALL_CURIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_EDLIMG_RSC);
+		ResourceManager.loadImage(WALL_EDRIMG_RSC);
+		ResourceManager.loadImage(WALL_EULIMG_RSC);
+		ResourceManager.loadImage(WALL_EURIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_EFDLIMG_RSC);
+		ResourceManager.loadImage(WALL_EFDRIMG_RSC);
+		ResourceManager.loadImage(WALL_EFULIMG_RSC);
+		ResourceManager.loadImage(WALL_EFURIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_EndDIMG_RSC);
+		ResourceManager.loadImage(WALL_EndLIMG_RSC);
+		ResourceManager.loadImage(WALL_EndRIMG_RSC);
+		ResourceManager.loadImage(WALL_EndUIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_OSDIMG_RSC);
+		ResourceManager.loadImage(WALL_OSLIMG_RSC);
+		ResourceManager.loadImage(WALL_OSRIMG_RSC);
+		ResourceManager.loadImage(WALL_OSUIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_TDIMG_RSC);
+		ResourceManager.loadImage(WALL_TLIMG_RSC);
+		ResourceManager.loadImage(WALL_TRIMG_RSC);
+		ResourceManager.loadImage(WALL_TUIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_TUBEHIMG_RSC);
+		ResourceManager.loadImage(WALL_TUBEVIMG_RSC);
+		
+		// Load Raccoons
 		for (int i = 1; i <= 5; i ++) {
 			ResourceManager.loadImage(RACC_UPIMG_RSC + Integer.toString(i) + ".png");
 			ResourceManager.loadImage(RACC_DOWNIMG_RSC + Integer.toString(i) + ".png");
@@ -148,6 +225,7 @@ public class TrashStasherGame extends StateBasedGame {
 			ResourceManager.loadImage(RACC_RIGHTWIMG_RSC + Integer.toString(i) + ".png");
 		}
 		
+		// Load Dog
 		ResourceManager.loadImage(DOG_UPIMG_RSC);
 		ResourceManager.loadImage(DOG_DOWNIMG_RSC);
 		ResourceManager.loadImage(DOG_LEFTIMG_RSC);
@@ -298,7 +376,7 @@ public class TrashStasherGame extends StateBasedGame {
 	public static void main(String[] args) {
 		AppGameContainer app;
 		try {
-			app = new AppGameContainer(new TrashStasherGame("Trash Stasher!", 1440, 900));
+			app = new AppGameContainer(new ScalableGame(new TrashStasherGame("Trash Stasher!", 1440, 900), 1440, 900, true));
 			app.setDisplayMode(1440, 900, false);
 			app.setVSync(true);
 			app.start();

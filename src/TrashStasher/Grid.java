@@ -37,6 +37,7 @@ public class Grid {
 			for (int i = 0; i < 15; i++) {
 				for (int j = 0; j < 30; j++) {
 					k += 1;
+					wallBuild(levelText.charAt(k), GridElements[j][i]);
 					if (levelText.charAt(k) == 'X') { 
 						GridElements[j][i].addWall();
 					}
@@ -53,6 +54,64 @@ public class Grid {
 				}
 			}
 		}
+	}
+	
+	public void wallBuild(char k, GridSquare curr) {
+		if (k == '║')
+			curr.addTubeV();
+		if (k == '═')
+			curr.addTubeH();
+		if (k == '╚')
+			curr.addElbowDL();
+		if (k == '╝')
+			curr.addElbowDR();
+		if (k == '╔')
+			curr.addElbowUL();
+		if (k == '╗')
+			curr.addElbowUR();
+		if (k == '└')
+			curr.addCornerDL();
+		if (k == '┘')
+			curr.addCornerDR();
+		if (k == '┌')
+			curr.addCornerUL();
+		if (k == '┐')
+			curr.addCornerUR();
+		if (k == '╦')
+			curr.addTdown();
+		if (k == '╣')
+			curr.addTleft();
+		if (k == '╠')
+			curr.addTright();
+		if (k == '╩')
+			curr.addTup();
+		if (k == 'v')
+			curr.addEndD();
+		if (k == '<')
+			curr.addEndL();
+		if (k == '>')
+			curr.addEndR();
+		if (k == '^')
+			curr.addEndU();
+		if (k == '╤') {
+			curr.addTubeH();
+			curr.addMonsterHole();
+		}
+		if (k == '╢') {
+			curr.addTubeV();
+			curr.addMonsterHole();
+		}
+		if (k == '╟') {
+			curr.addTubeV();
+			curr.addMonsterHole();
+		}
+		if (k == '╧') {
+			curr.addTubeH();
+			curr.addMonsterHole();
+		}
+		if (k == '1' || k == '2' || k == '3' || k == '4')
+			curr.addSpecial(k);
+		
 	}
 	
 	public void destroyGrid() {
