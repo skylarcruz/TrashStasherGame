@@ -34,8 +34,13 @@ class StartUpState extends BasicGameState {
 		g.drawString("Start Game", 600, 375);
 		g.drawString("Raccoon: ", 600, 425);
 		renderRaccSprite(g, TrashStasherGame.raccNum);
-		g.drawString("Cheat Menu", 600, 475);
-		g.drawString("Quit", 600, 525);
+		g.drawString("Level:  " + TrashStasherGame.currLevel, 600, 475);
+		g.drawString("Cheats:", 600, 525);
+		if (TrashStasherGame.cheatMode == false)
+			g.drawString("Off", 682, 525);
+		else
+			g.drawString("On", 686, 525);
+		g.drawString("Quit", 600, 575);
 		
 		if (currSel == 1)
 			g.drawString("=>", 550, 375);
@@ -43,10 +48,16 @@ class StartUpState extends BasicGameState {
 			g.drawString("=>", 550, 425);
 			g.drawString("<      >", 685, 425);
 		}
-		if (currSel == 3)
+		if (currSel == 3) {
 			g.drawString("=>", 550, 475);
-		if (currSel == 4)
+			g.drawString("<  >", 658, 475);
+		}
+		if (currSel == 4) {
 			g.drawString("=>", 550, 525);
+			g.drawString("<     >", 665, 525);
+		}
+		if (currSel == 5)
+			g.drawString("=>", 550, 575);
 	}
 	
 	public void renderRaccSprite(Graphics g, int r) {
@@ -92,11 +103,36 @@ class StartUpState extends BasicGameState {
 				currSel = 2;
 			if (input.isKeyPressed(Input.KEY_S))
 				currSel = 4;
+			if (input.isKeyPressed(Input.KEY_A)) {
+				if (TrashStasherGame.currLevel > 1)
+					TrashStasherGame.currLevel -= 1;
+				else
+					TrashStasherGame.currLevel = 3;
+			}
+			if (input.isKeyPressed(Input.KEY_D)) {
+				if (TrashStasherGame.currLevel < 3)
+					TrashStasherGame.currLevel += 1;
+				else
+					TrashStasherGame.currLevel = 1;
+			}
 		}
 		
 		else if (currSel == 4) {
 			if (input.isKeyPressed(Input.KEY_W))
 				currSel = 3;
+			if (input.isKeyPressed(Input.KEY_S))
+				currSel = 5;
+			if (input.isKeyPressed(Input.KEY_A) || input.isKeyPressed(Input.KEY_D)) {
+				if (TrashStasherGame.cheatMode == false)
+					TrashStasherGame.cheatMode = true;
+				else
+					TrashStasherGame.cheatMode = false;
+			}
+		}
+		
+		else if (currSel == 5) {
+			if (input.isKeyPressed(Input.KEY_W))
+				currSel = 4;
 			if (input.isKeyPressed(Input.KEY_SPACE))
 				container.exit();
 		}

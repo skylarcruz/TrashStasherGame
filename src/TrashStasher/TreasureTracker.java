@@ -21,12 +21,11 @@ public class TreasureTracker {
 		for (int i = 0; i < 3; i ++)
 			mapTreasure[i] = new Treasure();
 		
-		initTreasureLoc();
 	}
 
 	public void initTreasureLoc() {
 	
-		String levelText = TrashStasherGame.Lvl1;
+		String levelText = getLevelText();
 		
 		int k = -1;
 		int l = 0;
@@ -111,4 +110,12 @@ public class TreasureTracker {
 		addToMap();
 	}
 	
+	public String getLevelText() {
+		if (TrashStasherGame.currLevel == 1)
+			return TrashStasherGame.Lvl1;
+		else if (TrashStasherGame.currLevel == 2)
+			return TrashStasherGame.Lvl2;
+		else
+			return TrashStasherGame.Lvl3;
+	}
 }

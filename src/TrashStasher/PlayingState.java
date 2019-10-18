@@ -48,6 +48,7 @@ class PlayingState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) {
 		container.setSoundOn(true);
 	
+		paused = false;
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		tsg.score = 0;
 		setLevel(game);
@@ -67,12 +68,12 @@ class PlayingState extends BasicGameState {
 				0);
 		
 		tsg.tsGrid.render(g);
-		tsg.tsTT.render(g);
-		
 		if (showPath == true) {
 			getPath(tsg, g);
 		}
 		
+		tsg.tsTT.render(g);
+		tsg.tsGrid.renderPow(g);
 		
 		tsg.tsRacc.render(g);
 		
@@ -358,8 +359,8 @@ class PlayingState extends BasicGameState {
 			if (input.isKeyPressed(Input.KEY_S))
 				pauseSel = 3;
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
-				paused = false;
 				tsg.score = 0;
+				tsg.tsGrid.destroyGrid();
 				tsg.enterState(TrashStasherGame.STARTUPSTATE);
 			}
 		}
@@ -419,6 +420,9 @@ class PlayingState extends BasicGameState {
 		
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		
+		tsg.tsGrid.destroyGrid();
+		tsg.tsGrid.buildGrid();
+		
 		tsg.tsDikjstra.setGrid();
 		tsg.tsDikjstra.setRaccLoc(
 				tsg.tsRacc.getGridX(),tsg.tsRacc.getGridY());
@@ -436,6 +440,7 @@ class PlayingState extends BasicGameState {
 		
 		tsg.tsRacc.reset();
 		
+		tsg.tsTT.initTreasureLoc();
 		tsg.tsTT.reset();
 		tCountdown = tc;
 		

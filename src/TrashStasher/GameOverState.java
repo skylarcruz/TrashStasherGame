@@ -74,7 +74,7 @@ class GameOverState extends BasicGameState {
 			
 			g.drawString(Integer.toString(tsg.highScore1[i]), 300, 200 + i * 50);
 			g.drawString(Integer.toString(tsg.highScore2[i]), 700, 200 + i * 50);
-			g.drawString(Integer.toString(tsg.highScore2[i]), 1100, 200 + i * 50);
+			g.drawString(Integer.toString(tsg.highScore3[i]), 1100, 200 + i * 50);
 		}
 		
 		if (exitReady == true) {
@@ -193,11 +193,11 @@ class GameOverState extends BasicGameState {
 		}
 		if (TrashStasherGame.currLevel == 2) {
 			scoreArr = TrashStasherGame.highScore2.clone();
-			namesArr = TrashStasherGame.hsNames1.clone();
+			namesArr = TrashStasherGame.hsNames2.clone();
 		}
 		if (TrashStasherGame.currLevel == 3) {
 			scoreArr = TrashStasherGame.highScore3.clone();
-			namesArr = TrashStasherGame.hsNames1.clone();
+			namesArr = TrashStasherGame.hsNames3.clone();
 		}
 	}
 	
