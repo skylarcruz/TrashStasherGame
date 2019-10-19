@@ -30,7 +30,7 @@ public class TrashStasherGame extends StateBasedGame {
 	
 
 	// Sounds
-	public static final String DOG_BARKSND_RSC = "TrashStasher/dogBark2.wav";
+	public static final String DOG_BARKSND_RSC = "TrashStasher/Resource/Sounds/dogBark2.wav";
 	
 	public static final String TITLE_NAMEIMG_RSC = "TrashStasher/Resource/titleName.png";
 	public static final String TITLE_KEYSIMG_RSC = "TrashStasher/Resource/Keyboard.png";
@@ -174,6 +174,8 @@ public class TrashStasherGame extends StateBasedGame {
 		addState(new PlayingState());
 		addState(new GameOverState());
 		
+		ResourceManager.setFilterMethod(2);
+		
 		// the sound resource takes a particularly long time to load,
 		// we preload it here to (1) reduce latency when we first play it
 		// and (2) because loading it will load the audio libraries and
@@ -183,8 +185,6 @@ public class TrashStasherGame extends StateBasedGame {
 		ResourceManager.loadSound(DOG_BARKSND_RSC);
 		
 		
-		
-		ResourceManager.setFilterMethod(2);
 		
 		ResourceManager.loadImage(TITLE_NAMEIMG_RSC);
 		ResourceManager.loadImage(TITLE_KEYSIMG_RSC);
@@ -397,6 +397,7 @@ public class TrashStasherGame extends StateBasedGame {
 	public static void main(String[] args) {
 		AppGameContainer app;
 		try {
+			//app = new AppGameContainer(new TrashStasherGame("Trash Stasher!", 1440, 900));
 			app = new AppGameContainer(new ScalableGame(new TrashStasherGame("Trash Stasher!", 1440, 900), 1440, 900, true));
 			app.setDisplayMode(1920, 1080, true);
 			app.setShowFPS(false);
