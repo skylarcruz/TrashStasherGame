@@ -52,6 +52,7 @@ class PlayingState extends BasicGameState {
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		tsg.score = 0;
 		setLevel(game);
+		ResourceManager.getMusic(TrashStasherGame.MUSIC_GAMESND_RSC).loop();
 	}
 		
 	@Override
@@ -361,6 +362,7 @@ class PlayingState extends BasicGameState {
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
 				tsg.score = 0;
 				tsg.tsGrid.destroyGrid();
+				ResourceManager.getMusic(TrashStasherGame.MUSIC_GAMESND_RSC).stop();
 				tsg.enterState(TrashStasherGame.STARTUPSTATE);
 			}
 		}

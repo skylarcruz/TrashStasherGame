@@ -27,10 +27,14 @@ public class TrashStasherGame extends StateBasedGame {
 
 	public final int ScreenWidth;
 	public final int ScreenHeight;
-	
 
 	// Sounds
-	public static final String DOG_BARKSND_RSC = "TrashStasher/Resource/Sounds/dogBark2.wav";
+	//https://freesound.org/people/ivolipa/sounds/328730/
+	public static final String DOG_BARKSND_RSC = "TrashStasher/Resource/Sounds/dogBark.wav";
+	
+	// https://freemusicarchive.org/music/Kero_Kero_Bonito
+	public static final String MUSIC_TITLESND_RSC = "TrashStasher/Resource/Sounds/KeroKeroAzureflux.wav";
+	public static final String MUSIC_GAMESND_RSC = "TrashStasher/Resource/Sounds/BitShifterAzureflux.wav";
 	
 	public static final String TITLE_NAMEIMG_RSC = "TrashStasher/Resource/titleName.png";
 	public static final String TITLE_KEYSIMG_RSC = "TrashStasher/Resource/Keyboard.png";
@@ -183,6 +187,9 @@ public class TrashStasherGame extends StateBasedGame {
 		// attempt to do in the startUp() method.
 		
 		ResourceManager.loadSound(DOG_BARKSND_RSC);
+		ResourceManager.loadMusic(MUSIC_TITLESND_RSC);
+		ResourceManager.loadMusic(MUSIC_GAMESND_RSC);
+		
 		
 		
 		
@@ -282,6 +289,7 @@ public class TrashStasherGame extends StateBasedGame {
 			tsDogs[i] = new Dog(35, 0);
 		
 		tsTT = new TreasureTracker();
+		
 		
 
 	}

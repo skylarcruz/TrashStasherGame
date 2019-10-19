@@ -8,6 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import jig.ResourceManager;
+
 
 class GameOverState extends BasicGameState {
 	
@@ -148,6 +150,7 @@ class GameOverState extends BasicGameState {
 		if (exitReady == true && input.isKeyPressed(Input.KEY_SPACE)) {
 			tsg.lives = 3;
 			userScore = 0;
+			ResourceManager.getMusic(TrashStasherGame.MUSIC_GAMESND_RSC).stop();
 			game.enterState(TrashStasherGame.STARTUPSTATE);
 		}
 		

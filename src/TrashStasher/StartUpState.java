@@ -22,6 +22,8 @@ class StartUpState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
 		container.setSoundOn(true);
+		
+		ResourceManager.getMusic(TrashStasherGame.MUSIC_TITLESND_RSC).loop();
 	}
 	
 	@Override
@@ -77,8 +79,10 @@ class StartUpState extends BasicGameState {
 		if (currSel == 1) {
 			if (input.isKeyPressed(Input.KEY_S))
 				currSel = 2;
-			if (input.isKeyPressed(Input.KEY_SPACE))
+			if (input.isKeyPressed(Input.KEY_SPACE)) {
+				ResourceManager.getMusic(TrashStasherGame.MUSIC_TITLESND_RSC).stop();
 				tsg.enterState(TrashStasherGame.PLAYINGSTATE);
+			}
 		}
 		
 		else if (currSel == 2) {
