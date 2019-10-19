@@ -29,10 +29,11 @@ public class TrashStasherGame extends StateBasedGame {
 	public final int ScreenHeight;
 	
 	public static final String TITLE_NAMEIMG_RSC = "TrashStasher/Resource/titleName.png";
+	public static final String TITLE_KEYSIMG_RSC = "TrashStasher/Resource/Keyboard.png";
 	
 	public static final String WALL_WALLIMG_RSC = "TrashStasher/Resource/WallTest.png";
 	public static final String PATH_PATHIMG_RSC = "TrashStasher/Resource/City/PathBig.png";
-	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan.png";
+	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan2.png";
 	
 	
 	// Wall Graphics
@@ -73,7 +74,10 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String WALL_TUBEHIMG_RSC = "TrashStasher/Resource/City/Walls/TubeH.png";
 	public static final String WALL_TUBEVIMG_RSC = "TrashStasher/Resource/City/Walls/TubeV.png";
 	
-	
+	public static final String WALL_HOLEDIMG_RSC = "TrashStasher/Resource/City/Walls/MonHoleD.png";
+	public static final String WALL_HOLELIMG_RSC = "TrashStasher/Resource/City/Walls/MonHoleL.png";
+	public static final String WALL_HOLERIMG_RSC = "TrashStasher/Resource/City/Walls/MonHoleR.png";
+	public static final String WALL_HOLEUIMG_RSC = "TrashStasher/Resource/City/Walls/MonHoleU.png";
 	
 	// Raccoon Graphics courtesy of whtdragon at rpgtileset.com
 	// https://rpgtileset.com/sprite/raccoons-sprite-for-rpg-maker-mv/
@@ -95,7 +99,7 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String DOG_LEFTWIMG_RSC = "TrashStasher/Resource/Dog/dogLW.png";
 	public static final String DOG_RIGHTWIMG_RSC = "TrashStasher/Resource/Dog/dogRW.png";
 	
-	public static final String MON_HOLEIMG_RSC = "TrashStasher/Resource/MonsterHole.png";
+	public static final String MON_HOLEIMG_RSC = "TrashStasher/Resource/MonsterHole3.png";
 	public static final String BG_BGIMG_RSC = "TrashStasher/Resource/Background.png";
 	public static final String HUD_LINESIMG_RSC = "TrashStasher/Resource/HudLines.png";
 	
@@ -173,7 +177,7 @@ public class TrashStasherGame extends StateBasedGame {
 		ResourceManager.setFilterMethod(2);
 		
 		ResourceManager.loadImage(TITLE_NAMEIMG_RSC);
-		
+		ResourceManager.loadImage(TITLE_KEYSIMG_RSC);
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		ResourceManager.loadImage(PATH_PATHIMG_RSC);
 		ResourceManager.loadImage(DROP_BOXIMG_RSC);
@@ -214,6 +218,11 @@ public class TrashStasherGame extends StateBasedGame {
 		
 		ResourceManager.loadImage(WALL_TUBEHIMG_RSC);
 		ResourceManager.loadImage(WALL_TUBEVIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_HOLEDIMG_RSC);
+		ResourceManager.loadImage(WALL_HOLELIMG_RSC);
+		ResourceManager.loadImage(WALL_HOLERIMG_RSC);
+		ResourceManager.loadImage(WALL_HOLEUIMG_RSC);
 		
 		// Load Raccoons
 		for (int i = 1; i <= 5; i ++) {
@@ -379,7 +388,8 @@ public class TrashStasherGame extends StateBasedGame {
 		AppGameContainer app;
 		try {
 			app = new AppGameContainer(new ScalableGame(new TrashStasherGame("Trash Stasher!", 1440, 900), 1440, 900, true));
-			app.setDisplayMode(1440, 900, false);
+			app.setDisplayMode(1920, 1080, true);
+			app.setShowFPS(false);
 			app.setVSync(true);
 			app.start();
 		} catch (SlickException e) {

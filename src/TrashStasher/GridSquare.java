@@ -36,6 +36,26 @@ import jig.ResourceManager;
 		this.val = "M";
 	}
 	
+	public void addMonsterHole(char k) {
+		if (k == '╟') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_HOLERIMG_RSC));
+		}
+		if (k == '╢') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_HOLELIMG_RSC));
+		}
+		if (k == '╧') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_HOLEUIMG_RSC));
+		}
+		if (k == '╤') {
+			this.addImage(ResourceManager
+					.getImage(TrashStasherGame.WALL_HOLEDIMG_RSC));
+		}
+		this.val = "M";
+	}
+	
 	public void addDropBox() {
 		this.addImage(ResourceManager
 				.getImage(TrashStasherGame.DROP_BOXIMG_RSC));

@@ -67,23 +67,23 @@ class PlayingState extends BasicGameState {
 		g.drawImage(ResourceManager.getImage(TrashStasherGame.HUD_LINESIMG_RSC), 0,
 				0);
 		
-		tsg.tsGrid.render(g);
 		if (showPath == true) {
 			getPath(tsg, g);
 		}
-		
-		tsg.tsTT.render(g);
-		tsg.tsGrid.renderPow(g);
 		
 		tsg.tsRacc.render(g);
 		
 		for (int i = 0; i < 10; i++)
 			tsg.tsDogs[i].render(g);
 		
-		g.drawString("Lives: " + tsg.lives, 10, 30);
-		g.drawString("Score: " + tsg.score, 10, 50);
+		tsg.tsGrid.render(g);
+		tsg.tsTT.render(g);
+		tsg.tsGrid.renderPow(g);
+		
+		g.drawString("Lives: " + tsg.lives, 15, 15);
+		g.drawString("Score: " + tsg.score, 15, 40);
 		if (totAddScore > 0)
-			g.drawString("+" + totAddScore, 10, 70);
+			g.drawString("+" + totAddScore, 15, 65);
 		
 		if (tsg.tsGrid.invPower.inInventory == true) {
 			g.drawString(tsg.tsGrid.invPower.name, 15, 152);

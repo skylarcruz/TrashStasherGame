@@ -104,20 +104,20 @@ public class Grid {
 		if (k == '^')
 			curr.addEndU();
 		if (k == '╤') {
-			curr.addTubeH();
-			curr.addMonsterHole();
+			//curr.addTubeH();
+			curr.addMonsterHole(k);
 		}
 		if (k == '╢') {
-			curr.addTubeV();
-			curr.addMonsterHole();
+			//curr.addTubeV();
+			curr.addMonsterHole(k);
 		}
 		if (k == '╟') {
-			curr.addTubeV();
-			curr.addMonsterHole();
+			//curr.addTubeV();
+			curr.addMonsterHole(k);
 		}
 		if (k == '╧') {
-			curr.addTubeH();
-			curr.addMonsterHole();
+			//curr.addTubeH();
+			curr.addMonsterHole(k);
 		}
 		if (k == '1' || k == '2' || k == '3' || k == '4' || k == '5' || 
 			k == '6' || k == '7' || k == '8' || k == '9' || k == 'a')

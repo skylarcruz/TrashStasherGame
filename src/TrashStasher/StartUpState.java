@@ -30,39 +30,41 @@ class StartUpState extends BasicGameState {
 		
 		g.drawImage(ResourceManager.getImage((
 				TrashStasherGame.TITLE_NAMEIMG_RSC)), 175, 25);
+		g.drawImage(ResourceManager.getImage((
+				TrashStasherGame.TITLE_KEYSIMG_RSC)), 800, 400);
 		
-		g.drawString("Start Game", 600, 375);
-		g.drawString("Raccoon: ", 600, 425);
+		g.drawString("Start Game", 600, 350);
+		g.drawString("Raccoon: ", 600, 390);
 		renderRaccSprite(g, TrashStasherGame.raccNum);
-		g.drawString("Level:  " + TrashStasherGame.currLevel, 600, 475);
-		g.drawString("Cheats:", 600, 525);
+		g.drawString("Level:  " + TrashStasherGame.currLevel, 600, 430);
+		g.drawString("Cheats:", 600, 470);
 		if (TrashStasherGame.cheatMode == false)
-			g.drawString("Off", 682, 525);
+			g.drawString("Off", 682, 470);
 		else
-			g.drawString("On", 686, 525);
-		g.drawString("Quit", 600, 575);
+			g.drawString("On", 686, 470);
+		g.drawString("Quit", 600, 510);
 		
 		if (currSel == 1)
-			g.drawString("=>", 550, 375);
+			g.drawString("=>", 550, 350);
 		if (currSel == 2) {
-			g.drawString("=>", 550, 425);
-			g.drawString("<      >", 685, 425);
+			g.drawString("=>", 550, 390);
+			g.drawString("<      >", 685, 390);
 		}
 		if (currSel == 3) {
-			g.drawString("=>", 550, 475);
-			g.drawString("<  >", 658, 475);
+			g.drawString("=>", 550, 430);
+			g.drawString("<  >", 658, 430);
 		}
 		if (currSel == 4) {
-			g.drawString("=>", 550, 525);
-			g.drawString("<     >", 665, 525);
+			g.drawString("=>", 550, 470);
+			g.drawString("<     >", 665, 470);
 		}
 		if (currSel == 5)
-			g.drawString("=>", 550, 575);
+			g.drawString("=>", 550, 510);
 	}
 	
 	public void renderRaccSprite(Graphics g, int r) {
 		g.drawImage(ResourceManager.getImage((TrashStasherGame.RACC_RIGHTIMG_RSC 
-				+ Integer.toString(r) + ".png")), 700, 415);
+				+ Integer.toString(r) + ".png")), 700, 380);
 	}
 
 	@Override
