@@ -398,6 +398,7 @@ class Dog extends Entity {
 		chaseMode = true;
 		chaseTime = 400;
 		speedMod = .05f;
+		ResourceManager.getSound(TrashStasherGame.DOG_BARKSND_RSC).play();
 	}
 	
 	public void stopChase() {

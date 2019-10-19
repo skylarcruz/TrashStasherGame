@@ -28,6 +28,10 @@ public class TrashStasherGame extends StateBasedGame {
 	public final int ScreenWidth;
 	public final int ScreenHeight;
 	
+
+	// Sounds
+	public static final String DOG_BARKSND_RSC = "TrashStasher/dogBark2.wav";
+	
 	public static final String TITLE_NAMEIMG_RSC = "TrashStasher/Resource/titleName.png";
 	public static final String TITLE_KEYSIMG_RSC = "TrashStasher/Resource/Keyboard.png";
 	
@@ -115,6 +119,7 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String POWER_SPDIMG_RSC = "TrashStasher/Resource/Powers/speedy.png";
 	public static final String POWER_PAUSEIMG_RSC = "TrashStasher/Resource/Powers/pause.png";
 	
+	
 	public static final String LVL1_SCORES_TXT = "lvl1Score.txt";
 	public static final String LVL2_SCORES_TXT = "lvl2Score.txt";
 	public static final String LVL3_SCORES_TXT = "lvl3Score.txt";
@@ -174,6 +179,11 @@ public class TrashStasherGame extends StateBasedGame {
 		// and (2) because loading it will load the audio libraries and
 		// unless that is done now, we can't *disable* sound as we
 		// attempt to do in the startUp() method.
+		
+		ResourceManager.loadSound(DOG_BARKSND_RSC);
+		
+		
+		
 		ResourceManager.setFilterMethod(2);
 		
 		ResourceManager.loadImage(TITLE_NAMEIMG_RSC);
