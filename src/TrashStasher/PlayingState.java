@@ -72,12 +72,12 @@ class PlayingState extends BasicGameState {
 		}
 		
 		tsg.tsRacc.render(g);
+		tsg.tsTT.render(g);
 		
 		for (int i = 0; i < 10; i++)
 			tsg.tsDogs[i].render(g);
 		
 		tsg.tsGrid.render(g);
-		tsg.tsTT.render(g);
 		tsg.tsGrid.renderPow(g);
 		
 		g.drawString("Lives: " + tsg.lives, 15, 15);
@@ -181,7 +181,7 @@ class PlayingState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_R))
 			setLevel(game);
 		
-		// prevent starting dogsters from spawning on the same location, also start countdown
+		// prevent starting dogs from spawning on the same location, also start countdown
 		if (startCountdown > 0) {
 			startCountdown -= 1;
 			if (tsg.tsDogs[0].collides(tsg.tsDogs[1]) != null) {

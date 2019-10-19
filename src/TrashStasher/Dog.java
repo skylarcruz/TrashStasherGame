@@ -19,6 +19,7 @@ class Dog extends Entity {
 	
 	int chaseTime;
 	boolean chaseMode = false;
+	int barkTimer;
 	
 	int startX[] = new int[10];
 	int startY[] = new int[10];
@@ -421,8 +422,15 @@ class Dog extends Entity {
 		
 		if (active) {
 			checkSight();
-			if (chaseMode)
+			if (chaseMode) {
 				chaseTime -= 1;
+				if (barkTimer <= 0) {
+					ResourceManager.getSound(TrashStasherGame.DOG_BARKSND_RSC).play();
+					barkTimer = 100;
+				}
+				else
+					barkTimer -= 1;
+			}
 			if (chaseTime <= 0 && chaseMode)
 				stopChase();
 			
