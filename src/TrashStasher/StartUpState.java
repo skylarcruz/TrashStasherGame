@@ -77,8 +77,10 @@ class StartUpState extends BasicGameState {
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		
 		if (currSel == 1) {
-			if (input.isKeyPressed(Input.KEY_S))
+			if (input.isKeyPressed(Input.KEY_S)) {
 				currSel = 2;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
 				ResourceManager.getMusic(TrashStasherGame.MUSIC_TITLESND_RSC).stop();
 				tsg.enterState(TrashStasherGame.PLAYINGSTATE);
@@ -86,59 +88,78 @@ class StartUpState extends BasicGameState {
 		}
 		
 		else if (currSel == 2) {
-			if (input.isKeyPressed(Input.KEY_W))
+			if (input.isKeyPressed(Input.KEY_W)) {
 				currSel = 1;
-			if (input.isKeyPressed(Input.KEY_S))
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
+			if (input.isKeyPressed(Input.KEY_S)) {
 				currSel = 3;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
 			if (input.isKeyPressed(Input.KEY_A)) {
 				if (TrashStasherGame.raccNum > 1)
 					TrashStasherGame.raccNum -= 1;
 				else
 					TrashStasherGame.raccNum = 5;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
 			}
 			if (input.isKeyPressed(Input.KEY_D)) {
 				if (TrashStasherGame.raccNum < 5)
 					TrashStasherGame.raccNum += 1;
 				else
 					TrashStasherGame.raccNum = 1;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
 			}
 		}
 		
 		else if (currSel == 3) {
-			if (input.isKeyPressed(Input.KEY_W))
+			if (input.isKeyPressed(Input.KEY_W)) {
 				currSel = 2;
-			if (input.isKeyPressed(Input.KEY_S))
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
+			if (input.isKeyPressed(Input.KEY_S)) {
 				currSel = 4;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
 			if (input.isKeyPressed(Input.KEY_A)) {
 				if (TrashStasherGame.currLevel > 1)
 					TrashStasherGame.currLevel -= 1;
 				else
 					TrashStasherGame.currLevel = 3;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
 			}
 			if (input.isKeyPressed(Input.KEY_D)) {
 				if (TrashStasherGame.currLevel < 3)
 					TrashStasherGame.currLevel += 1;
 				else
 					TrashStasherGame.currLevel = 1;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
 			}
 		}
 		
 		else if (currSel == 4) {
-			if (input.isKeyPressed(Input.KEY_W))
+			if (input.isKeyPressed(Input.KEY_W)) {
 				currSel = 3;
-			if (input.isKeyPressed(Input.KEY_S))
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
+			if (input.isKeyPressed(Input.KEY_S)) {
 				currSel = 5;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
 			if (input.isKeyPressed(Input.KEY_A) || input.isKeyPressed(Input.KEY_D)) {
 				if (TrashStasherGame.cheatMode == false)
 					TrashStasherGame.cheatMode = true;
 				else
 					TrashStasherGame.cheatMode = false;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
 			}
 		}
 		
 		else if (currSel == 5) {
-			if (input.isKeyPressed(Input.KEY_W))
+			if (input.isKeyPressed(Input.KEY_W)) {
 				currSel = 4;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
 			if (input.isKeyPressed(Input.KEY_SPACE))
 				container.exit();
 		}
