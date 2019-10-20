@@ -56,6 +56,12 @@ class Dog extends Entity {
 		super(24 + x * 48, 204 + y * 48);
 		addImageWithBoundingBox(ResourceManager
 				.getImage(TrashStasherGame.DOG_DOWNIMG_RSC));
+		
+		setCoarseGrainedMinX(getCoarseGrainedMinX() - getX() - 3);
+		setCoarseGrainedMaxX(getCoarseGrainedMaxX() - getX() + 3);
+		setCoarseGrainedMinY(getCoarseGrainedMinY() - getY() + 3);
+		setCoarseGrainedMaxY(getCoarseGrainedMaxY() - getY() - 3);
+		
 		velocity = new Vector(0, 0);
 		dogX = (int) x;
 		dogY = (int) y;
@@ -261,6 +267,12 @@ class Dog extends Entity {
 		}
 		
 		moving = true;
+		
+		if (dir == "Stop") {
+			velocity = new Vector(0, 0);
+			changeFace(moveDir);
+			moving = false;
+		}
 	}
 
 	private void setAnimation(Animation a) {
@@ -282,16 +294,16 @@ class Dog extends Entity {
 	private void changeFace(String dir) {
 		cleanSprite();
 		if (dir == "Up") 
-			addImageWithBoundingBox(ResourceManager
+			addImage(ResourceManager
 					.getImage(TrashStasherGame.DOG_UPIMG_RSC));
 		else if (dir == "Down") 
-			addImageWithBoundingBox(ResourceManager
+			addImage(ResourceManager
 					.getImage(TrashStasherGame.DOG_DOWNIMG_RSC));
 		else if (dir == "Left") 
-			addImageWithBoundingBox(ResourceManager
+			addImage(ResourceManager
 					.getImage(TrashStasherGame.DOG_LEFTIMG_RSC));
 		else if (dir == "Right") 
-			addImageWithBoundingBox(ResourceManager
+			addImage(ResourceManager
 					.getImage(TrashStasherGame.DOG_RIGHTIMG_RSC));
 	}
 	
@@ -446,6 +458,14 @@ class Dog extends Entity {
 				}
 			}
 		}
+	}
+	
+	public boolean isNeighbor(int x, int y) {
+		if (x <= dogX + 1 && x >= dogX - 1 &&
+				y <= dogY + 1 && y >= dogY - 1)
+			return true;
+		else
+			return false;
 	}
 	
 	public String getLevelText() {

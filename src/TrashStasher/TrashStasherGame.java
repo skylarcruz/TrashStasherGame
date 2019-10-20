@@ -182,6 +182,7 @@ public class TrashStasherGame extends StateBasedGame {
 		ScreenWidth = width;
 
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
+		ResourceManager.setFilterMethod(2);
 				
 	}
 
@@ -192,8 +193,6 @@ public class TrashStasherGame extends StateBasedGame {
 		addState(new StartUpState());
 		addState(new PlayingState());
 		addState(new GameOverState());
-		
-		ResourceManager.setFilterMethod(2);
 		
 		// the sound resource takes a particularly long time to load,
 		// we preload it here to (1) reduce latency when we first play it

@@ -20,6 +20,13 @@ public class Power extends Entity {
 	public Power() {
 		inMap = false;;
 		inInventory = false;
+		
+		// Set boundaries and remove image
+		this.addImageWithBoundingBox(ResourceManager
+				.getImage(TrashStasherGame.POWER_DIGIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(TrashStasherGame.POWER_DIGIMG_RSC));
+		
 	}
 	
 	public void setNewPower(int x, int y) {
@@ -34,7 +41,7 @@ public class Power extends Entity {
 			this.info1 = "Move past one";
 			this.info2 = "wall space";
 			this.info3 = null;
-			this.addImageWithBoundingBox(ResourceManager
+			this.addImage(ResourceManager
 					.getImage(TrashStasherGame.POWER_DIGIMG_RSC));
 		}
 		if (ranPow == 1) {
@@ -42,7 +49,7 @@ public class Power extends Entity {
 			this.info1 = "Move at faster";
 			this.info2 = "speed even with";
 			this.info3 = "lots of trash";
-			this.addImageWithBoundingBox(ResourceManager
+			this.addImage(ResourceManager
 					.getImage(TrashStasherGame.POWER_SPDIMG_RSC));
 		}
 		if (ranPow == 2) {
@@ -50,7 +57,7 @@ public class Power extends Entity {
 			this.info1 = "Freeze All Dogs";
 			this.info2 = "in place for";
 			this.info3 = "a short time";
-			this.addImageWithBoundingBox(ResourceManager
+			this.addImage(ResourceManager
 					.getImage(TrashStasherGame.POWER_PAUSEIMG_RSC));
 		}
 		

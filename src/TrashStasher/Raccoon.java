@@ -44,6 +44,11 @@ class Raccoon extends Entity {
 		addImageWithBoundingBox(ResourceManager
 				.getImage(TrashStasherGame.RACC_DOWNIMG_RSC 
 						+ Integer.toString(raccType) + ".png"));
+		
+		setCoarseGrainedMinX(getCoarseGrainedMinX() - getX() - 5);
+		setCoarseGrainedMaxX(getCoarseGrainedMaxX() - getX() + 5);
+		setCoarseGrainedMinY(getCoarseGrainedMinY() - getY() + 5);
+		setCoarseGrainedMaxY(getCoarseGrainedMaxY() - getY() - 5);
 	    
 		velocity = new Vector(0, 0);
 		raccX = (int) x;
@@ -248,19 +253,19 @@ class Raccoon extends Entity {
 	private void changeFace(String dir) {
 		cleanSprite();
 		if (dir == "Up") 
-			addImageWithBoundingBox(ResourceManager
+			addImage(ResourceManager
 					.getImage(TrashStasherGame.RACC_UPIMG_RSC 
 							+ Integer.toString(raccType) + ".png"));
 		else if (dir == "Down") 
-			addImageWithBoundingBox(ResourceManager
+			addImage(ResourceManager
 					.getImage(TrashStasherGame.RACC_DOWNIMG_RSC 
 							+ Integer.toString(raccType) + ".png"));
 		else if (dir == "Left") 
-			addImageWithBoundingBox(ResourceManager
+			addImage(ResourceManager
 					.getImage(TrashStasherGame.RACC_LEFTIMG_RSC 
 							+ Integer.toString(raccType) + ".png"));
 		else if (dir == "Right") 
-			addImageWithBoundingBox(ResourceManager
+			addImage(ResourceManager
 					.getImage(TrashStasherGame.RACC_RIGHTIMG_RSC 
 							 + Integer.toString(raccType) + ".png"));
 	}
@@ -378,6 +383,7 @@ class Raccoon extends Entity {
 	}
 	
 	public void update(final int delta) {
+		
 		translate(velocity.scale(delta));
 		checkStop();
 		if (speedyTime > 0) {

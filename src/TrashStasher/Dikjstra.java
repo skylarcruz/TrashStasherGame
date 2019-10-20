@@ -173,7 +173,7 @@ public class Dikjstra {
 		if (u.pi.size() > 0)
 			v = u.pi.get(0);
 		else 
-			return null;
+			return "Stop";
 
 		if (v.yVal < u.yVal) {
 			return "Up";
@@ -188,7 +188,7 @@ public class Dikjstra {
 			return "Right";
 		}
 		else
-			return null;
+			return "Stop";
 		
 	}
 	

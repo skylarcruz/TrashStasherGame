@@ -10,6 +10,8 @@ public class Treasure extends Entity {
 	int id;
 	int score;
 	int weight;
+	int tX;
+	int tY;
 	
 	boolean inMap;
 	boolean inInventory;
@@ -20,6 +22,12 @@ public class Treasure extends Entity {
 		weight = 0;
 		inMap = false;
 		inInventory = false;
+		
+		// Set boundaries and remove image
+		this.addImageWithBoundingBox(ResourceManager
+				.getImage(TrashStasherGame.TREASURE_COINIMG_RSC));
+		this.removeImage(ResourceManager
+				.getImage(TrashStasherGame.TREASURE_COINIMG_RSC));
 	}
 	
 	public void setNewTreasure(int x, int y) {
@@ -27,6 +35,8 @@ public class Treasure extends Entity {
 		Random ran = new Random();
 		int arrChoice = ran.nextInt(10);
 		
+		tX = x;
+		tY = y;
 		this.setPosition(24 + x * 48, 204 + y * 48);
 		
 		switch (arrChoice) {
@@ -67,7 +77,7 @@ public class Treasure extends Entity {
 	}
 	
 	private void setTreasure(String image, int i, int s, int w) {
-		this.addImageWithBoundingBox(ResourceManager
+		this.addImage(ResourceManager
 				.getImage(image));
 		this.id = i;
 		this.score = s;
@@ -121,12 +131,20 @@ public class Treasure extends Entity {
 	private void setInv(String image, int x) {
 		this.inMap = false;
 		this.inInventory = true;
+		tX = -5;
+		tY = -5;
 		this.setPosition(311 + (x * 150), 75);
 		this.addImage(ResourceManager
 				.getImage(image));
 	}
 	
-	
+	public boolean isNeighbor(int x, int y) {
+		if (x <= tX + 1 && x >= tX - 1 &&
+				y <= tY + 1 && y >= tY - 1)
+			return true;
+		else
+			return false;
+	}
 	
 	public void reset() {
 		this.setPosition(24 + 35 * 48, 204 + 0 * 48);

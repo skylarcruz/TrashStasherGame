@@ -202,8 +202,8 @@ public class Grid {
 				GridElements[j][i].render(g);
 			}
 		}
-		mapPower.render(g);
-		invPower.render(g);
+//		mapPower.render(g);
+//		invPower.render(g);
 	}
 	
 	public void renderPow(Graphics g) {

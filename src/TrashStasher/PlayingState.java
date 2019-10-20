@@ -59,8 +59,6 @@ class PlayingState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
 		
-		
-		
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		
 		g.drawImage(ResourceManager.getImage(TrashStasherGame.BG_BGIMG_RSC), 0,
@@ -77,6 +75,7 @@ class PlayingState extends BasicGameState {
 		
 		for (int i = 0; i < 10; i++)
 			tsg.tsDogs[i].render(g);
+		
 		
 		tsg.tsGrid.render(g);
 		tsg.tsGrid.renderPow(g);
@@ -288,8 +287,9 @@ class PlayingState extends BasicGameState {
 	
 			// Loss from collision into Dogs
 			for (int i = 0; i < 10; i++) {
-				if ((tsg.tsDogs[i].collides(tsg.tsRacc) != null))
-					loseLife(game);
+				if (tsg.tsDogs[i].isNeighbor(tsg.tsRacc.getGridX(), tsg.tsRacc.getGridY()))
+					if ((tsg.tsDogs[i].collides(tsg.tsRacc) != null))
+						loseLife(game);
 			}
 			
 			// Treasure Pickup
