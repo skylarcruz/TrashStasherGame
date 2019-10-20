@@ -15,6 +15,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.ScalableGame;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,13 +27,80 @@ public class TrashStasherGame extends StateBasedGame {
 
 	public final int ScreenWidth;
 	public final int ScreenHeight;
+
+	// Sounds
+	// https://freesound.org/people/akelley6/sounds/453027/
+	public static final String MENU_CLICKSND_RSC = "TrashStasher/Resource/Sounds/click.wav";
+	// https://freesound.org/people/ivolipa/sounds/328730/
+	public static final String DOG_BARKSND_RSC = "TrashStasher/Resource/Sounds/dogBark.wav";
+	// https://freesound.org/people/SomeGuy22/sounds/431327/
+	public static final String TRASH_PICKUPSND_RSC = "TrashStasher/Resource/Sounds/pickup.wav";
+	// https://freesound.org/people/ProjectsU012/sounds/341695/
+	public static final String TRASH_DEPOSITSND_RSC = "TrashStasher/Resource/Sounds/depositTrash.wav";
+	// https://freesound.org/people/qubodup/sounds/172589/
+	public static final String POWER_SPEEDSND_RSC = "TrashStasher/Resource/Sounds/SpeedUp.wav";
+	// https://freesound.org/people/bbrocer/sounds/398692/
+	public static final String POWER_DIGSND_RSC = "TrashStasher/Resource/Sounds/dig.wav";
+	// https://freesound.org/people/qubodup/sounds/219570/
+	public static final String POWER_PAUSESND_RSC = "TrashStasher/Resource/Sounds/pause.wav";
+	// https://freesound.org/people/qubodup/sounds/219571/
+	public static final String POWER_UNPAUSESND_RSC = "TrashStasher/Resource/Sounds/unpause.wav";
+	
+	// https://freemusicarchive.org/music/Kero_Kero_Bonito
+	public static final String MUSIC_TITLESND_RSC = "TrashStasher/Resource/Sounds/KeroKeroAzureflux.wav";
+	// https://freemusicarchive.org/music/bit_shifter/Pocket_Boy/11_bit_shifter_-_reformat_the_planet__azureflux_remix
+	public static final String MUSIC_GAMESND_RSC = "TrashStasher/Resource/Sounds/BitShifterAzureflux.wav";
 	
 	public static final String TITLE_NAMEIMG_RSC = "TrashStasher/Resource/titleName.png";
+	public static final String TITLE_KEYSIMG_RSC = "TrashStasher/Resource/Keyboard.png";
 	
 	public static final String WALL_WALLIMG_RSC = "TrashStasher/Resource/WallTest.png";
 	public static final String PATH_PATHIMG_RSC = "TrashStasher/Resource/City/PathBig.png";
-	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan.png";
+	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan2.png";
 	
+	
+	// Wall Graphics
+	//public static final String WALL_-IMG_RSC = "TrashStasher/Resource/City/Walls/-.png";
+	public static final String WALL_BASEIMG_RSC = "TrashStasher/Resource/City/Walls/base.png";
+	public static final String WALL_SQUAREIMG_RSC = "TrashStasher/Resource/City/Walls/Square.png";
+	
+	public static final String WALL_CDLIMG_RSC = "TrashStasher/Resource/City/Walls/CornerDL.png";
+	public static final String WALL_CDRIMG_RSC = "TrashStasher/Resource/City/Walls/CornerDR.png";
+	public static final String WALL_CULIMG_RSC = "TrashStasher/Resource/City/Walls/CornerUL.png";
+	public static final String WALL_CURIMG_RSC = "TrashStasher/Resource/City/Walls/CornerUR.png";
+	
+	public static final String WALL_EDLIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowDL.png";
+	public static final String WALL_EDRIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowDR.png";
+	public static final String WALL_EULIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowUL.png";
+	public static final String WALL_EURIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowUR.png";
+	
+	public static final String WALL_EFDLIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowFragDL.png";
+	public static final String WALL_EFDRIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowFragDR.png";
+	public static final String WALL_EFULIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowFragUL.png";
+	public static final String WALL_EFURIMG_RSC = "TrashStasher/Resource/City/Walls/ElbowFragUR.png";
+	
+	public static final String WALL_EndDIMG_RSC = "TrashStasher/Resource/City/Walls/EndD.png";
+	public static final String WALL_EndLIMG_RSC = "TrashStasher/Resource/City/Walls/EndL.png";
+	public static final String WALL_EndRIMG_RSC = "TrashStasher/Resource/City/Walls/EndR.png";
+	public static final String WALL_EndUIMG_RSC = "TrashStasher/Resource/City/Walls/EndU.png";
+	
+	public static final String WALL_OSDIMG_RSC = "TrashStasher/Resource/City/Walls/oneSideD.png";
+	public static final String WALL_OSLIMG_RSC = "TrashStasher/Resource/City/Walls/oneSideL.png";
+	public static final String WALL_OSRIMG_RSC = "TrashStasher/Resource/City/Walls/oneSideR.png";
+	public static final String WALL_OSUIMG_RSC = "TrashStasher/Resource/City/Walls/oneSideU.png";
+	
+	public static final String WALL_TDIMG_RSC = "TrashStasher/Resource/City/Walls/TfragD.png";
+	public static final String WALL_TLIMG_RSC = "TrashStasher/Resource/City/Walls/TfragL.png";
+	public static final String WALL_TRIMG_RSC = "TrashStasher/Resource/City/Walls/TfragR.png";
+	public static final String WALL_TUIMG_RSC = "TrashStasher/Resource/City/Walls/TfragU.png";
+	
+	public static final String WALL_TUBEHIMG_RSC = "TrashStasher/Resource/City/Walls/TubeH.png";
+	public static final String WALL_TUBEVIMG_RSC = "TrashStasher/Resource/City/Walls/TubeV.png";
+	
+	public static final String WALL_HOLEDIMG_RSC = "TrashStasher/Resource/City/Walls/MonHoleD.png";
+	public static final String WALL_HOLELIMG_RSC = "TrashStasher/Resource/City/Walls/MonHoleL.png";
+	public static final String WALL_HOLERIMG_RSC = "TrashStasher/Resource/City/Walls/MonHoleR.png";
+	public static final String WALL_HOLEUIMG_RSC = "TrashStasher/Resource/City/Walls/MonHoleU.png";
 	
 	// Raccoon Graphics courtesy of whtdragon at rpgtileset.com
 	// https://rpgtileset.com/sprite/raccoons-sprite-for-rpg-maker-mv/
@@ -54,7 +122,7 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String DOG_LEFTWIMG_RSC = "TrashStasher/Resource/Dog/dogLW.png";
 	public static final String DOG_RIGHTWIMG_RSC = "TrashStasher/Resource/Dog/dogRW.png";
 	
-	public static final String MON_HOLEIMG_RSC = "TrashStasher/Resource/MonsterHole.png";
+	public static final String MON_HOLEIMG_RSC = "TrashStasher/Resource/MonsterHole3.png";
 	public static final String BG_BGIMG_RSC = "TrashStasher/Resource/Background.png";
 	public static final String HUD_LINESIMG_RSC = "TrashStasher/Resource/HudLines.png";
 	
@@ -70,13 +138,14 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String POWER_SPDIMG_RSC = "TrashStasher/Resource/Powers/speedy.png";
 	public static final String POWER_PAUSEIMG_RSC = "TrashStasher/Resource/Powers/pause.png";
 	
+	
 	public static final String LVL1_SCORES_TXT = "lvl1Score.txt";
 	public static final String LVL2_SCORES_TXT = "lvl2Score.txt";
 	public static final String LVL3_SCORES_TXT = "lvl3Score.txt";
 	
-	public static String Lvl1 = getLevelString("Level1");
-	public static String Lvl2 = getLevelString("Level2");
-	public static String Lvl3 = getLevelString("Level3");
+	public static String Lvl1 = getLevelString("Level1revamp");
+	public static String Lvl2 = getLevelString("Level2revamp");
+	public static String Lvl3 = getLevelString("Level3revamp");
 	public static int currLevel = 1;
 	public static int raccNum = 1;
 	public int lives = 3;
@@ -124,19 +193,77 @@ public class TrashStasherGame extends StateBasedGame {
 		addState(new PlayingState());
 		addState(new GameOverState());
 		
+		ResourceManager.setFilterMethod(2);
+		
 		// the sound resource takes a particularly long time to load,
 		// we preload it here to (1) reduce latency when we first play it
 		// and (2) because loading it will load the audio libraries and
 		// unless that is done now, we can't *disable* sound as we
 		// attempt to do in the startUp() method.
-		ResourceManager.setFilterMethod(2);
+		
+		ResourceManager.loadSound(MENU_CLICKSND_RSC);
+		ResourceManager.loadSound(DOG_BARKSND_RSC);
+		ResourceManager.loadSound(TRASH_DEPOSITSND_RSC);
+		ResourceManager.loadSound(TRASH_PICKUPSND_RSC);
+		ResourceManager.loadSound(POWER_SPEEDSND_RSC);
+		ResourceManager.loadSound(POWER_DIGSND_RSC);
+		ResourceManager.loadSound(POWER_PAUSESND_RSC);
+		ResourceManager.loadSound(POWER_UNPAUSESND_RSC);
+		ResourceManager.loadMusic(MUSIC_TITLESND_RSC);
+		ResourceManager.loadMusic(MUSIC_GAMESND_RSC);
+		
+		
+		
 		
 		ResourceManager.loadImage(TITLE_NAMEIMG_RSC);
-		
+		ResourceManager.loadImage(TITLE_KEYSIMG_RSC);
 		ResourceManager.loadImage(WALL_WALLIMG_RSC);
 		ResourceManager.loadImage(PATH_PATHIMG_RSC);
 		ResourceManager.loadImage(DROP_BOXIMG_RSC);
 		
+		// Load Walls
+		ResourceManager.loadImage(WALL_BASEIMG_RSC);
+		ResourceManager.loadImage(WALL_SQUAREIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_CDLIMG_RSC);
+		ResourceManager.loadImage(WALL_CDRIMG_RSC);
+		ResourceManager.loadImage(WALL_CULIMG_RSC);
+		ResourceManager.loadImage(WALL_CURIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_EDLIMG_RSC);
+		ResourceManager.loadImage(WALL_EDRIMG_RSC);
+		ResourceManager.loadImage(WALL_EULIMG_RSC);
+		ResourceManager.loadImage(WALL_EURIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_EFDLIMG_RSC);
+		ResourceManager.loadImage(WALL_EFDRIMG_RSC);
+		ResourceManager.loadImage(WALL_EFULIMG_RSC);
+		ResourceManager.loadImage(WALL_EFURIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_EndDIMG_RSC);
+		ResourceManager.loadImage(WALL_EndLIMG_RSC);
+		ResourceManager.loadImage(WALL_EndRIMG_RSC);
+		ResourceManager.loadImage(WALL_EndUIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_OSDIMG_RSC);
+		ResourceManager.loadImage(WALL_OSLIMG_RSC);
+		ResourceManager.loadImage(WALL_OSRIMG_RSC);
+		ResourceManager.loadImage(WALL_OSUIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_TDIMG_RSC);
+		ResourceManager.loadImage(WALL_TLIMG_RSC);
+		ResourceManager.loadImage(WALL_TRIMG_RSC);
+		ResourceManager.loadImage(WALL_TUIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_TUBEHIMG_RSC);
+		ResourceManager.loadImage(WALL_TUBEVIMG_RSC);
+		
+		ResourceManager.loadImage(WALL_HOLEDIMG_RSC);
+		ResourceManager.loadImage(WALL_HOLELIMG_RSC);
+		ResourceManager.loadImage(WALL_HOLERIMG_RSC);
+		ResourceManager.loadImage(WALL_HOLEUIMG_RSC);
+		
+		// Load Raccoons
 		for (int i = 1; i <= 5; i ++) {
 			ResourceManager.loadImage(RACC_UPIMG_RSC + Integer.toString(i) + ".png");
 			ResourceManager.loadImage(RACC_DOWNIMG_RSC + Integer.toString(i) + ".png");
@@ -148,6 +275,7 @@ public class TrashStasherGame extends StateBasedGame {
 			ResourceManager.loadImage(RACC_RIGHTWIMG_RSC + Integer.toString(i) + ".png");
 		}
 		
+		// Load Dog
 		ResourceManager.loadImage(DOG_UPIMG_RSC);
 		ResourceManager.loadImage(DOG_DOWNIMG_RSC);
 		ResourceManager.loadImage(DOG_LEFTIMG_RSC);
@@ -183,6 +311,7 @@ public class TrashStasherGame extends StateBasedGame {
 			tsDogs[i] = new Dog(35, 0);
 		
 		tsTT = new TreasureTracker();
+		
 		
 
 	}
@@ -298,8 +427,10 @@ public class TrashStasherGame extends StateBasedGame {
 	public static void main(String[] args) {
 		AppGameContainer app;
 		try {
-			app = new AppGameContainer(new TrashStasherGame("Trash Stasher!", 1440, 900));
-			app.setDisplayMode(1440, 900, false);
+			//app = new AppGameContainer(new TrashStasherGame("Trash Stasher!", 1440, 900));
+			app = new AppGameContainer(new ScalableGame(new TrashStasherGame("Trash Stasher!", 1440, 900), 1440, 900, true));
+			app.setDisplayMode(1920, 1080, true);
+			app.setShowFPS(false);
 			app.setVSync(true);
 			app.start();
 		} catch (SlickException e) {

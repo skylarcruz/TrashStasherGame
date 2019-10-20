@@ -52,6 +52,7 @@ class PlayingState extends BasicGameState {
 		TrashStasherGame tsg = (TrashStasherGame)game;
 		tsg.score = 0;
 		setLevel(game);
+		ResourceManager.getMusic(TrashStasherGame.MUSIC_GAMESND_RSC).loop();
 	}
 		
 	@Override
@@ -67,23 +68,23 @@ class PlayingState extends BasicGameState {
 		g.drawImage(ResourceManager.getImage(TrashStasherGame.HUD_LINESIMG_RSC), 0,
 				0);
 		
-		tsg.tsGrid.render(g);
 		if (showPath == true) {
 			getPath(tsg, g);
 		}
 		
-		tsg.tsTT.render(g);
-		tsg.tsGrid.renderPow(g);
-		
 		tsg.tsRacc.render(g);
+		tsg.tsTT.render(g);
 		
 		for (int i = 0; i < 10; i++)
 			tsg.tsDogs[i].render(g);
 		
-		g.drawString("Lives: " + tsg.lives, 10, 30);
-		g.drawString("Score: " + tsg.score, 10, 50);
+		tsg.tsGrid.render(g);
+		tsg.tsGrid.renderPow(g);
+		
+		g.drawString("Lives: " + tsg.lives, 15, 15);
+		g.drawString("Score: " + tsg.score, 15, 40);
 		if (totAddScore > 0)
-			g.drawString("+" + totAddScore, 10, 70);
+			g.drawString("+" + totAddScore, 15, 65);
 		
 		if (tsg.tsGrid.invPower.inInventory == true) {
 			g.drawString(tsg.tsGrid.invPower.name, 15, 152);
@@ -181,7 +182,7 @@ class PlayingState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_R))
 			setLevel(game);
 		
-		// prevent starting dogsters from spawning on the same location, also start countdown
+		// prevent starting dogs from spawning on the same location, also start countdown
 		if (startCountdown > 0) {
 			startCountdown -= 1;
 			if (tsg.tsDogs[0].collides(tsg.tsDogs[1]) != null) {
@@ -246,6 +247,7 @@ class PlayingState extends BasicGameState {
 			
 			if (scoreCompile == true) {
 				if (scoreTimer % 25 == 0 && tsg.tsTT.invCnt > 0) {
+					ResourceManager.getSound(TrashStasherGame.TRASH_DEPOSITSND_RSC).play();
 					addScore = multiplier * tsg.tsTT.popScore();
 					totAddScore += addScore;
 					tsg.score += addScore;
@@ -294,6 +296,7 @@ class PlayingState extends BasicGameState {
 			if (scoreCompile == false) {
 				for (int i = 0; i < 3; i++) {
 					if (tsg.tsTT.mapTreasure[i].collides(tsg.tsRacc) != null) {
+						ResourceManager.getSound(TrashStasherGame.TRASH_PICKUPSND_RSC).play();
 						weightMod = -1 * tsg.tsTT.moveToInv(tsg.tsTT.mapTreasure[i]);
 						speedMod = (float) weightMod * .0008f;
 						tsg.tsRacc.changeSpeed(speedMod);
@@ -303,6 +306,7 @@ class PlayingState extends BasicGameState {
 			
 			// Power Pickup
 			if (tsg.tsGrid.mapPower.collides(tsg.tsRacc) != null) {
+				ResourceManager.getSound(TrashStasherGame.TRASH_PICKUPSND_RSC).play();
 				tsg.tsGrid.powerPickup();
 			}
 			
@@ -335,6 +339,8 @@ class PlayingState extends BasicGameState {
 			}
 			else {
 				freezeTimer -= 1;
+				if (freezeTimer == 1)
+					ResourceManager.getSound(TrashStasherGame.POWER_UNPAUSESND_RSC).play();
 			}
 			
 		}
@@ -361,6 +367,7 @@ class PlayingState extends BasicGameState {
 			if (input.isKeyPressed(Input.KEY_SPACE)) {
 				tsg.score = 0;
 				tsg.tsGrid.destroyGrid();
+				ResourceManager.getMusic(TrashStasherGame.MUSIC_GAMESND_RSC).stop();
 				tsg.enterState(TrashStasherGame.STARTUPSTATE);
 			}
 		}
@@ -387,15 +394,18 @@ class PlayingState extends BasicGameState {
 		String p = tsg.tsGrid.getPower();
 		
 		if (p == " Dig") {
-			if (tsg.tsRacc.dig() == true)
+			if (tsg.tsRacc.dig() == true) {
+				ResourceManager.getSound(TrashStasherGame.POWER_DIGSND_RSC).play();
 				tsg.tsGrid.usePower();
+			}
 		}
 		if (p == "Speed") {
+			ResourceManager.getSound(TrashStasherGame.POWER_SPEEDSND_RSC).play();
 			tsg.tsRacc.speedUp();
 			tsg.tsGrid.usePower();
 		}
 		if (p == "Pause") {
-			//freezeDogs = true;
+			ResourceManager.getSound(TrashStasherGame.POWER_PAUSESND_RSC).play();
 			freezeTimer = 300;
 			tsg.tsGrid.usePower();
 		}

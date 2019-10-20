@@ -19,6 +19,7 @@ class Dog extends Entity {
 	
 	int chaseTime;
 	boolean chaseMode = false;
+	int barkTimer;
 	
 	int startX[] = new int[10];
 	int startY[] = new int[10];
@@ -59,11 +60,52 @@ class Dog extends Entity {
 		dogX = (int) x;
 		dogY = (int) y;
 		
+		fillBarrierChars();
+		
+		setAllAnimations();
+	}
+	
+	public void fillBarrierChars() {
 		barrierChars.add('X');
 		barrierChars.add('M');
 		barrierChars.add('D');
-		
-		setAllAnimations();
+		barrierChars.add('║');
+		barrierChars.add('═');
+		barrierChars.add('╚');
+		barrierChars.add('╗');
+		barrierChars.add('╔');
+		barrierChars.add('╝');
+		barrierChars.add('└');
+		barrierChars.add('┐');
+		barrierChars.add('┌');
+		barrierChars.add('┘');
+		barrierChars.add('╦');
+		barrierChars.add('╩');
+		barrierChars.add('╣');
+		barrierChars.add('╠');
+		barrierChars.add('^');
+		barrierChars.add('v');
+		barrierChars.add('<');
+		barrierChars.add('>');
+		barrierChars.add('╟');
+		barrierChars.add('╢');
+		barrierChars.add('╧');
+		barrierChars.add('╤');
+		barrierChars.add('1');
+		barrierChars.add('2');
+		barrierChars.add('3');
+		barrierChars.add('4');
+		barrierChars.add('5');
+		barrierChars.add('6');
+		barrierChars.add('7');
+		barrierChars.add('8');
+		barrierChars.add('9');
+		barrierChars.add('a');
+		barrierChars.add('┴');
+		barrierChars.add('├');
+		barrierChars.add('┤');
+		barrierChars.add('┬');
+		barrierChars.add('█');
 	}
 	
 	public void setAllAnimations() {
@@ -263,7 +305,11 @@ class Dog extends Entity {
 			for (int j = 0; j < 30; j++) {
 				k += 1;
 				GridElements[j][i] = levelText.charAt(k);
-				if (levelText.charAt(k) == 'M') {
+				if (levelText.charAt(k) == '╟' ||
+					levelText.charAt(k) == '╢' ||
+					levelText.charAt(k) == '╧' ||
+					levelText.charAt(k) == '╤' ||
+					levelText.charAt(k) == 'M') {
 					startX[l] = j;
 					startY[l] = i;
 					l += 1;
@@ -376,8 +422,15 @@ class Dog extends Entity {
 		
 		if (active) {
 			checkSight();
-			if (chaseMode)
+			if (chaseMode) {
 				chaseTime -= 1;
+				if (barkTimer <= 0) {
+					ResourceManager.getSound(TrashStasherGame.DOG_BARKSND_RSC).play();
+					barkTimer = 100;
+				}
+				else
+					barkTimer -= 1;
+			}
 			if (chaseTime <= 0 && chaseMode)
 				stopChase();
 			
