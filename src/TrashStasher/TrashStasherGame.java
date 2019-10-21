@@ -122,6 +122,30 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String DOG_LEFTWIMG_RSC = "TrashStasher/Resource/Dog/dogLW.png";
 	public static final String DOG_RIGHTWIMG_RSC = "TrashStasher/Resource/Dog/dogRW.png";
 	
+	
+	// Trash Graphics
+	// http://jnoodle.com/sparechange/2013/10/23/106/
+	public static final String TRASH_APPLEIMG_RSC = "TrashStasher/Resource/Trash/apple.png";
+	public static final String TRASH_B_APPLEIMG_RSC = "TrashStasher/Resource/Trash/appleBig.png";
+	public static final String TRASH_BOTTLEIMG_RSC = "TrashStasher/Resource/Trash/bottle.png";
+	public static final String TRASH_B_BOTTLEIMG_RSC = "TrashStasher/Resource/Trash/bottleBig.png";
+	public static final String TRASH_CANIMG_RSC = "TrashStasher/Resource/Trash/can.png";
+	public static final String TRASH_B_CANIMG_RSC = "TrashStasher/Resource/Trash/canBig.png";
+	public static final String TRASH_DONUTIMG_RSC = "TrashStasher/Resource/Trash/donut.png";
+	public static final String TRASH_B_DONUTIMG_RSC = "TrashStasher/Resource/Trash/donutBig.png";
+	public static final String TRASH_FISHIMG_RSC = "TrashStasher/Resource/Trash/fish.png";
+	public static final String TRASH_B_FISHIMG_RSC = "TrashStasher/Resource/Trash/fishBig.png";
+	public static final String TRASH_FISHBONEIMG_RSC = "TrashStasher/Resource/Trash/fishBone.png";
+	public static final String TRASH_B_FISHBONEIMG_RSC = "TrashStasher/Resource/Trash/fishBoneBig.png";
+	public static final String TRASH_FORKIMG_RSC = "TrashStasher/Resource/Trash/fork.png";
+	public static final String TRASH_B_FORKIMG_RSC = "TrashStasher/Resource/Trash/forkBig.png";
+	public static final String TRASH_FRIESIMG_RSC = "TrashStasher/Resource/Trash/fries.png";
+	public static final String TRASH_B_FRIESIMG_RSC = "TrashStasher/Resource/Trash/friesBig.png";
+	public static final String TRASH_PAPERIMG_RSC = "TrashStasher/Resource/Trash/paper.png";
+	public static final String TRASH_B_PAPERIMG_RSC = "TrashStasher/Resource/Trash/paperBig.png";
+	public static final String TRASH_PIZZAIMG_RSC = "TrashStasher/Resource/Trash/pizza.png";
+	public static final String TRASH_B_PIZZAIMG_RSC = "TrashStasher/Resource/Trash/pizzaBig.png";
+	
 	public static final String MON_HOLEIMG_RSC = "TrashStasher/Resource/MonsterHole3.png";
 	public static final String BG_BGIMG_RSC = "TrashStasher/Resource/Background.png";
 	public static final String HUD_LINESIMG_RSC = "TrashStasher/Resource/HudLines.png";
@@ -284,6 +308,28 @@ public class TrashStasherGame extends StateBasedGame {
 		ResourceManager.loadImage(DOG_DOWNWIMG_RSC);
 		ResourceManager.loadImage(DOG_LEFTWIMG_RSC);
 		ResourceManager.loadImage(DOG_RIGHTWIMG_RSC);
+		
+		// Load Trash
+		ResourceManager.loadImage(TRASH_APPLEIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_APPLEIMG_RSC);
+		ResourceManager.loadImage(TRASH_BOTTLEIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_BOTTLEIMG_RSC);
+		ResourceManager.loadImage(TRASH_CANIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_CANIMG_RSC);
+		ResourceManager.loadImage(TRASH_DONUTIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_DONUTIMG_RSC);
+		ResourceManager.loadImage(TRASH_FISHIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_FISHIMG_RSC);
+		ResourceManager.loadImage(TRASH_FISHBONEIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_FISHBONEIMG_RSC);
+		ResourceManager.loadImage(TRASH_FORKIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_FORKIMG_RSC);
+		ResourceManager.loadImage(TRASH_FRIESIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_FRIESIMG_RSC);
+		ResourceManager.loadImage(TRASH_PAPERIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_PAPERIMG_RSC);
+		ResourceManager.loadImage(TRASH_PIZZAIMG_RSC);
+		ResourceManager.loadImage(TRASH_B_PIZZAIMG_RSC);
 		
 		ResourceManager.loadImage(MON_HOLEIMG_RSC);
 		ResourceManager.loadImage(BG_BGIMG_RSC);
