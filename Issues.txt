@@ -1,0 +1,6 @@
+Issue1 - Create States
+Issue2 - Create Grid
+Issue3 - Create Explorer with constrained Movement
+Issue4 - Create Monsters with wandering
+Issue5 - Implement Explorer/Monster Collision, lives, and Game Over
+Issue6 - Set Spawn Locations for Explorer/Monsters
