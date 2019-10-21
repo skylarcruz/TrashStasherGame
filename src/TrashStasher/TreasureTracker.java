@@ -90,8 +90,9 @@ public class TreasureTracker {
 		for (int i = 0; i < 8; i++) {
 			if (invTreasure[i].inInventory == true) {
 				invTreasure[i].render(g);
-				g.drawString(invTreasure[i].score + " g", 250 + (i * 150), 130);
-				g.drawString(invTreasure[i].weight + " lbs", 250 + (i * 150), 150);
+				g.drawString(invTreasure[i].name, 245 + (i * 150), 130);
+				g.drawString(invTreasure[i].score + " pts", 245 + (i * 150), 150);
+				g.drawString(invTreasure[i].weight + " wt", 328 + (i * 150), 150);
 			}
 		}
 		for (int i = 0; i < 3; i++) {
