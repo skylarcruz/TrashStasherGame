@@ -32,8 +32,8 @@ class StartUpState extends BasicGameState {
 		
 		g.drawImage(ResourceManager.getImage((
 				TrashStasherGame.TITLE_NAMEIMG_RSC)), 175, 25);
-		g.drawImage(ResourceManager.getImage((
-				TrashStasherGame.TITLE_KEYSIMG_RSC)), 800, 400);
+//		g.drawImage(ResourceManager.getImage((
+//				TrashStasherGame.TITLE_KEYSIMG_RSC)), 800, 400);
 		
 		g.drawString("Start Game", 600, 350);
 		g.drawString("Raccoon: ", 600, 390);

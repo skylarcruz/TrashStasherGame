@@ -38,6 +38,8 @@ class PlayingState extends BasicGameState {
 	boolean freezeDogs = false;
 	int freezeTimer;
 	
+	boolean freezeCheat = false;
+	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
@@ -170,17 +172,34 @@ class PlayingState extends BasicGameState {
 		}
 		
 		
-		// Displays Dikjstra generated best paths to Player
-		if (input.isKeyPressed(Input.KEY_P)) {
-			if (showPath == false)
-				showPath = true;
-			else 
-				showPath = false;
-		}
+		if (tsg.cheatMode == true) {
+			
+			// Displays Dikjstra generated best paths to Player
+			if (input.isKeyPressed(Input.KEY_P)) {
+				if (showPath == false)
+					showPath = true;
+				else 
+					showPath = false;
+			}
+			
+			// Resets level. Used for Testing
+			if (input.isKeyPressed(Input.KEY_R))
+				setLevel(game);
+			
+			if (input.isKeyPressed(Input.KEY_1))
+				tsg.tsGrid.cheatGetPower(0);
+			if (input.isKeyPressed(Input.KEY_2))
+				tsg.tsGrid.cheatGetPower(1);
+			if (input.isKeyPressed(Input.KEY_3))
+				tsg.tsGrid.cheatGetPower(2);
+			
+			if (input.isKeyPressed(Input.KEY_F))
+				if (freezeCheat == false)
+					freezeCheat = true;
+				else 
+					freezeCheat = false;
 		
-		// Resets level. Used for Testing
-		if (input.isKeyPressed(Input.KEY_R))
-			setLevel(game);
+		}
 		
 		// prevent starting dogs from spawning on the same location, also start countdown
 		if (startCountdown > 0) {
@@ -325,7 +344,7 @@ class PlayingState extends BasicGameState {
 			// Update entities
 			tsg.tsRacc.update(delta);
 			
-			if (freezeTimer <= 0) {
+			if (freezeTimer <= 0 && freezeCheat == false) {
 				for (int i = 0; i < 10; i++) {
 					tsg.tsDogs[i].update(delta);
 					tsg.tsDogs[i].setRaccLoc(

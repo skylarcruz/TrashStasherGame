@@ -155,7 +155,7 @@ public class Grid {
 			Random ran = new Random();
 			int powerSpace = ran.nextInt(powerSpots.size());
 			GridSquare temp = powerSpots.get(powerSpace);
-			mapPower.setNewPower(temp.xVal, temp.yVal);
+			mapPower.setNewPower(temp.xVal, temp.yVal, 3);
 		}
 	}
 	
@@ -209,6 +209,11 @@ public class Grid {
 	public void renderPow(Graphics g) {
 		mapPower.render(g);
 		invPower.render(g);
+	}
+	
+	public void cheatGetPower(int x) {
+		mapPower.setNewPower(0, 0, x);
+		powerPickup();
 	}
 
 }

@@ -475,7 +475,7 @@ public class TrashStasherGame extends StateBasedGame {
 		try {
 			//app = new AppGameContainer(new TrashStasherGame("Trash Stasher!", 1440, 900));
 			app = new AppGameContainer(new ScalableGame(new TrashStasherGame("Trash Stasher!", 1440, 900), 1440, 900, true));
-			app.setDisplayMode(1920, 1080, true);
+			app.setDisplayMode(1700, 950, false);
 			app.setShowFPS(false);
 			app.setVSync(true);
 			app.start();

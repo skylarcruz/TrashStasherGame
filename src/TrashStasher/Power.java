@@ -22,9 +22,14 @@ public class Power extends Entity {
 		inInventory = false;
 	}
 	
-	public void setNewPower(int x, int y) {
+	public void setNewPower(int x, int y, int z) {
 		
-		int ranPow = ran.nextInt(3);
+		int ranPow;
+		
+		if (z > 2)
+			ranPow = ran.nextInt(3);
+		else
+			ranPow = z;
 		
 		this.setPosition(24 + x * 48, 204 + y * 48);
 		this.inMap = true;
