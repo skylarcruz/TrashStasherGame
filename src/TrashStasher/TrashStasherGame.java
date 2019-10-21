@@ -21,6 +21,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class TrashStasherGame extends StateBasedGame {
 	
+	public static AppGameContainer app;
+	public static boolean fullscreen = false;
+	
 	public static final int STARTUPSTATE = 0;
 	public static final int PLAYINGSTATE = 1;
 	public static final int GAMEOVERSTATE = 2;
@@ -52,10 +55,6 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String MUSIC_GAMESND_RSC = "TrashStasher/Resource/Sounds/BitShifterAzureflux.wav";
 	
 	public static final String TITLE_NAMEIMG_RSC = "TrashStasher/Resource/titleName.png";
-	public static final String TITLE_KEYSIMG_RSC = "TrashStasher/Resource/Keyboard.png";
-	
-	public static final String WALL_WALLIMG_RSC = "TrashStasher/Resource/WallTest.png";
-	public static final String PATH_PATHIMG_RSC = "TrashStasher/Resource/City/PathBig.png";
 	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan2.png";
 	
 	
@@ -146,7 +145,6 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String TRASH_PIZZAIMG_RSC = "TrashStasher/Resource/Trash/pizza.png";
 	public static final String TRASH_B_PIZZAIMG_RSC = "TrashStasher/Resource/Trash/pizzaBig.png";
 	
-	public static final String MON_HOLEIMG_RSC = "TrashStasher/Resource/MonsterHole3.png";
 	public static final String BG_BGIMG_RSC = "TrashStasher/Resource/Background.png";
 	public static final String HUD_LINESIMG_RSC = "TrashStasher/Resource/HudLines.png";
 	
@@ -154,9 +152,6 @@ public class TrashStasherGame extends StateBasedGame {
 	public static final String ARROW_DOWNIMG_RSC = "TrashStasher/Resource/Path/DownArrow.png";
 	public static final String ARROW_LEFTIMG_RSC = "TrashStasher/Resource/Path/LeftArrow.png";
 	public static final String ARROW_RIGHTIMG_RSC = "TrashStasher/Resource/Path/RightArrow.png";
-	
-	public static final String TREASURE_COINIMG_RSC = "TrashStasher/Resource/Treasure/coin.png";
-	public static final String TREASURE_COINBIGIMG_RSC = "TrashStasher/Resource/Treasure/coinBig.png";
 	
 	public static final String POWER_DIGIMG_RSC = "TrashStasher/Resource/Powers/dig.png";
 	public static final String POWER_SPDIMG_RSC = "TrashStasher/Resource/Powers/speedy.png";
@@ -240,9 +235,6 @@ public class TrashStasherGame extends StateBasedGame {
 		
 		
 		ResourceManager.loadImage(TITLE_NAMEIMG_RSC);
-		ResourceManager.loadImage(TITLE_KEYSIMG_RSC);
-		ResourceManager.loadImage(WALL_WALLIMG_RSC);
-		ResourceManager.loadImage(PATH_PATHIMG_RSC);
 		ResourceManager.loadImage(DROP_BOXIMG_RSC);
 		
 		// Load Walls
@@ -331,7 +323,6 @@ public class TrashStasherGame extends StateBasedGame {
 		ResourceManager.loadImage(TRASH_PIZZAIMG_RSC);
 		ResourceManager.loadImage(TRASH_B_PIZZAIMG_RSC);
 		
-		ResourceManager.loadImage(MON_HOLEIMG_RSC);
 		ResourceManager.loadImage(BG_BGIMG_RSC);
 		ResourceManager.loadImage(HUD_LINESIMG_RSC);
 		
@@ -339,9 +330,6 @@ public class TrashStasherGame extends StateBasedGame {
 		ResourceManager.loadImage(ARROW_DOWNIMG_RSC);
 		ResourceManager.loadImage(ARROW_LEFTIMG_RSC);
 		ResourceManager.loadImage(ARROW_RIGHTIMG_RSC);
-		
-		ResourceManager.loadImage(TREASURE_COINIMG_RSC);
-		ResourceManager.loadImage(TREASURE_COINBIGIMG_RSC);
 		
 		ResourceManager.loadImage(POWER_DIGIMG_RSC);
 		ResourceManager.loadImage(POWER_SPDIMG_RSC);
@@ -471,11 +459,12 @@ public class TrashStasherGame extends StateBasedGame {
 	}
 	
 	public static void main(String[] args) {
-		AppGameContainer app;
+		//AppGameContainer app;
 		try {
 			//app = new AppGameContainer(new TrashStasherGame("Trash Stasher!", 1440, 900));
 			app = new AppGameContainer(new ScalableGame(new TrashStasherGame("Trash Stasher!", 1440, 900), 1440, 900, true));
-			app.setDisplayMode(1700, 950, false);
+			app.setDisplayMode(1440, 900, false);
+			//app.setDisplayMode(app.getScreenWidth(), app.getScreenHeight(), true);
 			app.setShowFPS(false);
 			app.setVSync(true);
 			app.start();
@@ -483,6 +472,26 @@ public class TrashStasherGame extends StateBasedGame {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static void changeResolution() {
+		if (fullscreen == false)
+			try {
+				app.setDisplayMode(app.getScreenWidth(), app.getScreenHeight(), true);
+				fullscreen = true;
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		else {
+			try {
+				app.setDisplayMode(1440, 900, false);
+				fullscreen = false;
+			} catch (SlickException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }

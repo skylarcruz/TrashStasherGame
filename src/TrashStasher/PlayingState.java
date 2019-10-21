@@ -85,8 +85,11 @@ class PlayingState extends BasicGameState {
 		
 		g.drawString("Lives: " + tsg.lives, 15, 15);
 		g.drawString("Score: " + tsg.score, 15, 40);
-		if (totAddScore > 0)
+		if (totAddScore > 0) {
 			g.drawString("+" + totAddScore, 15, 65);
+			if (multiplier > 1)
+				g.drawString("x" + multiplier + " Bonus", 145, 65);
+		}
 		
 		if (tsg.tsGrid.invPower.inInventory == true) {
 			g.drawString(tsg.tsGrid.invPower.name, 15, 152);
@@ -259,13 +262,13 @@ class PlayingState extends BasicGameState {
 				if (scoreCompile == false && tsg.tsTT.invCnt > 0 &&
 					tsg.tsGrid.checkForDropBox(tsg.tsRacc.getGridX(),tsg.tsRacc.getGridY())) {
 						multiplier = tsg.tsTT.invCnt;
-						scoreTimer = multiplier * 25;
+						scoreTimer = multiplier * 25 + 50;
 						scoreCompile = true;
 				}
 			}
 			
 			if (scoreCompile == true) {
-				if (scoreTimer % 25 == 0 && tsg.tsTT.invCnt > 0) {
+				if (scoreTimer % 25 == 0 && scoreTimer > 50 && tsg.tsTT.invCnt > 0) {
 					ResourceManager.getSound(TrashStasherGame.TRASH_DEPOSITSND_RSC).play();
 					addScore = multiplier * tsg.tsTT.popScore();
 					totAddScore += addScore;

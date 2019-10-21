@@ -143,10 +143,6 @@ public class Treasure extends Entity {
 	
 	public void resetImage() {
 		this.removeImage(ResourceManager
-				.getImage(TrashStasherGame.TREASURE_COINIMG_RSC));
-		this.removeImage(ResourceManager
-				.getImage(TrashStasherGame.TREASURE_COINBIGIMG_RSC));
-		this.removeImage(ResourceManager
 				.getImage(TrashStasherGame.TRASH_PAPERIMG_RSC));
 		this.removeImage(ResourceManager
 				.getImage(TrashStasherGame.TRASH_B_PAPERIMG_RSC));

@@ -44,7 +44,11 @@ class StartUpState extends BasicGameState {
 			g.drawString("Off", 682, 470);
 		else
 			g.drawString("On", 686, 470);
-		g.drawString("Quit", 600, 510);
+		if (TrashStasherGame.fullscreen == false)
+			g.drawString("Change to Fullscreen", 600, 510);
+		else
+			g.drawString("Change to Windowed Mode", 600, 510);
+		g.drawString("Quit", 600, 550);
 		
 		if (currSel == 1)
 			g.drawString("=>", 550, 350);
@@ -62,6 +66,8 @@ class StartUpState extends BasicGameState {
 		}
 		if (currSel == 5)
 			g.drawString("=>", 550, 510);
+		if (currSel == 6)
+			g.drawString("=>", 550, 550);
 	}
 	
 	public void renderRaccSprite(Graphics g, int r) {
@@ -158,6 +164,20 @@ class StartUpState extends BasicGameState {
 		else if (currSel == 5) {
 			if (input.isKeyPressed(Input.KEY_W)) {
 				currSel = 4;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
+			if (input.isKeyPressed(Input.KEY_S)) {
+				currSel = 6;
+				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
+			}
+			if (input.isKeyPressed(Input.KEY_SPACE)) {
+				TrashStasherGame.changeResolution();
+			}
+		}
+		
+		else if (currSel == 6) {
+			if (input.isKeyPressed(Input.KEY_W)) {
+				currSel = 5;
 				ResourceManager.getSound(TrashStasherGame.MENU_CLICKSND_RSC).play();
 			}
 			if (input.isKeyPressed(Input.KEY_SPACE))

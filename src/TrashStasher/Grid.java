@@ -38,13 +38,7 @@ public class Grid {
 				for (int j = 0; j < 30; j++) {
 					k += 1;
 					wallBuild(levelText.charAt(k), GridElements[j][i]);
-					if (levelText.charAt(k) == 'X') { 
-						GridElements[j][i].addWall();
-					}
-					else if (levelText.charAt(k) == 'M') { 
-						GridElements[j][i].addMonsterHole();
-					}
-					else if (levelText.charAt(k) == 'D') { 
+					if (levelText.charAt(k) == 'D') { 
 						GridElements[j][i].addDropBox();
 						dropBoxes.add(GridElements[j][i]);
 					}

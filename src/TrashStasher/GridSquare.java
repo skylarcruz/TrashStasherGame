@@ -22,20 +22,6 @@ import jig.ResourceManager;
 		yVal = gridY;
 	}
 	
-	public void addWall() {
-		this.addImage(ResourceManager
-				.getImage(TrashStasherGame.WALL_WALLIMG_RSC));
-		this.val = "X";
-	}
-	
-	public void addMonsterHole() {
-		//this.addImage(ResourceManager
-		//		.getImage(TrashStasherGame.WALL_WALLIMG_RSC));
-		this.addImage(ResourceManager
-				.getImage(TrashStasherGame.MON_HOLEIMG_RSC));
-		this.val = "M";
-	}
-	
 	public void addMonsterHole(char k) {
 		if (k == '╟') {
 			this.addImage(ResourceManager
@@ -268,10 +254,6 @@ import jig.ResourceManager;
 	// ==================
 	
 	public void clear() {
-		this.removeImage(ResourceManager
-				.getImage(TrashStasherGame.WALL_WALLIMG_RSC));
-		this.removeImage(ResourceManager
-				.getImage(TrashStasherGame.MON_HOLEIMG_RSC));
 		this.removeImage(ResourceManager
 				.getImage(TrashStasherGame.DROP_BOXIMG_RSC));
 		
