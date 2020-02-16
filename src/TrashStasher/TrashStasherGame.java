@@ -33,26 +33,26 @@ public class TrashStasherGame extends StateBasedGame {
 
 	// Sounds
 	// https://freesound.org/people/akelley6/sounds/453027/
-	public static final String MENU_CLICKSND_RSC = "TrashStasher/Resource/Sounds/click.wav";
+	public static final String MENU_CLICKSND_RSC = "TrashStasher/Resource/Sounds/click.ogg";
 	// https://freesound.org/people/ivolipa/sounds/328730/
-	public static final String DOG_BARKSND_RSC = "TrashStasher/Resource/Sounds/dogBark.wav";
+	public static final String DOG_BARKSND_RSC = "TrashStasher/Resource/Sounds/dogBark.ogg";
 	// https://freesound.org/people/SomeGuy22/sounds/431327/
-	public static final String TRASH_PICKUPSND_RSC = "TrashStasher/Resource/Sounds/pickup.wav";
+	public static final String TRASH_PICKUPSND_RSC = "TrashStasher/Resource/Sounds/pickup.ogg";
 	// https://freesound.org/people/ProjectsU012/sounds/341695/
-	public static final String TRASH_DEPOSITSND_RSC = "TrashStasher/Resource/Sounds/depositTrash.wav";
+	public static final String TRASH_DEPOSITSND_RSC = "TrashStasher/Resource/Sounds/depositTrash.ogg";
 	// https://freesound.org/people/qubodup/sounds/172589/
-	public static final String POWER_SPEEDSND_RSC = "TrashStasher/Resource/Sounds/SpeedUp.wav";
+	public static final String POWER_SPEEDSND_RSC = "TrashStasher/Resource/Sounds/SpeedUp.ogg";
 	// https://freesound.org/people/bbrocer/sounds/398692/
-	public static final String POWER_DIGSND_RSC = "TrashStasher/Resource/Sounds/dig.wav";
+	public static final String POWER_DIGSND_RSC = "TrashStasher/Resource/Sounds/dig.ogg";
 	// https://freesound.org/people/qubodup/sounds/219570/
-	public static final String POWER_PAUSESND_RSC = "TrashStasher/Resource/Sounds/pause.wav";
+	public static final String POWER_PAUSESND_RSC = "TrashStasher/Resource/Sounds/pause.ogg";
 	// https://freesound.org/people/qubodup/sounds/219571/
-	public static final String POWER_UNPAUSESND_RSC = "TrashStasher/Resource/Sounds/unpause.wav";
+	public static final String POWER_UNPAUSESND_RSC = "TrashStasher/Resource/Sounds/unpause.ogg";
 	
 	// https://freemusicarchive.org/music/Kero_Kero_Bonito
-	public static final String MUSIC_TITLESND_RSC = "TrashStasher/Resource/Sounds/KeroKeroAzureflux.wav";
+	public static final String MUSIC_TITLESND_RSC = "TrashStasher/Resource/Sounds/KeroKeroAzureflux.ogg";
 	// https://freemusicarchive.org/music/bit_shifter/Pocket_Boy/11_bit_shifter_-_reformat_the_planet__azureflux_remix
-	public static final String MUSIC_GAMESND_RSC = "TrashStasher/Resource/Sounds/BitShifterAzureflux.wav";
+	public static final String MUSIC_GAMESND_RSC = "TrashStasher/Resource/Sounds/BitShifterAzureflux.ogg";
 	
 	public static final String TITLE_NAMEIMG_RSC = "TrashStasher/Resource/titleName.png";
 	public static final String DROP_BOXIMG_RSC = "TrashStasher/Resource/City/DropCan2.png";
