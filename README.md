@@ -3,14 +3,15 @@ Game Design Solo Project
 
 Arcade style single player game
 
-Premise: A raccoon in a dangerous city must gather and hoard trash while viscious dogs roam the alleyways.
+Premise: <br />
+A raccoon in a dangerous city must gather and hoard trash while viscious dogs roam the alleyways.
 
 Controls: <br />
-Move: WASD <br />
-Deposit Trash: Space <br />
-Use Powerup: K
+*Move: WASD <br />
+*Deposit Trash: Space <br />
+*Use Powerup: K
 
-How to play:
+How to play: <br />
 Gather trash by moving onto its space. Trash collected will be displayed at the top of the screen along with 
 a point value and a weight value. Deposit all held trash by standing next to a trash can and depositing it.
 The more trash you hold, the more points you well get via a multipier per trash deposited. However, the 
@@ -20,7 +21,7 @@ Avoid dogs line of sight. If seen by a dog they will give chase at a higher spee
 determining the best path to catch you. Stay out of sight long enough and they will give up and return
 to wandering the map. The longer the round goes on, the more dogs appear.
 
-Use powerups to avoid the dogs. Powerups include
-Dig: Facing a wall with an empty space on the opposite side, use to dig under the wall to escape dead ends
-Speed Up: Increases speed of your raccoon for a faster getaway
-Pause: Freezes all dogs in place for a few seconds
+Use powerups to avoid the dogs. Powerups include: <br />
+*Dig: Facing a wall with an empty space on the opposite side, use to dig under the wall to escape dead ends <br />
+*Speed Up: Increases speed of your raccoon for a faster getaway <br />
+*Pause: Freezes all dogs in place for a few seconds <br />
