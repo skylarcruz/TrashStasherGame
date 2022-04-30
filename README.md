@@ -7,9 +7,9 @@ Premise: <br />
 A raccoon in a dangerous city must gather and hoard trash while viscious dogs roam the alleyways.
 
 Controls: <br />
-*Move: WASD <br />
-*Deposit Trash: Space <br />
-*Use Powerup: K
+> Move: WASD <br />
+> Deposit Trash: Space <br />
+> Use Powerup: K
 
 How to play: <br />
 Gather trash by moving onto its space. Trash collected will be displayed at the top of the screen along with 
@@ -22,6 +22,6 @@ determining the best path to catch you. Stay out of sight long enough and they w
 to wandering the map. The longer the round goes on, the more dogs appear.
 
 Use powerups to avoid the dogs. Powerups include: <br />
-*Dig: Facing a wall with an empty space on the opposite side, use to dig under the wall to escape dead ends <br />
-*Speed Up: Increases speed of your raccoon for a faster getaway <br />
-*Pause: Freezes all dogs in place for a few seconds <br />
+> Dig: Facing a wall with an empty space on the opposite side, use to dig under the wall to escape dead ends <br />
+> Speed Up: Increases speed of your raccoon for a faster getaway <br />
+> Pause: Freezes all dogs in place for a few seconds <br />
