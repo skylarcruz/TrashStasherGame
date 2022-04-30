@@ -5,11 +5,9 @@ Arcade style single player game
 
 Premise: A raccoon in a dangerous city must gather and hoard trash while viscious dogs roam the alleyways.
 
-Controls:
-Move: WASD
-
-Deposit Trash: Space
-
+Controls: <br />
+Move: WASD <br />
+Deposit Trash: Space <br />
 Use Powerup: K
 
 How to play:
