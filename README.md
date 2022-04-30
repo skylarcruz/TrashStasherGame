@@ -7,7 +7,9 @@ Premise: A raccoon in a dangerous city must gather and hoard trash while visciou
 
 Controls:
 Move: WASD
+
 Deposit Trash: Space
+
 Use Powerup: K
 
 How to play:
